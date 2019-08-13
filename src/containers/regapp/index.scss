@@ -1,0 +1,113 @@
+.BusinessBox{
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    position: relative;
+    overflow-y: auto;
+    .bgBox{
+        width: 100%;
+        height: 212px;
+        background: url('../../images/picture_time.png') no-repeat;
+        background-size: 100% 100%;
+        margin-bottom: 10px;
+    }
+    .descBox{
+        padding: 0 20px;
+        box-sizing: border-box;
+        h4{
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            color: rgba(24, 22, 38, 1);
+            font-size: 16px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+        p{
+            color: rgba(159, 159, 159, 1);
+        }
+    }
+    .areaBox{
+        padding: 0 20px;
+        margin-top: 25px;
+        box-sizing: border-box;
+        >p{
+            color: rgba(80, 80, 80, 1);
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            span {
+                color: rgba(0, 0, 0, 1);
+            	font-weight: bold;
+                margin-left: 6px;
+            }
+        }
+        div{
+            .nodeToApp{
+                display: none;
+                width: 100%;
+                text-align: center;
+                p{
+                    margin: 6px 0;
+                    width: 50%;
+                    text-align: left;
+                    margin-left: 25%;
+                }
+            }
+        }
+    }
+    .BusinessBtn{
+        display: flex;
+        width: 200px;
+        // position: absolute;
+        // left: 50%;
+        // bottom: 10%;
+        // margin-left: -100px;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: calc(50% - 100px);
+        .goOutBtn {
+            width: 90px;
+            height: 30px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(205, 205, 205, 1);
+            border-radius: 16px;
+            text-align: center;
+            border: none;
+        }
+        .okBtn{
+            width: 90px;
+            height: 30px;
+            padding: 4px 6px;
+            font-size: 12px;
+            border-radius: 16px;
+            text-align: center;
+            border: none;
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(0, 186, 173, 1);
+            i.anticon.anticon-arrow-right{
+                margin-right: 8px;
+            }
+        }
+    }
+    .leadpage{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        z-index: 99;
+        background: #fff;
+        .BusinessBtn{
+            margin-left: calc(50% - 45px);
+        }
+    }
+}
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled){
+    background-color: #108ee9!important;
+    color: #fff;
+}
