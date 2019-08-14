@@ -46,7 +46,7 @@ class AppType extends Component {
     }
     render() {
         const { ind, clickAppId, clickNetId } = this.state;
-        const { serviseApp, serviseNet, leftIndex } = this.props;
+        const { serviseApp, serviseNet } = this.props;
         return <div className='seleType_cont'>
             <WingBlank size="lg" className="sc-example">
                 <h4 className='sourceTitle'>空间选择</h4>
@@ -86,7 +86,7 @@ class AppType extends Component {
                     this.setState({
                         ind: $('.sourceSeleBtn').attr('value')
                     })
-                    if (serviseApp && serviseApp.length > 0 && leftIndex == 1) {
+                    if (serviseApp && serviseApp.length > 0) {
                         this.props.getTypeVal({
                             typeVal: $('.sourceSeleBtn').attr('value'),
                             AppItemId: this.state.AppItemId == 0 ? serviseApp[0].id : this.state.AppItemId,

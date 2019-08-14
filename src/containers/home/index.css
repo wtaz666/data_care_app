@@ -198,8 +198,8 @@
 
 .homepage .am-drawer-sidebar .showLeftCheck .showLeftCont .leftList li img {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 18px;
+  height: 18px;
   margin-right: 10px;
   vertical-align: middle;
 }
@@ -266,9 +266,9 @@
 }
 
 .homepage .homePageCont .am-drawer-content .footer li img {
-  padding-top: 5px;
-  width: 28px;
-  height: 28px;
+  padding-top: 4px;
+  width: 32px;
+  height: 32px;
   display: inline-block;
 }
 
@@ -277,9 +277,8 @@
   height: 24px;
   flex: 1;
   display: flex;
-  font-size: 10px;
+  font-size: 12px;
   align-items: center;
-  margin-top: 5px;
   text-align: center;
   flex-direction: column;
   color: #929292;

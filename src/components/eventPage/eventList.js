@@ -2,9 +2,7 @@ import './index.less'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import bangzhu from '../../images/bangzhu.svg';
 import loading from "../../images/loading1.gif";
-import NavBar from '../../components/navbar/index';
 import { Button, Pagination, Table, Input } from "element-react";
 
 export default class DetailedList extends Component {
@@ -58,13 +56,6 @@ export default class DetailedList extends Component {
             activeId: 0 // 时间time
         }
     }
-
-    
-
-  
-   
-
-    
 
     // 获取时间
     gettime = (i, e) => {

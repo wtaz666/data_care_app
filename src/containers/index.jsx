@@ -2,23 +2,38 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import { Icon, Button, Drawer } from 'antd-mobile';
 import { Link } from 'react-router-dom';
-import clickImg from '../images/click.svg';
-import clickGreyImg from '../images/click_grey.svg';
-import computerImg from '../images/computer.svg';
-import computerGreyImg from '../images/computer_grey.svg';
-import goupImg from '../images/goup.svg';
-import goupGreyImg from '../images/goup_grey.svg';
-import miaozhunImg from '../images/miaozhun.svg';
-import miaozhunGreyImg from '../images/miaozhun_grey.svg';
-import myImg from '../images/my.svg';
-import myGreyImg from '../images/my_grey.svg';
 import axios from 'axios';
 import Home from 'containers/home';
 import Event from 'containers/event';
-import SerivePage from 'containers/servies/serviesPage.jsx'
+import SerivePage from 'containers/pages/serviesPage.jsx'
+import BusinessPage from 'containers/pages/businessPage.jsx'
 import SourceType from '../components/selectType/sourceType';
 import AppType from '../components/selectType/appType';
 import BusinessType from '../components/selectType/businessType';
+
+// leftIcons
+import sourceNor from '../images/leftIcons/source_normal.svg';
+import sourceClick from '../images/leftIcons/source_click.svg';
+import serviesNor from '../images/leftIcons/servies_normal.svg';
+import serviesClick from '../images/leftIcons/servies_click.svg';
+import businessNor from '../images/leftIcons/business_normal.svg';
+import businessClick from '../images/leftIcons/business_click.svg';
+import appNor from '../images/leftIcons/app_normal.svg';
+import appClick from '../images/leftIcons/app_click.svg';
+import userNor from '../images/leftIcons/user_normal.svg';
+import userClick from '../images/leftIcons/user_click.svg';
+import elseNor from '../images/leftIcons/else_normal.svg';
+import elseClick from '../images/leftIcons/else_click.svg';
+
+// footer
+import homeNor from '../images/footerIcons/home_normal.svg';
+import homeClick from '../images/footerIcons/home_click.svg';
+import thingNor from '../images/footerIcons/thing_normal.svg';
+import thingClick from '../images/footerIcons/thing_click.svg';
+import informNor from '../images/footerIcons/inform_normal.svg';
+import informClick from '../images/footerIcons/inform_click.svg';
+import alarmNor from '../images/footerIcons/alarm_normal.svg';
+import alarmClick from '../images/footerIcons/alarm_click.svg';
 
 class Homepage extends Component {
     constructor(props) {
@@ -26,17 +41,100 @@ class Homepage extends Component {
         this.state = {
             leftList: [
                 {
+                    img: sourceNor,
+                    clickImg: sourceClick,
                     name: '资源注册状态'
                 }, {
+                    img: serviesNor,
+                    clickImg: serviesClick,
                     name: '服务在线'
                 }, {
+                    img: businessNor,
+                    clickImg: businessClick,
                     name: '业务吞吐量'
                 }, {
+                    img: appNor,
+                    clickImg: appClick,
                     name: '应用处理性能'
                 }, {
+                    img: userNor,
+                    clickImg: userClick,
                     name: '客户体验'
                 }, {
+                    img: elseNor,
+                    clickImg: elseClick,
                     name: '其他'
+                }
+            ],
+            sourcefooter: [
+                {
+                    img: homeNor,
+                    clickImg: homeClick,
+                    name: '动态'
+                }
+            ],
+            serviesfooter: [
+                {
+                    img: homeNor,
+                    clickImg: homeClick,
+                    name: '动态'
+                }
+            ],
+            businessfooter: [
+                {
+                    img: homeNor,
+                    clickImg: homeClick,
+                    name: '动态'
+                }, {
+                    img: thingNor,
+                    clickImg: thingClick,
+                    name: '事件'
+                }, {
+                    img: informNor,
+                    clickImg: informClick,
+                    name: '通知'
+                }, {
+                    img: alarmNor,
+                    clickImg: alarmClick,
+                    name: '报警'
+                }
+            ],
+            appfooter: [
+                {
+                    img: homeNor,
+                    clickImg: homeClick,
+                    name: '动态'
+                }, {
+                    img: thingNor,
+                    clickImg: thingClick,
+                    name: '事件'
+                }, {
+                    img: informNor,
+                    clickImg: informClick,
+                    name: '通知'
+                }, {
+                    img: alarmNor,
+                    clickImg: alarmClick,
+                    name: '报警'
+                }
+            ],
+            userfooter: [
+                {
+                    img: homeNor,
+                    clickImg: homeClick,
+                    name: '动态'
+                }, {
+                    img: thingNor,
+                    clickImg: thingClick,
+                    name: '事件'
+                }, {
+                    img: informNor,
+                    clickImg: informClick,
+                    name: '通知'
+                }, {
+                    img: alarmNor,
+                    clickImg: alarmClick,
+                    name: '报警'
                 }
             ],
             title: '业务吞吐量',
@@ -49,78 +147,40 @@ class Homepage extends Component {
             networkData: [],
             kpiId: null,
             serviseApp: [],
-            serviseNet: []
+            serviseNet: [],
+            footerIndex: 0,
+            businessData: []
         }
     }
     tabFoot = (i, e) => {
+        this.setState({
+            footerIndex: i
+        })
         if (i === 0) {
-            // this.props.history.push('/home')
             $('.div1').show();
             $('.div2').hide();
             $('.div3').hide();
             $('.div4').hide();
-            // $('.div5').hide();
-            $('.foot1').attr('src', clickImg);
-            $('.foot2').attr('src', computerGreyImg);
-            $('.foot3').attr('src', goupGreyImg);
-            $('.foot4').attr('src', miaozhunGreyImg);
-            // $('.foot5').attr('src', myGreyImg);
-            $('.footer li').removeClass('active');
-            $('.footName1').addClass('active');
-
         } else if (i === 1) {
-            // this.props.history.push('/inform')
             $('.div1').hide();
             $('.div2').show();
             $('.div3').hide();
             $('.div4').hide();
-            // $('.div5').hide();
-            $('.foot1').attr('src', clickGreyImg);
-            $('.foot2').attr('src', computerImg);
-            $('.foot3').attr('src', goupGreyImg);
-            $('.foot4').attr('src', miaozhunGreyImg);
-            // $('.foot5').attr('src', myGreyImg);
-            $('.footer li').removeClass('active');
-            $('.footName2').addClass('active');
         } else if (i === 2) {
             $('.div1').hide();
             $('.div2').hide();
             $('.div3').show();
             $('.div4').hide();
-            // $('.div5').hide();
-            $('.foot1').attr('src', clickGreyImg);
-            $('.foot2').attr('src', computerGreyImg);
-            $('.foot3').attr('src', goupImg);
-            $('.foot4').attr('src', miaozhunGreyImg);
-            // $('.foot5').attr('src', myGreyImg);
-            $('.footer li').removeClass('active');
-            $('.footName3').addClass('active');
         } else if (i === 3) {
             $('.div1').hide();
             $('.div2').hide();
             $('.div3').hide();
             $('.div4').show();
-            // $('.div5').hide();
-            $('.foot1').attr('src', clickGreyImg);
-            $('.foot2').attr('src', computerGreyImg);
-            $('.foot3').attr('src', goupGreyImg);
-            $('.foot4').attr('src', miaozhunImg);
-            // $('.foot5').attr('src', myGreyImg);
-            $('.footer li').removeClass('active');
-            $('.footName4').addClass('active');
         } else if (i === 4) {
             $('.div1').hide();
             $('.div2').hide();
             $('.div3').hide();
             $('.div4').hide();
-            // $('.div5').show();
-            $('.foot1').attr('src', clickGreyImg);
-            $('.foot2').attr('src', computerGreyImg);
-            $('.foot3').attr('src', goupGreyImg);
-            $('.foot4').attr('src', miaozhunGreyImg);
-            // $('.foot5').attr('src', myImg);
-            $('.footer li').removeClass('active');
-            $('.footName5').addClass('active');
         }
     }
     tabTitle = (title, i) => {
@@ -132,23 +192,23 @@ class Homepage extends Component {
             open: !this.state.open
         }, () => {
             if (this.state.title == '资源注册状态') {
-                this.sourceAxios()
+                this.sourceAxios();
             } else if (this.state.title == '服务在线') {
-                this.serviesAxios()
+                this.serviesAxios();
             }
         })
     }
     onOpenChange = () => {
         this.setState({ open: !this.state.open });
     }
-    getTypeVal(res) {
-        this.setState({ // 将传递来的值赋值给this.state中的值
+    getTypeVal(res) {// 将传递来的值赋值给this.state中的值
+        this.setState({
             typeVal: res.typeVal,
             AppItemId: res.AppItemId,
             NetItemId: res.NetItemId,
         })
     }
-    // 获取header列表数据
+    // 资源接口
     sourceAxios() {
         axios.get('/kpiDing/resourceAppTableSort', {
             params: {
@@ -194,6 +254,7 @@ class Homepage extends Component {
             }
         })
     }
+    // 服务在线接口
     serviesAxios() {
         axios.get('/contrast/appnames').then(res => {
             this.setState({
@@ -205,6 +266,18 @@ class Homepage extends Component {
             })
         })
     }
+    // // 业务吞吐量
+    // businessAxios(){
+    //     axios.get('/performance/getAppTrafficListZhong',{
+    //         params:{
+    //             timeId: this.state.timeId,
+    //             // appSourceDataId: AppItemId == 0 ? sessionStorage.getItem('AppItemId') : AppItemId,
+    //             // nodeSourceDataId: 
+    //         }
+    //     }).then(res=>{
+    //         console.log(res.data)
+    //     })
+    // }
     // 注销登录
     exitUser = () => {
         sessionStorage.removeItem("user");
@@ -218,7 +291,7 @@ class Homepage extends Component {
         this.sourceAxios()
     }
     render() {
-        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId, serviseApp, serviseNet } = this.state;
+        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId, serviseApp, serviseNet, footerIndex, sourcefooter, serviesfooter, appfooter, userfooter, businessfooter, businessData } = this.state;
         const sidebar = (<div className='showLeftCheck'>
             <div className='showLeftCont'>
                 <div className='loginCont'>
@@ -236,7 +309,9 @@ class Homepage extends Component {
                     {
                         leftList.map((item, index) => {
                             return <li key={index} onClick={() => this.tabTitle(item.name, index)} className={index === leftIndex ? 'leftActive' : ''}>
-                                <img src={myGreyImg} alt='图片不存在' />
+                                {
+                                    index === leftIndex ? <img src={item.clickImg} alt='图片不存在' /> : <img src={item.img} alt='图片不存在' />
+                                }
                                 <span>{item.name}</span>
                             </li>
                         })
@@ -251,8 +326,6 @@ class Homepage extends Component {
                     <Drawer
                         className="my-drawer"
                         style={{ minHeight: document.documentElement.clientHeight }}
-                        // enableDragHandle
-                        // contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                         sidebar={sidebar}
                         open={open}
                         onOpenChange={this.onOpenChange}
@@ -293,7 +366,8 @@ class Homepage extends Component {
                                     <div className='div5'><MyPage /></div> */}
                                 </div>
                                     : leftIndex == 2 ? <div className='pageCont'>
-                                        <div className='div1'><SerivePage typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} selectData={selectData} networkData={networkData} /></div>
+                                        <div className='div1'><BusinessPage typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} businessData={businessData}
+                                        /></div>
                                         <div className='div2'><Event /></div>
                                         {/* <div className='div3'><Inform /></div>
                                 <div className='div4'><Alarm /></div>
@@ -311,95 +385,80 @@ class Homepage extends Component {
                         {
                             title === '资源注册状态' ?
                                 <ul className='footer'>
-                                    <li onClick={() => this.tabFoot(0)} className='footName1 active' style={{ marginLeft: 'calc(50% - 37px)' }}>
-                                        <Link to='/index' style={{ marginLeft: 0 }}>
-                                            <div>
-                                                <img src={clickImg} alt='图片不见了' className='foot1' />
-                                            </div>
-                                            <span>动态</span>
-                                        </Link>
-                                    </li>
+                                    {
+                                        sourcefooter.map((item, index) => {
+                                            return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index} style={{ marginLeft: 'calc(50% - 37px)' }}>
+                                                <Link to='/index' style={{ marginLeft: 0 }}>
+                                                    <div>
+                                                        {
+                                                            index == footerIndex
+                                                                ? <img src={item.clickImg} alt='图片不见了' />
+                                                                : <img src={item.img} alt='图片不见了' />
+                                                        }
+                                                    </div>
+                                                    <span>{item.name}</span>
+                                                </Link>
+                                            </li>
+                                        })
+                                    }
+
                                 </ul>
                                 // ---------------------------------------------------------------------
                                 : title === '服务在线' ?
                                     <ul className='footer'>
-                                        <li onClick={() => this.tabFoot(0)} className='footName1 active' style={{ marginLeft: 'calc(50% - 37px)' }}>
-                                            <Link to='/index' style={{ marginLeft: 0 }}>
-                                                <div>
-                                                    <img src={clickImg} alt='图片不见了' className='foot1' />
-                                                </div>
-                                                <span>动态</span>
-                                            </Link>
-                                        </li>
+                                        {
+                                            serviesfooter.map((item, index) => {
+                                                return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index} style={{ marginLeft: 'calc(50% - 37px)' }}>
+                                                    <Link to='/index' style={{ marginLeft: 0 }}>
+                                                        <div>
+                                                            {
+                                                                index == footerIndex
+                                                                    ? <img src={item.clickImg} alt='图片不见了' />
+                                                                    : <img src={item.img} alt='图片不见了' />
+                                                            }
+                                                        </div>
+                                                        <span>{item.name}</span>
+                                                    </Link>
+                                                </li>
+                                            })
+                                        }
                                     </ul>
                                     : title === '业务吞吐量' ?
                                         <ul className='footer'>
-                                            <li onClick={() => this.tabFoot(0)} className='footName1 active'>
-                                                <Link to='/index'>
-                                                    <div>
-                                                        <img src={clickImg} alt='图片不见了' className='foot1' />
-                                                    </div>
-                                                    <span>动态</span>
-                                                </Link>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(1)} className='footName2'>
-                                                <a href='javasccript:;' >
-                                                    <div>
-                                                        <img src={computerGreyImg} alt='图片不见了' className='foot2' />
-                                                    </div>
-                                                    <span>事件</span>
-                                                </a>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(2)} className='footName3'>
-                                                <a href='javasccript:;' >
-                                                    <div>
-                                                        <img src={goupGreyImg} alt='图片不见了' className='foot3' />
-                                                    </div>
-                                                    <span>通知</span>
-                                                </a>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(3)} className='footName4'>
-                                                <a href='javasccript:;'>
-                                                    <div>
-                                                        <img src={miaozhunGreyImg} alt='图片不见了' className='foot4' />
-                                                    </div>
-                                                    <span>报警</span>
-                                                </a>
-                                            </li>
+                                            {
+                                                businessfooter.map((item, index) => {
+                                                    return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
+                                                        <Link to='/index'>
+                                                            <div>
+                                                                {
+                                                                    index == footerIndex
+                                                                        ? <img src={item.clickImg} alt='图片不见了' />
+                                                                        : <img src={item.img} alt='图片不见了' />
+                                                                }
+                                                            </div>
+                                                            <span>{item.name}</span>
+                                                        </Link>
+                                                    </li>
+                                                })
+                                            }
                                         </ul>
                                         : <ul className='footer'>
-                                            <li onClick={() => this.tabFoot(0)} className='footName1 active'>
-                                                <a href='/index'>
-                                                    <div>
-                                                        <img src={clickImg} alt='图片不见了' className='foot1' />
-                                                    </div>
-                                                    <span>动态</span>
-                                                </a>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(1)} className='footName2'>
-                                                <a href='/index'>
-                                                    <div>
-                                                        <img src={computerGreyImg} alt='图片不见了' className='foot2' />
-                                                    </div>
-                                                    <span>事件</span>
-                                                </a>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(2)} className='footName3'>
-                                                <a href='/index'>
-                                                    <div>
-                                                        <img src={goupGreyImg} alt='图片不见了' className='foot3' />
-                                                    </div>
-                                                    <span>通知</span>
-                                                </a>
-                                            </li>
-                                            <li onClick={() => this.tabFoot(3)} className='footName4'>
-                                                <a href='/index'>
-                                                    <div>
-                                                        <img src={miaozhunGreyImg} alt='图片不见了' className='foot4' />
-                                                    </div>
-                                                    <span>报警</span>
-                                                </a>
-                                            </li>
+                                            {
+                                                userfooter.map((item, index) => {
+                                                    return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
+                                                        <Link to='/index'>
+                                                            <div>
+                                                                {
+                                                                    index == footerIndex
+                                                                        ? <img src={item.clickImg} alt='图片不见了' />
+                                                                        : <img src={item.img} alt='图片不见了' />
+                                                                }
+                                                            </div>
+                                                            <span>{item.name}</span>
+                                                        </Link>
+                                                    </li>
+                                                })
+                                            }
                                         </ul>
                         }
 
@@ -408,11 +467,11 @@ class Homepage extends Component {
                 {/* 点击header'端到端'出现 */}
                 {
                     leftIndex == 0 ? <div className='seleType'>
-                        <SourceType getTypeVal={this.getTypeVal.bind(this)} selectData={selectData} networkData={networkData} leftIndex={leftIndex} />
+                        <SourceType getTypeVal={this.getTypeVal.bind(this)} selectData={selectData} networkData={networkData}/>
                     </div> : leftIndex == 1 ? <div className='seleType'>
-                        <AppType getTypeVal={this.getTypeVal.bind(this)} serviseApp={serviseApp} serviseNet={serviseNet} leftIndex={leftIndex} />
+                        <AppType getTypeVal={this.getTypeVal.bind(this)} serviseApp={serviseApp} serviseNet={serviseNet}/>
                     </div> : leftIndex == 2 ? <div className='seleType'>
-                        <BusinessType getTypeVal={this.getTypeVal.bind(this)} leftIndex={leftIndex} />
+                        <BusinessType getTypeVal={this.getTypeVal.bind(this)}/>
                     </div> : ''
                 }
             </div>

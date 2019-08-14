@@ -80,7 +80,7 @@ class BusinessType extends Component {
     }
     render() {
         const { ind, clickAppId, clickNetId, BusinessNet, BusinessApp, nodeList, appList } = this.state;
-        const { leftIndex } = this.props;
+        // const { leftIndex } = this.props;
         const tabs = [
             { title: '业务系统'},
             { title: '服务器'}
@@ -149,7 +149,7 @@ class BusinessType extends Component {
                     this.setState({
                         ind: $('.sourceSeleBtn').attr('value')
                     })
-                    if (BusinessApp && BusinessApp.length > 0 && leftIndex == 2) {
+                    if (BusinessApp && BusinessApp.length > 0) {
                         this.props.getTypeVal({
                             typeVal: $('.sourceSeleBtn').attr('value'),
                             AppItemId: this.state.AppItemId == 0 ? BusinessApp[0].id : this.state.AppItemId,

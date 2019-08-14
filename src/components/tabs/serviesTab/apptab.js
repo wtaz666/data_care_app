@@ -35,7 +35,6 @@ class AppTab extends Component {
                 { title: '本月' },
                 { title: `具体时间` },
             ],
-            nowTimeData: '具体时间',
             normSele: [
                 {
                     title: '在线时长',
@@ -261,15 +260,14 @@ class AppTab extends Component {
                 <div>{type == 0 ? '业务系统资源' : type == 1 ? '业务系统服务在线' : ''}</div>
                 <div></div>
             </div>
-            <DateRangePicker
+            {/* <DateRangePicker
                 value={value1}
                 placeholder="444"
                 isShowTime={true}
                 onChange={date => {
-                    console.debug('DateRangePicker1 changed: ', date)
                     this.setState({ value1: date })
                 }}
-            />
+            /> */}
             <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
                 {
                     tabs.map((item, index) => {
@@ -284,6 +282,19 @@ class AppTab extends Component {
                                         <p className='sourceTitle'>业务系统服务在线摘要</p>
                                         <i></i>
                                         <p>业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要</p>
+                                    </div> : type == 2 ? <div className='dialogbg'>
+                                        <p className='sourceTitle'>业务系统访问量</p>
+                                        <div className="inner_flown">
+                                            <div className="first_list1 clearfix">
+                                                <div className="fl">{this.state.todayViews}{this.state.measureViews}</div>
+                                                <div className="fr">{this.state.IncreaseViews}%</div>
+                                                <i className={this.state.arrowViews} style={{ color: this.state.arrowStyle1 }}></i>
+                                            </div>
+                                            <div className="sec_list1" onClick={this.viewShowBox}></div>
+                                            <div className="three_list1" onClick={this.lineBox2}></div>
+                                            <div className="history_list1">
+                                                预测基线：{this.state.historicalAverageViews}{this.state.measureViews}</div>
+                                        </div>
                                     </div> : ''
                             }
                             <div className='dialogbg'>
@@ -624,7 +635,8 @@ class AppTab extends Component {
                                                             </div>
                                                         </div>
                                                         : ''
-                                            : ''
+                                            : type == 2 ?
+                                                '222222' : ''
                                 }
 
                             </div>

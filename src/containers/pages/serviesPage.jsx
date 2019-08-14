@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import '../home/index.scss';
 import $ from 'jquery';
 // import axios from 'axios';
-import AppTabs from '../../components/tabs/appTab/apptab';
-import NetTabs from '../../components/tabs/netTab/nettab';
+import AppTabs from '../../components/tabs/serviesTab/apptab';
+import NetTabs from '../../components/tabs/serviesTab/nettab';
 
 class Index extends Component {
     appAxios() {
@@ -33,11 +33,6 @@ class Index extends Component {
                             $('.applicationBox').hide();
                             this.appAxios();
                         }}>业务系统服务在线1</div>
-                        <div className='contBlock'>
-                        业务系统服务在线2
-                        </div>
-                        <div className='contBlock'>业务系统服务在线3</div>
-                        <div className='contBlock'>业务系统服务在线4</div>
                     </div>
                     : this.props && typeVal == 1 ?
                         <div className='networkBox'>
@@ -48,9 +43,6 @@ class Index extends Component {
                                 $('.serviseBox').hide();
                                 $('.networkBox').hide();
                             }}>服务器服务在线1</div>
-                            <div className='contBlock'>服务器服务在线2</div>
-                            <div className='contBlock'>服务器服务在线3</div>
-                            <div className='contBlock'>服务器服务在线4</div>
                         </div>
                         : <div className='applicationBox'>
                             <div className='contBlock' onClick={() => {
@@ -60,9 +52,6 @@ class Index extends Component {
                                 $('.applicationBox').hide();
                                 this.appAxios();
                             }}>业务系统服务在线1</div>
-                            <div className='contBlock'>业务系统服务在线2</div>
-                            <div className='contBlock'>业务系统服务在线3</div>
-                            <div className='contBlock'>业务系统服务在线4</div>
                         </div>
             }
             {
@@ -77,8 +66,6 @@ class Index extends Component {
                             <AppTabs AppItemId={AppItemId} selectData={selectData} type={1} />
                         </div>
             }
-
-
         </div>);
     }
 }

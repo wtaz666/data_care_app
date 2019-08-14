@@ -3,8 +3,8 @@ import './index.scss';
 import $ from 'jquery';
 import axios from 'axios';
 import SourceTabs from '../../components/tabs/sourceTab/sourcetab';
-import AppTabs from '../../components/tabs/appTab/apptab';
-import NetTabs from '../../components/tabs/netTab/nettab';
+import AppTabs from '../../components/tabs/serviesTab/apptab';
+import NetTabs from '../../components/tabs/serviesTab/nettab';
 
 class Index extends Component {
     appAxios(){
@@ -33,9 +33,6 @@ class Index extends Component {
                             $('.footer').hide();
                             $('.serviseBox').hide();
                         }}>全局资源1</div>
-                        <div className='contBlock'>全局资源2</div>
-                        <div className='contBlock'>全局资源3</div>
-                        <div className='contBlock'>全局资源4</div>
                     </div>
                     : this.props && typeVal == 1 ?
                         <div className='applicationBox'>
@@ -46,9 +43,6 @@ class Index extends Component {
                                 $('.applicationBox').hide();
                                 this.appAxios();
                             }}>业务系统资源1</div>
-                            <div className='contBlock'>业务系统资源2</div>
-                            <div className='contBlock'>业务系统资源3</div>
-                            <div className='contBlock'>业务系统资源4</div>
                         </div>
                         : this.props && typeVal == 2 ?
                             <div className='networkBox'>
@@ -59,21 +53,8 @@ class Index extends Component {
                                     $('.serviseBox').hide();
                                     $('.networkBox').hide();
                                 }}>服务器资源1</div>
-                                <div className='contBlock'>服务器资源2</div>
-                                <div className='contBlock'>服务器资源3</div>
-                                <div className='contBlock'>服务器资源4</div>
                             </div>
-                            : <div className='serviseBox'>
-                                <div className='contBlock' onClick={() => {
-                                    $('.serviseBlock1').show();
-                                    $('.homePageHeader').hide();
-                                    $('.footer').hide();
-                                    $('.serviseBox').hide();
-                                }}>全局资源1</div>
-                                <div className='contBlock'>全局资源2</div>
-                                <div className='contBlock'>全局资源3</div>
-                                <div className='contBlock'>全局资源4</div>
-                            </div>
+                            : ''
             }
             {
                 this.props && typeVal == 0 ?
@@ -88,9 +69,7 @@ class Index extends Component {
                             <div className='serviseBlock3'>
                                 <NetTabs NetItemId={NetItemId} networkData={networkData} type={0} />
                             </div>
-                            : <div className='serviseBlock1'>
-                                <SourceTabs />
-                            </div>
+                            : ''
             }
 
 

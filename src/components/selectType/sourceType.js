@@ -48,7 +48,7 @@ class SourceType extends Component {
     }
     render() {
         const { ind, clickAppId, clickNetId } = this.state;
-        const { selectData, networkData, serviseApp, serviseNet, leftIndex } = this.props;
+        const { selectData, networkData, serviseApp, serviseNet } = this.props;
         return <div className='seleType_cont'>
             <WingBlank size="lg" className="sc-example">
                 <h4 className='sourceTitle'>空间选择</h4>
@@ -87,7 +87,7 @@ class SourceType extends Component {
                     this.setState({
                         ind: $('.sourceSeleBtn').attr('value')
                     })
-                    if (selectData && networkData && selectData.length > 0 && leftIndex == 0) {
+                    if (selectData && networkData && selectData.length > 0) {
                         this.props.getTypeVal({
                             typeVal: $('.sourceSeleBtn').attr('value'),
                             AppItemId: this.state.AppItemId == 0 ? selectData[0].id : this.state.AppItemId,
