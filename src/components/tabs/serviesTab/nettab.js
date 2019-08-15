@@ -5,6 +5,21 @@ import axios from 'axios';
 import ReactEcharts from 'echarts-for-react';
 import { Tabs, Icon, Modal } from 'antd-mobile';
 
+import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
+import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
+import twolconClick from '../../../images/selectIcons/twoIcon_click.svg';
+import twolcon from '../../../images/selectIcons/twoIcon_normal.svg';
+import clocklconClick from '../../../images/selectIcons/clockIcon_click.svg';
+import clocklcon from '../../../images/selectIcons/clockIcon_normal.svg';
+import barlconClick from '../../../images/selectIcons/barIcon_click.svg';
+import barlcon from '../../../images/selectIcons/barIcon_normal.svg';
+import onelconClick from '../../../images/selectIcons/oneIcon_click.svg';
+import onelcon from '../../../images/selectIcons/oneIcon_normal.svg';
+import threelconClick from '../../../images/selectIcons/threeIcon_click.svg';
+import threelcon from '../../../images/selectIcons/threeIcon_normal.svg';
+import linelconClick from '../../../images/selectIcons/lineIcon_click.svg';
+import linelcon from '../../../images/selectIcons/lineIcon_normal.svg';
+
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -35,31 +50,39 @@ class NetTab extends Component {
             ],
             nowTimeData: '具体时间',
             normSele: [
-                {
+                {   
+                    clickImg: twolconClick,
+                    img: twolcon,
                     title: '资源服务率',
                     unit: '（%）',
                     tablekpiId: 4
-                }, {
+                }, { clickImg: lrlconClick,
+                    img: lrlcon,
                     title: '资源利用率',
                     unit: '（%）',
                     tablekpiId: 3
-                }, {
+                }, {clickImg: clocklconClick,
+                    img: clocklcon,
                     title: '稳定性指数',
                     unit: '（N/A）',
                     tablekpiId: 5
-                }, {
+                }, { clickImg: barlconClick,
+                    img: barlcon,
                     title: '能力指数',
                     unit: '（N/A）',
                     tablekpiId: 2
-                }, {
+                }, { clickImg: onelconClick,
+                    img: onelcon,
                     title: '性能指数',
                     unit: '（N/A）',
                     tablekpiId: 1
-                }, {
+                }, {clickImg: threelconClick,
+                    img: threelcon,
                     title: '相关事件',
                     unit: '（N/A）',
                     tablekpiId: -1
-                }, {
+                }, {clickImg: linelconClick,
+                    img: linelcon,
                     title: '综合健康指数',
                     unit: '（N/A）',
                     tablekpiId: 6
@@ -321,7 +344,9 @@ class NetTab extends Component {
                                                 return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => {
                                                     this.setState({ newNormInd: index, curKpiName: item.title, tablekpiId: item.tablekpiId })
                                                 }} >
-                                                    <div></div>
+                                                    {
+                                                        index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
+                                                    }
                                                     <div>
                                                         {item.title}
                                                         <span>{item.unit}</span>

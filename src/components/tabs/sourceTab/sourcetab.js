@@ -9,6 +9,17 @@ import SourceTableDetail3 from 'components/sourcePage/sourceTableDetail3';
 import SourceTableDetail4 from 'components/sourcePage/sourceTableDetail4';
 import SourcePageCharts from 'components/sourcePage/sourcePageCharts';
 
+import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
+import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
+import twolconClick from '../../../images/selectIcons/twoIcon_click.svg';
+import twolcon from '../../../images/selectIcons/twoIcon_normal.svg';
+import clocklconClick from '../../../images/selectIcons/clockIcon_click.svg';
+import clocklcon from '../../../images/selectIcons/clockIcon_normal.svg';
+import onelconClick from '../../../images/selectIcons/oneIcon_click.svg';
+import onelcon from '../../../images/selectIcons/oneIcon_normal.svg';
+import barlconClick from '../../../images/selectIcons/barIcon_click.svg';
+import barlcon from '../../../images/selectIcons/barIcon_normal.svg';
+
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -39,19 +50,24 @@ class SourceTab extends Component {
             ],
             nowTimeData:'具体时间',
             normSele: [
-                {
+                {    clickImg: twolconClick,
+                    img: twolcon,
                     title: '综合健康指数占比',
                     unit: '（%）'
-                }, {
+                }, { clickImg: lrlconClick,
+                    img: lrlcon,
                     title: '综合健康指数较差情况',
                     unit: '（%）'
-                }, {
+                }, {clickImg: clocklconClick,
+                    img: clocklcon,
                     title: '综合健康指数一般情况',
                     unit: '（%）'
-                }, {
+                }, { clickImg: barlconClick,
+                    img: barlcon,
                     title: '综合健康指数良好情况',
                     unit: '（%）'
-                }, {
+                }, {clickImg: onelconClick,
+                    img: onelcon,
                     title: '综合健康指数优秀情况',
                     unit: '（%）'
                 }
@@ -224,7 +240,9 @@ class SourceTab extends Component {
                                         {
                                             normSele.map((item, index) => {
                                                 return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => this.setState({ newNormInd: index,normSeleTit: item.title})}>
-                                                    <div></div>
+                                                    {
+                                                        index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
+                                                    }
                                                     <div>
                                                         {item.title}<br />
                                                         {item.unit}

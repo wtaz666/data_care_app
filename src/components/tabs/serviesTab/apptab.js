@@ -6,6 +6,15 @@ import ReactEcharts from 'echarts-for-react';
 import { Tabs, Icon, Modal } from 'antd-mobile';
 import { DateRangePicker } from 'element-react';
 
+import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
+import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
+import twolconClick from '../../../images/selectIcons/twoIcon_click.svg';
+import twolcon from '../../../images/selectIcons/twoIcon_normal.svg';
+import clocklconClick from '../../../images/selectIcons/clockIcon_click.svg';
+import clocklcon from '../../../images/selectIcons/clockIcon_normal.svg';
+import barlconClick from '../../../images/selectIcons/barIcon_click.svg';
+import barlcon from '../../../images/selectIcons/barIcon_normal.svg';
+
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -35,17 +44,26 @@ class AppTab extends Component {
                 { title: '本月' },
                 { title: `具体时间` },
             ],
+            nowTimeData: '具体时间',
             normSele: [
                 {
+                    clickImg: twolconClick,
+                    img: twolcon,
                     title: '在线时长',
                     unit: '（s）'
                 }, {
+                    clickImg: lrlconClick,
+                    img: lrlcon,
                     title: '在线服务率',
                     unit: '（%）'
                 }, {
+                    clickImg: clocklconClick,
+                    img: clocklcon,
                     title: '资源的利用水平',
                     unit: '（%）'
                 }, {
+                    clickImg: barlconClick,
+                    img: barlcon,
                     title: '资源的正常率',
                     unit: '（%）'
                 }
@@ -158,18 +176,6 @@ class AppTab extends Component {
     }
     // 在线时长
     getOnlineTime() {
-        // axios.get('/performance/appMetricsRankingUnderTheApp', {
-        //     params: {
-        //         timeId: this.state.timeId,
-        //         pageNum: this.state.pageNum,
-        //         pageSize: this.state.pageSize,
-        //     }
-        // }).then(res => {
-        //     let data = res.data.data;
-        //     this.setState({
-        //         OnlineTimeData: data
-        //     })
-        // })
         axios.get('/performance/dropDown', {
             params: {
                 timeId: this.state.timeId,
@@ -265,6 +271,7 @@ class AppTab extends Component {
                 placeholder="444"
                 isShowTime={true}
                 onChange={date => {
+                    console.debug('DateRangePicker1 changed: ', date)
                     this.setState({ value1: date })
                 }}
             /> */}
@@ -282,19 +289,6 @@ class AppTab extends Component {
                                         <p className='sourceTitle'>业务系统服务在线摘要</p>
                                         <i></i>
                                         <p>业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要</p>
-                                    </div> : type == 2 ? <div className='dialogbg'>
-                                        <p className='sourceTitle'>业务系统访问量</p>
-                                        <div className="inner_flown">
-                                            <div className="first_list1 clearfix">
-                                                <div className="fl">{this.state.todayViews}{this.state.measureViews}</div>
-                                                <div className="fr">{this.state.IncreaseViews}%</div>
-                                                <i className={this.state.arrowViews} style={{ color: this.state.arrowStyle1 }}></i>
-                                            </div>
-                                            <div className="sec_list1" onClick={this.viewShowBox}></div>
-                                            <div className="three_list1" onClick={this.lineBox2}></div>
-                                            <div className="history_list1">
-                                                预测基线：{this.state.historicalAverageViews}{this.state.measureViews}</div>
-                                        </div>
                                     </div> : ''
                             }
                             <div className='dialogbg'>
@@ -635,8 +629,7 @@ class AppTab extends Component {
                                                             </div>
                                                         </div>
                                                         : ''
-                                            : type == 2 ?
-                                                '222222' : ''
+                                            : ''
                                 }
 
                             </div>
@@ -698,7 +691,9 @@ class AppTab extends Component {
                                                 return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => {
                                                     this.setState({ newNormInd: index, curKpiName: item.title })
                                                 }} >
-                                                    <div></div>
+                                                    {
+                                                        index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
+                                                    }
                                                     <div>
                                                         {item.title}
                                                         <span>{item.unit}</span>

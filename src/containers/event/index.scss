@@ -34,22 +34,30 @@
        
     }
     
-    .tab-header{
-        
+    .tab-header{ 
         .inputGroup{
+            display: inline-block;
            .ant-input-group {
                .ant-select {
                  .ant-select-selection {
-                     background-color: #DDDDDD;
+                     background-color: #f0f0f0;
                      width: 80px;
-                     
                      font-size: 14px;
 
                  }
                }
-               
            }
-            display: inline-block;
+
+           .ant-select-selection{
+            border: 1px solid transparent;
+           }
+           .ant-select-selection:hover {
+                border-color: transparent;
+            }
+            .ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active{
+                -webkit-box-shadow: 0 0 0 2px transparent;
+                box-shadow: 0 0 0 2px transparent;
+            }
         }
         .color-box{
             margin-top: 5px;

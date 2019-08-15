@@ -266,18 +266,6 @@ class Homepage extends Component {
             })
         })
     }
-    // // 业务吞吐量
-    // businessAxios(){
-    //     axios.get('/performance/getAppTrafficListZhong',{
-    //         params:{
-    //             timeId: this.state.timeId,
-    //             // appSourceDataId: AppItemId == 0 ? sessionStorage.getItem('AppItemId') : AppItemId,
-    //             // nodeSourceDataId: 
-    //         }
-    //     }).then(res=>{
-    //         console.log(res.data)
-    //     })
-    // }
     // 注销登录
     exitUser = () => {
         sessionStorage.removeItem("user");
@@ -339,13 +327,13 @@ class Homepage extends Component {
                                     $('.seleType').show();
                                 }}>
                                     {
-                                        leftIndex === 0 ? typeVal === 0 ? '资源' : typeVal === 1 ? '业务系统' : typeVal === 2 ? '服务器' : '' : ''
+                                        leftIndex === 0 ? typeVal == 0 ? '资源' : typeVal == 1 ? '业务系统' : typeVal == 2 ? '服务器' : '' : ''
                                     }
                                     {
-                                        leftIndex === 1 ? typeVal === 0 ? '业务系统' : typeVal === 1 ? '服务器' : '业务系统' : ''
+                                        leftIndex === 1 ? typeVal == 0 ? '业务系统' : typeVal == 1 ? '服务器' : '业务系统' : ''
                                     }
                                     {
-                                        leftIndex === 2 ? typeVal === 0 ? '全局' : typeVal === 1 ? '服务端' : '端到端' : ''
+                                        leftIndex === 2 ? typeVal == 0 ? '全局' : typeVal == 1 ? '服务端' : '端到端' : ''
                                     }
                                 </Button>
                             </div>

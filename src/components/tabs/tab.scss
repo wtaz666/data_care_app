@@ -130,31 +130,34 @@
                     font-weight: 400;
                     line-height: 30px;
                     color: rgba(128, 128, 128, 1);
-                }
-                .sec_list1{
-                  height: 8px;
-                  background-color: rgb(46,71,175);
-                  cursor: pointer;
-                }
-                :hover.sec_list1{
-                  transform: scale(1,1.3);
-                }
-                .three_list1{
-                  height: 8px;
-                  background-color: rgb(56,84,203);
-                  width: 70%;
-                  margin-top: 10px;
-                  cursor: pointer;
-                }
-                :hover.three_list1{
-                  transform: scale(1,1.2);
-                }
-                .history_list1{
-                  font-weight: 400;
-                  font-size: 12px;
-                  color: #666;
-                }
-              }
+                    }
+                    .sec_list1{
+                        height: 8px;
+                        background-color: rgb(46,71,175);
+                    cursor: pointer;
+                    }
+                    :hover.sec_list1{
+                        transform: scale(1,1.3);
+                    }
+                    .three_list1{
+                        height: 8px;
+                        background-color: rgb(56,84,203);
+                        width: 70%;
+                        margin-top: 10px;
+                        cursor: pointer;
+                    }
+                    :hover.three_list1{
+                        transform: scale(1,1.2);
+                    }
+                    .history_list1{
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #666;
+                    }
+            }
+            .zhaiyao{
+                margin-right: 6px;
+            }
         }
     }
     
@@ -218,7 +221,8 @@
                         width: 48px;
                         height: 48px;
                         // background: rgba(57, 126, 253, 1);
-                        border: 1px solid rgba(57, 126, 253, 1);
+                       text-align: center;
+                       line-height: 48px;
                         margin-right: 10px;
                     }
                     div:last-child{

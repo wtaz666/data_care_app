@@ -188,6 +188,10 @@
   color: #666;
 }
 
+.dialogSource .am-tabs-pane-wrap .dialogbg .zhaiyao {
+  margin-right: 6px;
+}
+
 .am-modal-transparent {
   width: 85% !important;
   height: 90%;
@@ -260,7 +264,8 @@
 .am-modal-content .am-modal-body .normStyle ul li div:first-child {
   width: 48px;
   height: 48px;
-  border: 1px solid #397efd;
+  text-align: center;
+  line-height: 48px;
   margin-right: 10px;
 }
 

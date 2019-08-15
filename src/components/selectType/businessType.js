@@ -9,14 +9,16 @@ class BusinessType extends Component {
         super(props);
         this.state = {
             ind: 0,
-            clickAppId: 0,
-            clickNetId: 0,
             AppItemId: 0,
             NetItemId: 0,
             nodeList: [],
             appList: [],
             BusinessNet: [],
-            BusinessApp: []
+            BusinessApp: [],
+            appName: '',
+            netName: '',
+            businessType: 0,
+            arr: []
         }
     }
     seleChange = (e) => {
@@ -35,23 +37,37 @@ class BusinessType extends Component {
         }
     }
     clickApp = (appId, itemId, name) => {
+        // let number = $(`.appBox li:eq(${appId}) .select`).attr('value');
+        let number = $(`.appBox li:eq(${appId}) .select`).attr('value');
+        let newArr = this.state.arr;
+        newArr.push(number)
+        console.log(newArr);
+        if ($(`.appBox li:eq(${appId}) .select`).css('display') === 'block') {
+            $(`.appBox li:eq(${appId}) .select`).css('display', 'none');
+            newArr
+        } else {
+            $(`.appBox li:eq(${appId}) .select`).css('display', 'block');
+        }
         this.setState({
-            clickAppId: appId,
-            // AppItemId: itemId,
-            ind: 1
+            AppItemId: itemId,
+            appName: name,
+            ind: 1,
         }, () => {
             // $('.sourceSeleBtn').attr('value', 1)
-            // sessionStorage.setItem('appName', name)
         })
     }
     clickNet = (appId, itemId, name) => {
+        if ($(`.appBox li:eq(${appId}) .select`).css('display') === 'block') {
+            $(`.appBox li:eq(${appId}) .select`).css('display', 'none');
+        } else {
+            $(`.appBox li:eq(${appId}) .select`).css('display', 'block');
+        }
         this.setState({
-            clickNetId: appId,
-            // NetItemId: itemId,
+            NetItemId: itemId,
+            netName: name,
             ind: 1
         }, () => {
             // $('.sourceSeleBtn').attr('value', 2)
-            // sessionStorage.setItem('netName', name)
         })
     }
     getAxios() {
@@ -82,9 +98,9 @@ class BusinessType extends Component {
         const { ind, clickAppId, clickNetId, BusinessNet, BusinessApp, nodeList, appList } = this.state;
         // const { leftIndex } = this.props;
         const tabs = [
-            { title: '业务系统'},
-            { title: '服务器'}
-          ];          
+            { title: '业务系统' },
+            { title: '服务器' }
+        ];
         return <div className='seleType_cont'>
             <WingBlank size="lg" className="sc-example">
                 <h4 className='sourceTitle'>空间选择</h4>
@@ -92,31 +108,32 @@ class BusinessType extends Component {
                 <div className='fuWuDuan' style={{ display: 'none' }}>
                     <Tabs tabs={tabs}
                         initialPage={0}
+                        onChange={(tab, i) => { this.setState({ businessType: i }) }}
                     >
                         <ul className='appBox' style={{ display: 'block' }}>
-                        {
-                            BusinessApp.map((item, index) => {
-                                return <li key={index} onClick={() => this.clickApp(index, item.source_data_id, item.res_name)}>
-                                    {item.res_name}
-                                    {index == clickAppId ? <span>
-                                        <Icon type='check' color='rgba(57, 126, 253, 1)' />
-                                    </span> : ''}
-                                </li>
-                            })
-                        }
-                    </ul>
-                    <ul className='serivesBox' style={{ display: 'block' }}>
-                        {
-                            BusinessNet.map((item, index) => {
-                                return <li key={index} onClick={() => this.clickNet(index, item.hostId, item.hostName)}>
-                                    {item.hostName}
-                                    {index == clickNetId ? <span>
-                                        <Icon type='check' color='rgba(57, 126, 253, 1)' />
-                                    </span> : ''}
-                                </li>
-                            })
-                        }
-                    </ul>
+                            {
+                                BusinessApp.map((item, index) => {
+                                    return <li key={index} onClick={() => this.clickApp(index, item.source_data_id, item.res_name)}>
+                                        {item.res_name}
+                                        <span className='select' value={index}>
+                                            <Icon type='check' color='rgba(57, 126, 253, 1)' />
+                                        </span>
+                                    </li>
+                                })
+                            }
+                        </ul>
+                        <ul className='serivesBox' style={{ display: 'block' }}>
+                            {
+                                BusinessNet.map((item, index) => {
+                                    return <li key={index} onClick={() => this.clickNet(index, item.hostId, item.hostName)}>
+                                        {item.hostName}
+                                        <span className='select'>
+                                            <Icon type='check' color='rgba(57, 126, 253, 1)' />
+                                        </span>
+                                    </li>
+                                })
+                            }
+                        </ul>
                     </Tabs>
                 </div>
                 <div className='duanToduan' style={{ display: 'none' }}>
@@ -152,11 +169,14 @@ class BusinessType extends Component {
                     if (BusinessApp && BusinessApp.length > 0) {
                         this.props.getTypeVal({
                             typeVal: $('.sourceSeleBtn').attr('value'),
-                            AppItemId: this.state.AppItemId == 0 ? BusinessApp[0].id : this.state.AppItemId,
-                            NetItemId: this.state.NetItemId == 0 ? BusinessNet[0].id : this.state.NetItemId
+                            AppItemId: this.state.AppItemId == 0 ? BusinessApp[0].source_data_id : this.state.AppItemId,
+                            NetItemId: this.state.NetItemId == 0 ? BusinessNet[0].hostId : this.state.NetItemId
                         })
-                        sessionStorage.setItem('AppItemId', this.state.AppItemId == 0 ? BusinessApp[0].id : this.state.AppItemId)
-                        sessionStorage.setItem('NetItemId', this.state.NetItemId == 0 ? BusinessNet[0].id : this.state.NetItemId)
+                        sessionStorage.setItem('AppItemId', this.state.AppItemId == 0 ? BusinessApp[0].source_data_id : this.state.AppItemId)
+                        sessionStorage.setItem('NetItemId', this.state.NetItemId == 0 ? BusinessNet[0].hostId : this.state.NetItemId)
+                        sessionStorage.setItem('appName', this.state.appName == '' ? BusinessApp[0].res_name : this.state.appName)
+                        sessionStorage.setItem('netName', this.state.netName == '' ? BusinessNet[0].hostName : this.state.netName)
+                        sessionStorage.setItem('businessType', this.state.businessType);
                     }
                 }}>确定</Button>
             </div>
