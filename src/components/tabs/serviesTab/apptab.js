@@ -4,7 +4,6 @@ import '../tab.scss';
 import axios from 'axios';
 import ReactEcharts from 'echarts-for-react';
 import { Tabs, Icon, Modal } from 'antd-mobile';
-import { DateRangePicker } from 'element-react';
 
 import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
 import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
@@ -74,6 +73,7 @@ class AppTab extends Component {
             OnlineTimeData: [],
             oldTime: this.getFormatDate(new Date(new Date().getTime() - 2 * 60 * 60 * 1000)),
             nowTime: this.getFormatDate(new Date()),
+            ruseTime: []
         }
     }
     showModal = key => (e) => {
@@ -252,6 +252,7 @@ class AppTab extends Component {
     render() {
         const { selectData, type } = this.props;
         const { tabs, normSele, normInd, newNormInd, curKpiName, appData, modal1, onlineStime, onlineSvalue, OnlineTimeData, value1 } = this.state;
+        console.log(this.state.ruseTime)
         return (<div className='dialogSource'>
             <div className='dialogHeader'>
                 <div>
@@ -266,15 +267,6 @@ class AppTab extends Component {
                 <div>{type == 0 ? '业务系统资源' : type == 1 ? '业务系统服务在线' : ''}</div>
                 <div></div>
             </div>
-            {/* <DateRangePicker
-                value={value1}
-                placeholder="444"
-                isShowTime={true}
-                onChange={date => {
-                    console.debug('DateRangePicker1 changed: ', date)
-                    this.setState({ value1: date })
-                }}
-            /> */}
             <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
                 {
                     tabs.map((item, index) => {

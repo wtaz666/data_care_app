@@ -1,7 +1,7 @@
 
 .sourceTitle{
     color: rgba(80, 80, 80, 1);
-	font-size: 14px;
+	font-size: .14rem;
 	line-height: 150%;
     text-align: left;
     // display: table-cell;
@@ -68,14 +68,14 @@
 
     // 页面header
     .homePageHeader{
-        height: 44px;
-        line-height: 44px;
+        height: .44rem;
+        line-height: .44rem;
         display: flex;
         background: #fff;
-        padding: 0 20px;
+        padding: 0 .2rem;
         div:first-child{
-            width: 36px;
-            padding-top: 5px;
+            width: .36rem;
+            padding-top: .05rem;
         }
         div:nth-child(2) {
             flex: 1;
@@ -130,13 +130,17 @@
                             width: 100%;
                             border-radius: 50%;
                             div{
-                                background: skyblue;
+                                // background: skyblue;
                                 width: 80px;
                                 height: 80px;
                                 position: absolute;
                                 left: 50%;
                                 margin-left: -40px;
                                 border-radius: 50%;
+                                img{
+                                    width: 100%;
+                                    height: 100%;
+                                }
                             }
                         }
                         .userName{

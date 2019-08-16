@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Home from 'containers/home';
 import Event from 'containers/event';
+import headImg from 'images/headImg.png';
 import SerivePage from 'containers/pages/serviesPage.jsx'
 import BusinessPage from 'containers/pages/businessPage.jsx'
 import SourceType from '../components/selectType/sourceType';
@@ -275,6 +276,9 @@ class Homepage extends Component {
             window.location.href = '/login'
         })
     }
+    componentWillMount(){
+        document.getElementById('root').scrollIntoView(true);
+    }
     componentDidMount() {
         this.sourceAxios()
     }
@@ -287,7 +291,9 @@ class Homepage extends Component {
                     <div className='headImg' onClick={() => {
                         window.location.href = '/my'
                     }}>
-                        <div></div>
+                        <div>
+                        <img src={headImg} alt="" />
+                        </div>
                     </div>
                     <span className='userName'>用户：{sessionStorage.getItem('userName')}</span>
                     <span className='infoStatus'>{sessionStorage.getItem('userName')}</span>

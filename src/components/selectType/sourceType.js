@@ -10,7 +10,9 @@ class SourceType extends Component {
             clickAppId: 0,
             clickNetId: 0,
             AppItemId: 0,
-            NetItemId: 0
+            NetItemId: 0,
+            appName: '',
+            netName:''
         }
     }
     seleChange = (e) => {
@@ -32,18 +34,16 @@ class SourceType extends Component {
         this.setState({
             clickAppId: appId,
             AppItemId: itemId,
-            ind: 1
-        }, () => {
-            sessionStorage.setItem('appName', name)
+            ind: 1,
+            appName: name
         })
     }
     clickNet = (appId, itemId, name) => {
         this.setState({
             clickNetId: appId,
             NetItemId: itemId,
-            ind: 2
-        }, () => {
-            sessionStorage.setItem('netName', name)
+            ind: 2,
+            netName: name
         })
     }
     render() {
@@ -68,7 +68,7 @@ class SourceType extends Component {
                 <ul className='serivesBox'>
                     {
                         networkData.map((item, index) => {
-                            return <li key={index} onClick={() => this.clickNet(index, item.id, name)}>
+                            return <li key={index} onClick={() => this.clickNet(index, item.id, item.name)}>
                                 {item.name}
                                 {index == clickNetId ? <span>
                                     <Icon type='check' color='rgba(57, 126, 253, 1)' />
@@ -95,6 +95,8 @@ class SourceType extends Component {
                         })
                         sessionStorage.setItem('AppItemId', this.state.AppItemId == 0 ? selectData[0].id : this.state.AppItemId)
                         sessionStorage.setItem('NetItemId', this.state.NetItemId == 0 ? networkData[0].id : this.state.NetItemId)
+                        sessionStorage.setItem('appName', this.state.appName == '' ? selectData[0].name : this.state.appName)
+                        sessionStorage.setItem('netName', this.state.netName == '' ? networkData[0].name : this.state.netName)
                     }
                 }}>确定</Button>
             </div>

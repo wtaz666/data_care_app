@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd-mobile';
 import './index.scss'
+import headImg from 'images/headImg.png';
 
 class Mypage extends Component {
     render() {
@@ -9,11 +10,13 @@ class Mypage extends Component {
                 <div className='loginCont'>
                     <Icon type="left" size='md' color='#fff' onClick={() => {
                         window.location.href = '/index'
-                    }}/>
+                    }} />
                     <div className='headImg' onClick={() => {
                         window.location.href = '/my'
                     }}>
-                        <div></div>
+                        <div>
+                            <img src={headImg} alt="" />
+                        </div>
                     </div>
                     <p className='userName'>{sessionStorage.getItem('userName')}</p>
                     <p className='infoStatus'>{sessionStorage.getItem('userName')}</p>

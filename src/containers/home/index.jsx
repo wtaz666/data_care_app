@@ -7,6 +7,12 @@ import AppTabs from '../../components/tabs/serviesTab/apptab';
 import NetTabs from '../../components/tabs/serviesTab/nettab';
 
 class Index extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            listData: []
+        }
+    }
     appAxios(){
         const { AppItemId } = this.props;
         axios.get('/kpiDing/resourceAppTableSortDesc', {
@@ -20,6 +26,42 @@ class Index extends Component {
                 appData: res.data
             })
         })
+        // NetItemId
+    }
+    netAxios(){
+        const { NetItemId } = this.props;
+        axios.get('/kpiDing/resourceHostTableSortDesc', {
+            params: {
+                webTimeType: 6,
+                kpiId: 4,
+                hostId: NetItemId == 0 ? sessionStorage.getItem('NetItemId') : NetItemId
+            }
+        }).then(res => {
+            this.setState({
+                netData: res.data
+            })
+        })
+    }
+    get(){
+        axios.get('/kpiDing/resourceAppAhdexSort', {
+            params: {
+                // webTimeType: 6,
+                isUp: true
+            }
+        }).then(res => {
+            var list = res.data.appList.map((item)=>{
+                    console.log(item.name.split('. ')[1])
+                if(item.name.split('.')[1] == sessionStorage.getItem('netName')){
+                    return item;
+                }
+            })
+            this.setState({
+                listData: list
+            })
+            console.log(this.state.listData)
+        })
+    }
+    componentDidMount(){
     }
     render() {
         const { typeVal, AppItemId, NetItemId, selectData, networkData } = this.props;
@@ -42,7 +84,11 @@ class Index extends Component {
                                 $('.footer').hide();
                                 $('.applicationBox').hide();
                                 this.appAxios();
-                            }}>业务系统资源1</div>
+                            }}>
+                            {
+                                sessionStorage.getItem('appName')
+                            }
+                            </div>
                         </div>
                         : this.props && typeVal == 2 ?
                             <div className='networkBox'>
@@ -52,7 +98,13 @@ class Index extends Component {
                                     $('.footer').hide();
                                     $('.serviseBox').hide();
                                     $('.networkBox').hide();
-                                }}>服务器资源1</div>
+                                    this.get();
+                                    this.netAxios();
+                                }}>
+                                {
+                                    sessionStorage.getItem('netName')
+                                }
+                                </div>
                             </div>
                             : ''
             }

@@ -37,8 +37,8 @@ class BusinessPage extends Component {
                                 $('.footer').hide();
                                 $('.serviseBox').hide();
                                 $('.applicationBox').hide();
-                                this.getDscAxios();
-                                this.businessAxios();
+                                // this.getDscAxios();
+                                // this.businessAxios();
                             }}>
                                 <div className='title'>
                                     <img src={listIcon} alt='' className='icon' />

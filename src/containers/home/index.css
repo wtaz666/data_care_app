@@ -1,6 +1,6 @@
 .sourceTitle {
   color: #505050;
-  font-size: 14px;
+  font-size: .14rem;
   line-height: 150%;
   text-align: left;
 }
@@ -63,16 +63,16 @@
 }
 
 .homepage .homePageHeader {
-  height: 44px;
-  line-height: 44px;
+  height: .44rem;
+  line-height: .44rem;
   display: flex;
   background: #fff;
-  padding: 0 20px;
+  padding: 0 .2rem;
 }
 
 .homepage .homePageHeader div:first-child {
-  width: 36px;
-  padding-top: 5px;
+  width: .36rem;
+  padding-top: .05rem;
 }
 
 .homepage .homePageHeader div:nth-child(2) {
@@ -139,13 +139,17 @@
 }
 
 .homepage .am-drawer-sidebar .showLeftCheck .showLeftCont .loginCont .headImg div {
-  background: skyblue;
   width: 80px;
   height: 80px;
   position: absolute;
   left: 50%;
   margin-left: -40px;
   border-radius: 50%;
+}
+
+.homepage .am-drawer-sidebar .showLeftCheck .showLeftCont .loginCont .headImg div img {
+  width: 100%;
+  height: 100%;
 }
 
 .homepage .am-drawer-sidebar .showLeftCheck .showLeftCont .loginCont .userName {

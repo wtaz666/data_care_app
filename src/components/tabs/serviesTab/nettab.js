@@ -160,7 +160,7 @@ class NetTab extends Component {
                     }
                     } />
                 </div>
-                <div>业务系统资源</div>
+                <div>服务器资源</div>
                 <div></div>
             </div>
             <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>

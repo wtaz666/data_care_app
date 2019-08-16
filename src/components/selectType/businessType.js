@@ -37,14 +37,16 @@ class BusinessType extends Component {
         }
     }
     clickApp = (appId, itemId, name) => {
-        // let number = $(`.appBox li:eq(${appId}) .select`).attr('value');
         let number = $(`.appBox li:eq(${appId}) .select`).attr('value');
         let newArr = this.state.arr;
-        newArr.push(number)
-        console.log(newArr);
+        if($.inArray(number, newArr) == -1){
+            if($.inArray(number, newArr) == -1){
+                newArr.push(number)
+        console.log(newArr)
+            }
+        }
         if ($(`.appBox li:eq(${appId}) .select`).css('display') === 'block') {
             $(`.appBox li:eq(${appId}) .select`).css('display', 'none');
-            newArr
         } else {
             $(`.appBox li:eq(${appId}) .select`).css('display', 'block');
         }
