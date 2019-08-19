@@ -75,7 +75,6 @@
         padding: 0 .2rem;
         div:first-child{
             width: .36rem;
-            padding-top: .05rem;
         }
         div:nth-child(2) {
             flex: 1;
@@ -291,7 +290,7 @@
             padding: 5px 10px;
             .contBlock{
                 width: 100%;
-                padding: 6px;
+                padding: 10px;
                 box-sizing: border-box;
                 background: #fff;
                 margin-bottom: 10px;
@@ -308,6 +307,63 @@
                     }
                     span{
                         vertical-align: middle;
+                    }
+                }
+                >ul{
+                    margin-top: 6px;
+                    margin-left: 26px;
+                    >li{
+                        height: auto;
+                        .list_item{
+                            height: 20px;
+                            line-height: 20px;
+                            color: #666;
+                            font-size: 12px;
+                            margin-bottom: 6px;
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        .list_inner_box{
+                            background-color: #f0f0f0;
+                            height: 5px;
+                            position: relative;
+                            .list_chart{
+                                height: 5px;
+                            }
+                            .list_chart:hover {
+                                    height: 5px;
+                                    position: absolute;
+                                    left: 0;
+                                    top: -2px;
+                                    background: rgba(57, 126, 253, 1)!important;
+                                }
+                        }
+                    }
+                }
+                .menuList{
+                    display: flex;
+                    li{
+                        flex: 1;
+                        border-left: 1px solid #f0f0f0;
+                        padding-left: 20px;
+                        font-size: 12px;
+                        .bg{
+                            color: rgba(124, 176, 255, 1);
+                        }
+                    }
+                    li:nth-child(1){
+                        background: rgba(229, 229, 229, 0.23);
+                        margin-right: 20px;
+                        padding-left: 0;
+                        border-left: 0;
+                        position: relative;
+                        p{
+                            position: absolute;
+                            left: 50%;
+                            margin-left: -50px;
+                            top: 50%;
+                            margin-top: -10px;
+                        }
                     }
                 }
             }
@@ -360,10 +416,9 @@
                 height: 100%;
                 overflow: hidden;
                 margin-bottom: 20px;
-            }
-            .sourceTitle{
-                margin: 10px 0;
-                font-size: 16px;
+                .sourceTitle{
+                    margin: 10px 0;
+                }
             }
             .appBox,.serivesBox{
                 flex: 1;

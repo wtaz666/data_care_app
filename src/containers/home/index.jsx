@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import './index.scss';
 import $ from 'jquery';
 import axios from 'axios';
-import SourceTabs from '../../components/tabs/sourceTab/sourcetab';
-import AppTabs from '../../components/tabs/serviesTab/apptab';
-import NetTabs from '../../components/tabs/serviesTab/nettab';
+import listIcon from 'images/applistIcon.svg';
+import SourceTabs from 'components/tabs/sourceTab/sourcetab';
+import AppTabs from 'components/tabs/sourceTab/sourceApp';
+import NetTabs from 'components/tabs/sourceTab/sourceNet';
 
 class Index extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            listData: []
+        this.state = {
+            appBar: [],
+            netBar: []
         }
     }
-    appAxios(){
+    appAxios() {
         const { AppItemId } = this.props;
         axios.get('/kpiDing/resourceAppTableSortDesc', {
             params: {
@@ -28,7 +30,7 @@ class Index extends Component {
         })
         // NetItemId
     }
-    netAxios(){
+    netAxios() {
         const { NetItemId } = this.props;
         axios.get('/kpiDing/resourceHostTableSortDesc', {
             params: {
@@ -42,26 +44,50 @@ class Index extends Component {
             })
         })
     }
-    get(){
+    getAppBar() {
         axios.get('/kpiDing/resourceAppAhdexSort', {
             params: {
                 // webTimeType: 6,
                 isUp: true
             }
         }).then(res => {
-            var list = res.data.appList.map((item)=>{
-                    console.log(item.name.split('. ')[1])
-                if(item.name.split('.')[1] == sessionStorage.getItem('netName')){
+            var list = res.data.appList.map((item) => {
+                if (item.name.split('. ')[1] == sessionStorage.getItem('appName')) {
                     return item;
                 }
             })
             this.setState({
-                listData: list
+                appBar: list
             })
-            console.log(this.state.listData)
         })
     }
-    componentDidMount(){
+    getNetBar(){
+        axios.get('/kpiDing/resourceHostAhdexSort', {
+            params: {
+                // webTimeType: this.state.nowTimeData !== '任选时段' ? null : this.state.time,
+                isUp: true
+            }
+        }).then(res => {
+            let data = res.data.res;
+            if (data == null) {
+                this.setState({
+                    netBar: [],
+                })
+            } else {
+                var list = data.map((item) => {
+                    if (item.name.split('. ')[1] == sessionStorage.getItem('netName')) {
+                        return item;
+                    }
+                })
+                this.setState({
+                    netBar: list
+                })
+            }
+        })
+    }
+    componentWillReceiveProps(state) {
+        this.getNetBar();
+        this.getAppBar();
     }
     render() {
         const { typeVal, AppItemId, NetItemId, selectData, networkData } = this.props;
@@ -85,9 +111,26 @@ class Index extends Component {
                                 $('.applicationBox').hide();
                                 this.appAxios();
                             }}>
-                            {
-                                sessionStorage.getItem('appName')
-                            }
+                                <div className='title'>
+                                    <img src={listIcon} alt='' className='icon' />
+                                    <span>{sessionStorage.getItem('appName')}</span>
+                                </div>
+                                <ul>
+                                    {
+                                        this.state.appBar.map((k, y) => {
+                                            return k && k !== 'undefined' ? <li className="clearfix" key={y} >
+                                                <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%'}}>
+                                                    <div className="fl">综合健康指数</div>
+                                                    <div className="fr">{k.showValue}</div>
+                                                </div>
+                                                <div className="list_inner_box">
+                                                    <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                    </div>
+                                                </div>
+                                            </li> : ''
+                                        })
+                                    }
+                                </ul>
                             </div>
                         </div>
                         : this.props && typeVal == 2 ?
@@ -98,12 +141,28 @@ class Index extends Component {
                                     $('.footer').hide();
                                     $('.serviseBox').hide();
                                     $('.networkBox').hide();
-                                    this.get();
                                     this.netAxios();
                                 }}>
-                                {
-                                    sessionStorage.getItem('netName')
-                                }
+                                    <div className='title'>
+                                        <img src={listIcon} alt='' className='icon' />
+                                        <span>{sessionStorage.getItem('netName')}</span>
+                                    </div>
+                                    <ul>
+                                    {
+                                        this.state.netBar.map((k, y) => {
+                                            return k && k !== 'undefined' ? <li className="clearfix" key={y} >
+                                                <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%'}}>
+                                                    <div className="fl">综合健康指数</div>
+                                                    <div className="fr">{k.showValue}</div>
+                                                </div>
+                                                <div className="list_inner_box">
+                                                    <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                    </div>
+                                                </div>
+                                            </li> : ''
+                                        })
+                                    }
+                                </ul>
                                 </div>
                             </div>
                             : ''

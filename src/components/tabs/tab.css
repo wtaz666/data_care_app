@@ -1,6 +1,7 @@
 .dialogSource {
   height: auto;
   overflow: auto;
+  min-height: 100%;
 }
 
 .dialogSource .dialogHeader {
@@ -12,17 +13,29 @@
   background: #fff;
   padding: 0 5px;
   border-bottom: 1px solid #f2f2f2;
+  color: #2d2d2d;
 }
 
-.dialogSource .dialogHeader div:first-child {
+.dialogSource .dialogHeader > div:first-child {
+  width: 22px;
+  height: 22px;
   padding-top: 5px;
 }
 
+.dialogSource .dialogHeader > div:first-child img {
+  width: 100%;
+  height: 100%;
+  vertical-align: 0px;
+}
+
 .dialogSource .dialogHeader div:nth-child(2) {
-  width: 22px;
   flex: 1;
   font-size: 16px;
   text-align: center;
+}
+
+.dialogSource .dialogHeader div:last-child {
+  width: 22px;
 }
 
 .dialogSource .clearfix {
@@ -189,8 +202,15 @@
   color: #666;
 }
 
-.dialogSource .am-tabs-pane-wrap .dialogbg .zhaiyao {
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceTitle .zhaiyao {
+  width: 20px;
+  height: 20px;
   margin-right: 6px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceTitle span {
+  vertical-align: middle;
+  font-size: 14px;
 }
 
 .am-modal-transparent {

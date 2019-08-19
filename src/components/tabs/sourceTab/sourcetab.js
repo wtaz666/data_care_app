@@ -48,31 +48,36 @@ class SourceTab extends Component {
                 { title: '本月' },
                 { title: `具体时间` },
             ],
-            nowTimeData:'具体时间',
+            nowTimeData: '具体时间',
             normSele: [
-                {    clickImg: twolconClick,
+                {
+                    clickImg: twolconClick,
                     img: twolcon,
                     title: '综合健康指数占比',
                     unit: '（%）'
-                }, { clickImg: lrlconClick,
+                }, {
+                    clickImg: lrlconClick,
                     img: lrlcon,
                     title: '综合健康指数较差情况',
                     unit: '（%）'
-                }, {clickImg: clocklconClick,
+                }, {
+                    clickImg: clocklconClick,
                     img: clocklcon,
                     title: '综合健康指数一般情况',
                     unit: '（%）'
-                }, { clickImg: barlconClick,
+                }, {
+                    clickImg: barlconClick,
                     img: barlcon,
                     title: '综合健康指数良好情况',
                     unit: '（%）'
-                }, {clickImg: onelconClick,
+                }, {
+                    clickImg: onelconClick,
                     img: onelcon,
                     title: '综合健康指数优秀情况',
                     unit: '（%）'
                 }
             ],
-            normSeleTit:'综合健康指数占比'
+            normSeleTit: '综合健康指数占比'
         }
     }
     showModal = key => (e) => {
@@ -96,7 +101,7 @@ class SourceTab extends Component {
             e.preventDefault();
         }
     }
-    gettime = (tab, i)=>{
+    gettime = (tab, i) => {
         if (i === 0) {
             i = 6
         } else if (i === 1) {
@@ -108,7 +113,7 @@ class SourceTab extends Component {
         }
         this.setState({
             timeId: i
-        },()=>{
+        }, () => {
             this.getAxios();
         })
     }
@@ -157,14 +162,14 @@ class SourceTab extends Component {
                 <div>服务端资源</div>
                 <div></div>
             </div>
-            <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab,index)=>this.gettime(tab,index)}>
+            <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
                 {
                     tabs.map((item, index) => {
                         return <div style={{ height: '100%', paddingTop: '10px' }} key={index}>
                             <div className='dialogbg'>
-                                <p className='sourceTitle'>服务端资源摘要</p>
+                                <p className='sourceTitle'>服务器综合健康指数</p>
                                 <i></i>
-                                <p>系统核心资源，包括业务系统、以及承载业务系统的服务器等</p>
+                                <p>在此时间段，服务器的综合健康指数</p>
                             </div>
                             <div className='dialogbg'>
                                 <p className='sourceTitle'>{normSeleTit}</p>
@@ -214,7 +219,7 @@ class SourceTab extends Component {
                                             this.onClose('modal1')()
                                             this.setState({
                                                 normInd,
-                                            },()=>{
+                                            }, () => {
                                                 this.getAxios()
                                             })
                                         }}>取消</div>
@@ -222,7 +227,7 @@ class SourceTab extends Component {
                                             this.onClose('modal1')()
                                             this.setState({
                                                 normInd: newNormInd
-                                            },()=>{
+                                            }, () => {
                                                 this.getAxios()
                                             })
                                         }}>确定</div>
@@ -239,7 +244,7 @@ class SourceTab extends Component {
                                     <ul>
                                         {
                                             normSele.map((item, index) => {
-                                                return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => this.setState({ newNormInd: index,normSeleTit: item.title})}>
+                                                return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => this.setState({ newNormInd: index, normSeleTit: item.title })}>
                                                     {
                                                         index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
                                                     }

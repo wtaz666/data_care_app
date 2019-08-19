@@ -91,14 +91,29 @@
   padding: 4px 6px;
   font-size: 12px;
   border-radius: 16px;
-  text-align: center;
   border: none;
   color: white;
   background-color: #00baad;
+  position: relative;
+  display: flex;
 }
 
 .regBox .regBtn .okBtn i.anticon.anticon-arrow-right {
+  width: 12px;
+  text-align: center;
   margin-right: 8px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.regBox .regBtn .okBtn span {
+  display: inline-block;
+  width: 78px;
+  text-align: center;
+  margin-right: 8px;
+  margin-left: 0;
 }
 
 .regBox .leadpage {
@@ -114,7 +129,11 @@
 }
 
 .regBox .leadpage .regBtn {
-  margin-left: calc(50% - 45px);
+  margin-left: calc(50% - 100px);
+}
+
+.regBox .leadpage .regBtn .goOutBtn {
+  margin-right: 10px;
 }
 
 .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),

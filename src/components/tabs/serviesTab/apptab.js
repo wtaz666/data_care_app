@@ -252,7 +252,7 @@ class AppTab extends Component {
     render() {
         const { selectData, type } = this.props;
         const { tabs, normSele, normInd, newNormInd, curKpiName, appData, modal1, onlineStime, onlineSvalue, OnlineTimeData, value1 } = this.state;
-        console.log(this.state.ruseTime)
+        // console.log(this.state.ruseTime)
         return (<div className='dialogSource'>
             <div className='dialogHeader'>
                 <div>
@@ -264,364 +264,246 @@ class AppTab extends Component {
                     }
                     } />
                 </div>
-                <div>{type == 0 ? '业务系统资源' : type == 1 ? '业务系统服务在线' : ''}</div>
+                <div>业务系统服务在线</div>
                 <div></div>
             </div>
             <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
                 {
                     tabs.map((item, index) => {
                         return <div style={{ height: '100%', paddingTop: '10px' }} key={index}>
-                            {
-                                type == 0 ? <div className='dialogbg'>
-                                    <p className='sourceTitle'>业务系统资源摘要</p>
-                                    <i></i>
-                                    <p>通过预测基线和基础指标，可计算服务器的资源服务率、资源利用率等资源相关指标，基于这些指标，可以评估资源的综合健康水平。关于预测基线的信息，参考预测基线</p>
-                                </div>
-                                    : type == 1 ? <div className='dialogbg'>
-                                        <p className='sourceTitle'>业务系统服务在线摘要</p>
-                                        <i></i>
-                                        <p>业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要</p>
-                                    </div> : ''
-                            }
+                            <div className='dialogbg'>
+                                <p className='sourceTitle'>业务系统服务在线摘要</p>
+                                <i></i>
+                                <p>业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要业务系统服务在线摘要</p>
+                            </div>
                             <div className='dialogbg'>
                                 <p className='sourceTitle'>{curKpiName}</p>
                                 <p>描述内容：{curKpiName}</p>
                                 <Icon type="down" size='md' className='seleIcon' onClick={this.showModal('modal1')} />
                                 {
-                                    type == 0
-                                        ? <div style={{ height: '354px' }}>
-                                            <ReactEcharts
-                                                option={
-                                                    {
-                                                        title: {
-                                                            text: `${sessionStorage.getItem('appName') == 'undefined' && selectData.length > 0 ? selectData[0].name : sessionStorage.getItem('appName')}`,
-                                                            left: 0,
-                                                            top: 0,
-                                                            textStyle: {
-                                                                color: 'rgb(102, 102, 102)',
-                                                                fontSize: '12',
-                                                                fontWeight: 'normal'
-                                                            }
-                                                        },
-                                                        tooltip: {
-                                                            trigger: 'axis',
-                                                            formatter: (params) => {
-                                                                return `<div style="height:80px;border-radius:5px;background:#fff;box-shadow:0 0 10px 5px #aaa;font-size: 12px;padding: 6px 20px;box-sizing:border-box">
-                                                                <p>${params[0].axisValueLabel}</p>
-                                                                <p>${params[0].seriesName} ${params[0].data}</p>
-                                                            </div>`
+                                    type == 1
+                                        ? normInd == 0 ?// 在线时长
+                                            <div style={{ height: '354px' }}>
+                                                <ReactEcharts
+                                                    option={
+                                                        {
+                                                            tooltip: {
+                                                                confine: true,
+                                                                trigger: 'axis',
+                                                                axisPointer: {
+                                                                    lineStyle: {
+                                                                        color: '#7588E4'
+                                                                    }
+                                                                },
+                                                                backgroundColor: 'rgba(255,255,255,1)',
+                                                                padding: [20, 20],
+                                                                textStyle: {
+                                                                    color: '#7588E4',
+                                                                },
+                                                                extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
                                                             },
-                                                        },
-                                                        grid: {
-                                                            left: '4%',
-                                                            right: '2%',
-                                                            top: 60,
-                                                            bottom: 60,
-                                                            containLabel: true
-                                                        },
-                                                        legend: {
-                                                            bottom: 5,
-                                                            data: [this.state.curKpiName]
-                                                        },
-                                                        xAxis: {
-                                                            type: 'category',
-                                                            data: appData.time,
-                                                            boundaryGap: this.state.tablekpiId > 0 ? false : true,
-                                                            splitLine: {
-                                                                show: false,
+                                                            grid: {
+                                                                left: '2%',
+                                                                right: '2%',
+                                                                top: 60,
+                                                                bottom: 60,
+                                                                containLabel: true
+                                                            },
+                                                            legend: {
+                                                                bottom: 5,
+                                                                data: [this.state.title]
+                                                            },
+                                                            xAxis: {
+                                                                type: 'category',
+                                                                data: OnlineTimeData ? OnlineTimeData.time : '',
+                                                                boundaryGap: true,
+                                                                splitLine: {
+                                                                    show: false,
 
-                                                            },
-                                                            axisTick: {
-                                                                show: false
-                                                            },
-                                                            axisLine: {
-                                                                lineStyle: {
-                                                                    color: 'rgb(82, 108, 255)'
-                                                                }
-                                                            },
-                                                            axisLabel: {
-                                                                margin: 10,
-                                                                textStyle: {
-                                                                    fontSize: 10
-                                                                }
-                                                            }
-                                                        },
-                                                        yAxis: {
-                                                            name: '单位' + appData.unit,
-                                                            type: 'value',
-                                                            splitLine: {
-                                                                lineStyle: {
-                                                                    color: ['#D4DFF5']
-                                                                }
-                                                            },
-                                                            axisTick: {
-                                                                show: false
-                                                            },
-                                                            axisLine: {
-                                                                lineStyle: {
-                                                                    color: 'rgb(82, 108, 255)'
-                                                                }
-                                                            },
-                                                            axisLabel: {
-                                                                margin: 10,
-                                                                textStyle: {
-                                                                    fontSize: 12
                                                                 },
-                                                                formatter: function (value) {
-                                                                    if (value >= 10000 && value < 10000000) {
-                                                                        value = value / 10000 + "w";
-                                                                    }
-                                                                    return value;
-                                                                }
-                                                            }
-                                                        },
-                                                        series: [
-                                                            {
-                                                                name: this.state.curKpiName,
-                                                                type: this.state.tablekpiId > 0 ? 'line' : 'bar',
-                                                                smooth: true,
-                                                                showSymbol: false,
-                                                                symbol: 'circle',
-                                                                symbolSize: 6,
-                                                                data: appData.value,
-                                                                itemStyle: {
-                                                                    normal: {
-                                                                        color: 'rgb(82, 108, 255)'
+                                                                axisTick: {
+                                                                    show: false
+                                                                },
+                                                                axisLine: {
+                                                                    lineStyle: {
+                                                                        color: '#609ee9'
                                                                     }
                                                                 },
-                                                                lineStyle: {
-                                                                    normal: {
-                                                                        width: 3
+                                                                axisLabel: {
+                                                                    margin: 10,
+                                                                    textStyle: {
+                                                                        fontSize: 10
                                                                     }
                                                                 }
-                                                            }]
+                                                            },
+                                                            yAxis: {
+                                                                name: OnlineTimeData ? OnlineTimeData.unit : '',
+                                                                type: 'value',
+                                                                splitLine: {
+                                                                    lineStyle: {
+                                                                        color: ['#D4DFF5']
+                                                                    }
+                                                                },
+                                                                axisTick: {
+                                                                    show: false
+                                                                },
+                                                                axisLine: {
+                                                                    lineStyle: {
+                                                                        color: '#609ee9'
+                                                                    }
+                                                                },
+                                                                axisLabel: {
+                                                                    margin: 10,
+                                                                    textStyle: {
+                                                                        fontSize: 12
+                                                                    }
+                                                                }
+                                                            },
+                                                            series: [
+                                                                {
+                                                                    name: '访问量',
+                                                                    type: 'bar',
+                                                                    smooth: true,
+                                                                    showSymbol: false,
+                                                                    symbol: 'circle',
+                                                                    symbolSize: 6,
+                                                                    data: OnlineTimeData ? OnlineTimeData.value : '',
+
+                                                                    itemStyle: {
+                                                                        normal: {
+                                                                            color: '#58c8da'
+                                                                        }
+                                                                    },
+                                                                    lineStyle: {
+                                                                        normal: {
+                                                                            width: 3
+                                                                        }
+                                                                    }
+                                                                }]
+                                                        }
                                                     }
-                                                }
-                                            />
-                                        </div>
-                                        : type == 1
-                                            ? normInd == 0 ?// 在线时长
+                                                />
+                                            </div>
+                                            : normInd == 1 ?// 在线服务率
                                                 <div style={{ height: '354px' }}>
                                                     <ReactEcharts
                                                         option={
                                                             {
-                                                                tooltip: {
-                                                                    confine: true,
-                                                                    trigger: 'axis',
-                                                                    axisPointer: {
-                                                                        lineStyle: {
-                                                                            color: '#7588E4'
-                                                                        }
-                                                                    },
-                                                                    backgroundColor: 'rgba(255,255,255,1)',
-                                                                    padding: [20, 20],
-                                                                    textStyle: {
-                                                                        color: '#7588E4',
-                                                                    },
-                                                                    extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
-                                                                },
                                                                 grid: {
-                                                                    left: '2%',
-                                                                    right: '2%',
-                                                                    top: 60,
-                                                                    bottom: 60,
-                                                                    containLabel: true
+                                                                    top: '1%',
+                                                                    left: '3%',
+                                                                    right: '4%',
+                                                                    bottom: '1%',
+                                                                    // containLabel: true
                                                                 },
-                                                                legend: {
-                                                                    bottom: 5,
-                                                                    data: [this.state.title]
-                                                                },
-                                                                xAxis: {
+                                                                xAxis: [{
+                                                                    show: false,
                                                                     type: 'category',
-                                                                    data: OnlineTimeData ? OnlineTimeData.time : '',
-                                                                    boundaryGap: true,
-                                                                    splitLine: {
-                                                                        show: false,
-
-                                                                    },
-                                                                    axisTick: {
-                                                                        show: false
-                                                                    },
-                                                                    axisLine: {
-                                                                        lineStyle: {
-                                                                            color: '#609ee9'
-                                                                        }
-                                                                    },
-                                                                    axisLabel: {
-                                                                        margin: 10,
-                                                                        textStyle: {
-                                                                            fontSize: 10
-                                                                        }
-                                                                    }
-                                                                },
-                                                                yAxis: {
-                                                                    name: OnlineTimeData ? OnlineTimeData.unit : '',
+                                                                    data: this.state.onlineStime,
+                                                                }],
+                                                                yAxis: [{
+                                                                    show: false,
                                                                     type: 'value',
-                                                                    splitLine: {
-                                                                        lineStyle: {
-                                                                            color: ['#D4DFF5']
-                                                                        }
-                                                                    },
-                                                                    axisTick: {
-                                                                        show: false
-                                                                    },
-                                                                    axisLine: {
-                                                                        lineStyle: {
-                                                                            color: '#609ee9'
-                                                                        }
-                                                                    },
-                                                                    axisLabel: {
-                                                                        margin: 10,
-                                                                        textStyle: {
-                                                                            fontSize: 12
-                                                                        }
-                                                                    }
-                                                                },
-                                                                series: [
-                                                                    {
-                                                                        name: '访问量',
-                                                                        type: 'bar',
-                                                                        smooth: true,
-                                                                        showSymbol: false,
-                                                                        symbol: 'circle',
-                                                                        symbolSize: 6,
-                                                                        data: OnlineTimeData ? OnlineTimeData.value : '',
-
-                                                                        itemStyle: {
-                                                                            normal: {
-                                                                                color: '#58c8da'
-                                                                            }
-                                                                        },
-                                                                        lineStyle: {
-                                                                            normal: {
-                                                                                width: 3
+                                                                    max: 0.5,
+                                                                }],
+                                                                series: [{
+                                                                    name: '',
+                                                                    type: 'bar',
+                                                                    barWidth: '100%',
+                                                                    itemStyle: {
+                                                                        normal: {
+                                                                            color: (data) => {
+                                                                                if (data.data > 1) {
+                                                                                    return `rgb(40, 50, 92)`
+                                                                                } else {
+                                                                                    return `rgb(233, 39, 58)`
+                                                                                }
                                                                             }
                                                                         }
-                                                                    }]
+                                                                    },
+                                                                    data: this.state.onlineSvalue
+                                                                }]
                                                             }
                                                         }
                                                     />
-                                                </div>
-                                                : normInd == 1 ?// 在线服务率
-                                                    <div style={{ height: '354px' }}>
-                                                        <ReactEcharts
-                                                            option={
-                                                                {
-                                                                    grid: {
-                                                                        top: '1%',
-                                                                        left: '3%',
-                                                                        right: '4%',
-                                                                        bottom: '1%',
-                                                                        // containLabel: true
-                                                                    },
-                                                                    xAxis: [{
-                                                                        show: false,
-                                                                        type: 'category',
-                                                                        data: this.state.onlineStime,
-                                                                    }],
-                                                                    yAxis: [{
-                                                                        show: false,
-                                                                        type: 'value',
-                                                                        max: 0.5,
-                                                                    }],
-                                                                    series: [{
-                                                                        name: '',
-                                                                        type: 'bar',
-                                                                        barWidth: '100%',
-                                                                        itemStyle: {
-                                                                            normal: {
-                                                                                color: (data) => {
-                                                                                    if (data.data > 1) {
-                                                                                        return `rgb(40, 50, 92)`
-                                                                                    } else {
-                                                                                        return `rgb(233, 39, 58)`
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        },
-                                                                        data: this.state.onlineSvalue
-                                                                    }]
-                                                                }
-                                                            }
-                                                        />
-                                                        <div className="clearfix">
-                                                            <div className="left_time">
-                                                                {this.state.onlineStartTime}
-                                                            </div>
-                                                            <div className="right_time">
-                                                                {this.state.onlineEndTime}
-                                                            </div>
+                                                    <div className="clearfix">
+                                                        <div className="left_time">
+                                                            {this.state.onlineStartTime}
+                                                        </div>
+                                                        <div className="right_time">
+                                                            {this.state.onlineEndTime}
                                                         </div>
                                                     </div>
-                                                    : normInd == 2 ? //资源利用水平
-                                                        <div style={{ height: '354px' }}>
-                                                            <div className="double_top_title">
-                                                                <div><span>{this.state.rusePercent}</span>的时段过度利用</div>
-                                                            </div>
-                                                            <div style={{ height: '300px' }}>
-                                                                <ReactEcharts
-                                                                    option={
-                                                                        {
-                                                                            backgroundColor: 'rgb(40, 50, 92)',
-                                                                            grid: {
-                                                                                top: '2%',
-                                                                                left: '0',
-                                                                                right: '0',
-                                                                                bottom: '2px',
-                                                                            },
-                                                                            xAxis: [
-                                                                                {
-                                                                                    type: 'category',
-                                                                                    data: this.state.ruseTime,
-                                                                                    axisLabel: {
-                                                                                        marginRight: 50,
-                                                                                        // marginLeft:'20px',
-                                                                                        textStyle: {
-                                                                                            color: '#fff',
-                                                                                        },
-                                                                                        fontSize: '4px',
-                                                                                    },
-                                                                                }
-                                                                            ],
-                                                                            yAxis: [
-                                                                                {
-                                                                                    type: 'value',
-                                                                                    show: false,
-                                                                                    max: 100
-                                                                                }
-                                                                            ],
-                                                                            series: [
-                                                                                {
-                                                                                    name: '',
-                                                                                    type: 'bar',
-                                                                                    barWidth: '100%',
-                                                                                    itemStyle: {
-                                                                                        normal: {
-                                                                                            color: (data) => {
-                                                                                                if (data.data < 100) {
-                                                                                                    return `rgb(40, 50, 92)`
-                                                                                                } else {
-                                                                                                    return `rgb(233, 39, 58)`
-                                                                                                }
-                                                                                            },
-                                                                                            borderWidth: 1,
-                                                                                            borderColor: this.state.ruseValue < 100 ? 'rgb(40, 50, 92)' : 'rgb(233, 39, 58)'
-                                                                                        }
-                                                                                    },
-                                                                                    data: this.state.ruseValue,
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    }
-                                                                />
-                                                            </div>
-                                                            <div className="clearfix">
-                                                                <span className="fl">{this.state.ruseStartTime}</span>
-                                                                <span className="fr">{this.state.ruseEndTime}</span>
-                                                            </div>
+                                                </div>
+                                                : normInd == 2 ? //资源利用水平
+                                                    <div style={{ height: '354px' }}>
+                                                        <div className="double_top_title">
+                                                            <div><span>{this.state.rusePercent}</span>的时段过度利用</div>
                                                         </div>
-                                                        : ''
-                                            : ''
+                                                        <div style={{ height: '300px' }}>
+                                                            <ReactEcharts
+                                                                option={
+                                                                    {
+                                                                        backgroundColor: 'rgb(40, 50, 92)',
+                                                                        grid: {
+                                                                            top: '2%',
+                                                                            left: '0',
+                                                                            right: '0',
+                                                                            bottom: '2px',
+                                                                        },
+                                                                        xAxis: [
+                                                                            {
+                                                                                type: 'category',
+                                                                                data: this.state.ruseTime,
+                                                                                axisLabel: {
+                                                                                    marginRight: 50,
+                                                                                    // marginLeft:'20px',
+                                                                                    textStyle: {
+                                                                                        color: '#fff',
+                                                                                    },
+                                                                                    fontSize: '4px',
+                                                                                },
+                                                                            }
+                                                                        ],
+                                                                        yAxis: [
+                                                                            {
+                                                                                type: 'value',
+                                                                                show: false,
+                                                                                max: 100
+                                                                            }
+                                                                        ],
+                                                                        series: [
+                                                                            {
+                                                                                name: '',
+                                                                                type: 'bar',
+                                                                                barWidth: '100%',
+                                                                                itemStyle: {
+                                                                                    normal: {
+                                                                                        color: (data) => {
+                                                                                            if (data.data < 100) {
+                                                                                                return `rgb(40, 50, 92)`
+                                                                                            } else {
+                                                                                                return `rgb(233, 39, 58)`
+                                                                                            }
+                                                                                        },
+                                                                                        borderWidth: 1,
+                                                                                        borderColor: this.state.ruseValue < 100 ? 'rgb(40, 50, 92)' : 'rgb(233, 39, 58)'
+                                                                                    }
+                                                                                },
+                                                                                data: this.state.ruseValue,
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="clearfix">
+                                                            <span className="fl">{this.state.ruseStartTime}</span>
+                                                            <span className="fr">{this.state.ruseEndTime}</span>
+                                                        </div>
+                                                    </div>
+                                                    : ''
+                                        : ''
                                 }
 
                             </div>

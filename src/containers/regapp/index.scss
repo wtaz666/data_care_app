@@ -83,12 +83,26 @@
             padding: 4px 6px;
             font-size: 12px;
             border-radius: 16px;
-            text-align: center;
             border: none;
             color: rgba(255, 255, 255, 1);
             background-color: rgba(0, 186, 173, 1);
-            i.anticon.anticon-arrow-right{
+            position: relative;
+            display: flex;
+            i.anticon.anticon-arrow-right {
+                width: 12px;
+                text-align: center;
                 margin-right: 8px;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                margin-top: -6px;
+            }
+            span{
+                display: inline-block;
+                width: 78px;
+                text-align: center;
+                margin-right: 8px;
+                margin-left: 0;
             }
         }
     }
@@ -103,7 +117,10 @@
         background: #fff;
         overflow: hidden;
         .regBtn{
-            margin-left: calc(50% - 45px);
+            margin-left: calc(50% - 100px);
+            .goOutBtn{
+                margin-right: 10px;
+            }
         }
     }
 }

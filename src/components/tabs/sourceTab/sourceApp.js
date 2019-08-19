@@ -1,0 +1,379 @@
+import React, { Component } from 'react';
+import $ from 'jquery';
+import '../tab.scss';
+import axios from 'axios';
+import ReactEcharts from 'echarts-for-react';
+import { Tabs, Icon, Modal } from 'antd-mobile';
+import listIcon from 'images/applistIcon.svg';
+import leftIcon from 'images/left_click.svg';
+
+import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
+import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
+import twolconClick from '../../../images/selectIcons/twoIcon_click.svg';
+import twolcon from '../../../images/selectIcons/twoIcon_normal.svg';
+import clocklconClick from '../../../images/selectIcons/clockIcon_click.svg';
+import clocklcon from '../../../images/selectIcons/clockIcon_normal.svg';
+import barlconClick from '../../../images/selectIcons/barIcon_click.svg';
+import barlcon from '../../../images/selectIcons/barIcon_normal.svg';
+import onelconClick from '../../../images/selectIcons/oneIcon_click.svg';
+import onelcon from '../../../images/selectIcons/oneIcon_normal.svg';
+import threelconClick from '../../../images/selectIcons/threeIcon_click.svg';
+import threelcon from '../../../images/selectIcons/threeIcon_normal.svg';
+import linelconClick from '../../../images/selectIcons/lineIcon_click.svg';
+import linelcon from '../../../images/selectIcons/lineIcon_normal.svg';
+
+function closest(el, selector) {
+    const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+    while (el) {
+        if (matchesSelector.call(el, selector)) {
+            return el;
+        }
+        el = el.parentElement;
+    }
+    return null;
+}
+
+class NetTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modal1: false,
+            normInd: 0,// 指标id
+            newNormInd: 0,
+            timeId: 0,
+            tablekpiId: 4,
+            appData: [],
+            tabs: [
+                { title: '实时' },
+                { title: '今日' },
+                { title: '本周' },
+                { title: '本月' },
+                { title: `具体时间` },
+            ],
+            nowTimeData: '具体时间',
+            normSele: [
+                {
+                    clickImg: twolconClick,
+                    img: twolcon,
+                    title: '资源服务率',
+                    unit: '（%）',
+                    tablekpiId: 4
+                }, {
+                    clickImg: lrlconClick,
+                    img: lrlcon,
+                    title: '资源利用率',
+                    unit: '（%）',
+                    tablekpiId: 3
+                }, {
+                    clickImg: clocklconClick,
+                    img: clocklcon,
+                    title: '稳定性指数',
+                    unit: '（N/A）',
+                    tablekpiId: 5
+                }, {
+                    clickImg: barlconClick,
+                    img: barlcon,
+                    title: '能力指数',
+                    unit: '（N/A）',
+                    tablekpiId: 2
+                }, {
+                    clickImg: onelconClick,
+                    img: onelcon,
+                    title: '性能指数',
+                    unit: '（N/A）',
+                    tablekpiId: 1
+                }, {
+                    clickImg: threelconClick,
+                    img: threelcon,
+                    title: '相关事件',
+                    unit: '（N/A）',
+                    tablekpiId: -1
+                }, {
+                    clickImg: linelconClick,
+                    img: linelcon,
+                    title: '综合健康指数',
+                    unit: '（N/A）',
+                    tablekpiId: 6
+                }
+            ],
+            curKpiName: '资源服务率'
+        }
+    }
+    showModal = key => (e) => {
+        e.preventDefault(); // 修复 Android 上点击穿透
+        this.setState({
+            [key]: true,
+        });
+    }
+    onClose = key => () => {
+        this.setState({
+            [key]: false,
+        });
+    }
+    onWrapTouchStart = (e) => {
+        // fix touch to scroll background page on iOS
+        if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
+            return;
+        }
+        const pNode = closest(e.target, '.am-modal-content');
+        if (!pNode) {
+            e.preventDefault();
+        }
+    }
+    gettime = (tab, i) => {
+        if (i === 0) {
+            i = 6
+        } else if (i === 1) {
+            i = 0
+        } else if (i === 2) {
+            i = 2
+        } else if (i === 3) {
+            i = 3
+        }
+        this.setState({
+            timeId: i
+        }, () => {
+            this.getAxios();
+        })
+    }
+    getAxios() {
+        const { AppItemId } = this.props;
+        axios.get('/kpiDing/resourceAppTableSortDesc', {
+            params: {
+                webTimeType: this.state.timeId,
+                kpiId: this.state.tablekpiId,
+                appSourceDataId: AppItemId == 0 ? sessionStorage.getItem('AppItemId') : AppItemId
+            }
+        }).then(res => {
+            this.setState({
+                appData: res.data
+            })
+        })
+    }
+    componentDidMount() {
+        this.getAxios();
+    }
+
+    render() {
+        const { selectData } = this.props;
+        const { tabs, normSele, normInd, newNormInd, curKpiName, appData, modal1 } = this.state;
+        return (<div className='dialogSource'>
+            <div className='dialogHeader'>
+                <div onClick={() => {
+                        $('.serviseBlock2').hide();
+                        $('.homePageHeader').show();
+                        $('.footer').show();
+                        $('.applicationBox').show();
+                    }}>
+                    <img src={leftIcon} alt='' className='leftIcon'/>
+                </div>
+                <div>业务系统资源</div>
+                <div></div>
+            </div>
+            <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
+                {
+                    tabs.map((item, index) => {
+                        return <div style={{ height: '100%', paddingTop: '10px' }} key={index}>
+                            <div className='dialogbg'>
+                                <div className='sourceTitle'>
+                                    <img src={listIcon} alt='' className='zhaiyao' />
+                                    <span>业务系统资源摘要</span>
+                                </div>
+                                <i></i>
+                                <p>在此时间段，业务系统的综合健康指数</p>
+                            </div>
+                            <div className='dialogbg'>
+                                <p className='sourceTitle'>{curKpiName}</p>
+                                <p>描述内容：{curKpiName}</p>
+                                <Icon type="down" size='md' className='seleIcon' onClick={this.showModal('modal1')} />
+                                <div style={{ height: '354px' }}>
+                                    <ReactEcharts
+                                        option={
+                                            {
+                                                title: {
+                                                    text: `${sessionStorage.getItem('appName') == 'undefined' && selectData.length > 0 ? selectData[0].name : sessionStorage.getItem('appName')}`,
+                                                    left: 0,
+                                                    top: 0,
+                                                    textStyle: {
+                                                        color: 'rgb(102, 102, 102)',
+                                                        fontSize: '12',
+                                                        fontWeight: 'normal'
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    trigger: 'axis',
+                                                    axisPointer: {
+                                                        lineStyle: {
+                                                            color: '#000'
+                                                        }
+                                                    },
+                                                    formatter: (params) => {
+                                                        return `<div style="height:80px;border-radius:5px;background:#fff;box-shadow:0 0 10px 5px #aaa;font-size: 12px;padding: 6px 20px;box-sizing:border-box">
+                                                            <p>${params[0].axisValueLabel}</p>
+                                                            <p>${params[0].seriesName} ${params[0].data}</p>
+                                                        </div>`
+                                                    },
+                                                    backgroundColor: 'rgba(255,255,255,1)',
+                                                    padding: [5, 0, 5, 0],
+                                                    textStyle: {
+                                                        color: '#000',
+                                                    },
+                                                    extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
+                                                },
+                                                grid: {
+                                                    left: '4%',
+                                                    right: '2%',
+                                                    top: 60,
+                                                    bottom: 60,
+                                                    containLabel: true
+                                                },
+                                                legend: {
+                                                    bottom: 5,
+                                                    data: [this.state.curKpiName]
+                                                },
+                                                xAxis: {
+                                                    type: 'category',
+                                                    data: appData.time,
+                                                    boundaryGap: this.state.tablekpiId > 0 ? false : true,
+                                                    splitLine: {
+                                                        show: false,
+
+                                                    },
+                                                    axisTick: {
+                                                        show: false
+                                                    },
+                                                    axisLine: {
+                                                        lineStyle: {
+                                                            color: 'rgb(82, 108, 255)'
+                                                        }
+                                                    },
+                                                    axisLabel: {
+                                                        margin: 10,
+                                                        textStyle: {
+                                                            fontSize: 10
+                                                        }
+                                                    }
+                                                },
+                                                yAxis: {
+                                                    name: '单位' + appData.unit,
+                                                    type: 'value',
+                                                    splitLine: {
+                                                        lineStyle: {
+                                                            color: ['#D4DFF5']
+                                                        }
+                                                    },
+                                                    axisTick: {
+                                                        show: false
+                                                    },
+                                                    axisLine: {
+                                                        lineStyle: {
+                                                            color: 'rgb(82, 108, 255)'
+                                                        }
+                                                    },
+                                                    axisLabel: {
+                                                        margin: 10,
+                                                        textStyle: {
+                                                            fontSize: 12
+                                                        },
+                                                        formatter: function (value) {
+                                                            if (value >= 10000 && value < 10000000) {
+                                                                value = value / 10000 + "w";
+                                                            }
+                                                            return value;
+                                                        }
+                                                    }
+                                                },
+                                                series: [
+                                                    {
+                                                        name: this.state.curKpiName,
+                                                        type: this.state.tablekpiId > 0 ? 'line' : 'bar',
+                                                        smooth: true,
+                                                        showSymbol: false,
+                                                        symbol: 'circle',
+                                                        symbolSize: 6,
+                                                        data: appData.value,
+                                                        itemStyle: {
+                                                            normal: {
+                                                                color: 'rgb(82, 108, 255)'
+                                                            }
+                                                        },
+                                                        lineStyle: {
+                                                            normal: {
+                                                                width: 3
+                                                            }
+                                                        }
+                                                    }]
+                                            }
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <Modal
+                                visible={modal1}
+                                transparent
+                                maskClosable={false}
+                                onClose={this.onClose('modal1')}
+                                title={<div className='seleType_head'>
+                                    <b></b>
+                                    指标选择
+                                    <Icon type='cross' size='md' color='#fff' onClick={() => {
+                                        this.onClose('modal1')()
+                                    }} />
+                                </div>}
+                                footer={[{
+                                    text: <div className='sourceSeleBtn'>
+                                        <div onClick={() => {
+                                            this.onClose('modal1')()
+                                            this.setState({
+                                                normInd,
+                                            }, () => {
+                                                this.getAxios()
+                                            })
+                                        }}>取消</div>
+                                        <div className='primary' onClick={() => {
+                                            this.onClose('modal1')()
+                                            this.setState({
+                                                normInd: newNormInd
+                                            }, () => {
+                                                this.getAxios()
+                                            })
+                                        }}>确定</div>
+                                    </div>,
+                                    //  onPress: () => { console.log('ok'); ();}
+                                }]}
+                                wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                            // afterClose={() => { alert('afterClose'); }}
+                            >
+                                <div className='normStyle'>
+                                    <p>
+                                        选择指标：
+                                    </p>
+                                    <ul>
+                                        {
+                                            normSele.map((item, index) => {
+                                                return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => {
+                                                    this.setState({ newNormInd: index, curKpiName: item.title, tablekpiId: item.tablekpiId })
+                                                }} >
+                                                    {
+                                                        index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
+                                                    }
+                                                    <div>
+                                                        {item.title}
+                                                        <span>{item.unit}</span>
+                                                    </div>
+                                                </li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+                            </Modal>
+                        </div>
+                    })
+                }
+            </Tabs>
+        </div>
+        );
+    }
+}
+
+export default NetTab;

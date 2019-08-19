@@ -1,6 +1,7 @@
 .dialogSource{
     height: auto;
     overflow: auto;
+    min-height: 100%;
     .dialogHeader{
         padding: 0;
         width: 100%;
@@ -10,14 +11,24 @@
         background: #fff;
         padding: 0 5px;
         border-bottom: 1px solid #f2f2f2;
-        div:first-child{
+        color: rgba(45, 45, 45, 1);
+        >div:first-child{
+            width: 22px;
+            height: 22px;
             padding-top: 5px;
+            img{
+                width: 100%;
+                height: 100%;
+                vertical-align: 0px;
+            }
         }
         div:nth-child(2) {
-            width: 22px;
             flex: 1;
             font-size: 16px;
             text-align: center;
+        }
+        div:last-child{
+            width: 22px;
         }
     }
     .clearfix{
@@ -156,9 +167,18 @@
                         color: #666;
                     }
             }
-            .zhaiyao{
-                margin-right: 6px;
+            .sourceTitle{
+                .zhaiyao{
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 6px;
+                }
+                span{
+                    vertical-align: middle;
+                    font-size: 14px;
+                }
             }
+           
         }
     }
     

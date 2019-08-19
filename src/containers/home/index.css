@@ -72,7 +72,6 @@
 
 .homepage .homePageHeader div:first-child {
   width: .36rem;
-  padding-top: .05rem;
 }
 
 .homepage .homePageHeader div:nth-child(2) {
@@ -308,7 +307,7 @@
 
 .homepage .dynamicPage .serviseBox .contBlock, .homepage .dynamicPage .applicationBox .contBlock, .homepage .dynamicPage .networkBox .contBlock {
   width: 100%;
-  padding: 6px;
+  padding: 10px;
   box-sizing: border-box;
   background: #fff;
   margin-bottom: 10px;
@@ -330,6 +329,74 @@
 
 .homepage .dynamicPage .serviseBox .contBlock .title span, .homepage .dynamicPage .applicationBox .contBlock .title span, .homepage .dynamicPage .networkBox .contBlock .title span {
   vertical-align: middle;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul, .homepage .dynamicPage .applicationBox .contBlock > ul, .homepage .dynamicPage .networkBox .contBlock > ul {
+  margin-top: 6px;
+  margin-left: 26px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul > li, .homepage .dynamicPage .applicationBox .contBlock > ul > li, .homepage .dynamicPage .networkBox .contBlock > ul > li {
+  height: auto;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul > li .list_item, .homepage .dynamicPage .applicationBox .contBlock > ul > li .list_item, .homepage .dynamicPage .networkBox .contBlock > ul > li .list_item {
+  height: 20px;
+  line-height: 20px;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul > li .list_inner_box, .homepage .dynamicPage .applicationBox .contBlock > ul > li .list_inner_box, .homepage .dynamicPage .networkBox .contBlock > ul > li .list_inner_box {
+  background-color: #f0f0f0;
+  height: 5px;
+  position: relative;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul > li .list_inner_box .list_chart, .homepage .dynamicPage .applicationBox .contBlock > ul > li .list_inner_box .list_chart, .homepage .dynamicPage .networkBox .contBlock > ul > li .list_inner_box .list_chart {
+  height: 5px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock > ul > li .list_inner_box .list_chart:hover, .homepage .dynamicPage .applicationBox .contBlock > ul > li .list_inner_box .list_chart:hover, .homepage .dynamicPage .networkBox .contBlock > ul > li .list_inner_box .list_chart:hover {
+  height: 5px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  background: #397efd !important;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .menuList, .homepage .dynamicPage .applicationBox .contBlock .menuList, .homepage .dynamicPage .networkBox .contBlock .menuList {
+  display: flex;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .menuList li, .homepage .dynamicPage .applicationBox .contBlock .menuList li, .homepage .dynamicPage .networkBox .contBlock .menuList li {
+  flex: 1;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .menuList li .bg, .homepage .dynamicPage .applicationBox .contBlock .menuList li .bg, .homepage .dynamicPage .networkBox .contBlock .menuList li .bg {
+  color: #7cb0ff;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .menuList li:nth-child(1), .homepage .dynamicPage .applicationBox .contBlock .menuList li:nth-child(1), .homepage .dynamicPage .networkBox .contBlock .menuList li:nth-child(1) {
+  background: rgba(229, 229, 229, 0.23);
+  margin-right: 20px;
+  padding-left: 0;
+  border-left: 0;
+  position: relative;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .menuList li:nth-child(1) p, .homepage .dynamicPage .applicationBox .contBlock .menuList li:nth-child(1) p, .homepage .dynamicPage .networkBox .contBlock .menuList li:nth-child(1) p {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -10px;
 }
 
 .homepage .dynamicPage .serviseBlock1, .homepage .dynamicPage .serviseBlock2, .homepage .dynamicPage .serviseBlock3 {
@@ -384,9 +451,8 @@
   margin-bottom: 20px;
 }
 
-.homepage .seleType .seleType_cont .sourceTitle {
+.homepage .seleType .seleType_cont .am-wingblank .sourceTitle {
   margin: 10px 0;
-  font-size: 16px;
 }
 
 .homepage .seleType .seleType_cont .appBox, .homepage .seleType .seleType_cont .serivesBox {

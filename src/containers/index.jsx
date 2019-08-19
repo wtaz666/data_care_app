@@ -6,6 +6,7 @@ import axios from 'axios';
 import Home from 'containers/home';
 import Event from 'containers/event';
 import headImg from 'images/headImg.png';
+import menuIcon from 'images/menu.svg'
 import SerivePage from 'containers/pages/serviesPage.jsx'
 import BusinessPage from 'containers/pages/businessPage.jsx'
 import SourceType from '../components/selectType/sourceType';
@@ -147,8 +148,6 @@ class Homepage extends Component {
             selectData: [],
             networkData: [],
             kpiId: null,
-            serviseApp: [],
-            serviseNet: [],
             footerIndex: 0,
             businessData: []
         }
@@ -192,10 +191,10 @@ class Homepage extends Component {
             ind: 0,
             open: !this.state.open
         }, () => {
-            if (this.state.title == '资源注册状态') {
+            if (this.state.leftIndex == 0) {
                 this.sourceAxios();
-            } else if (this.state.title == '服务在线') {
-                this.serviesAxios();
+            }if (this.state.leftIndex == 1) {
+                this.serviesApp();
             }
         })
     }
@@ -255,18 +254,6 @@ class Homepage extends Component {
             }
         })
     }
-    // 服务在线接口
-    serviesAxios() {
-        axios.get('/contrast/appnames').then(res => {
-            this.setState({
-                serviseApp: res.data
-            }, () => {
-                sessionStorage.setItem('AppItemId', this.state.serviseApp[0].source_data_id)
-                sessionStorage.setItem('appName', this.state.serviseApp[0].res_name)
-                // 放请求
-            })
-        })
-    }
     // 注销登录
     exitUser = () => {
         sessionStorage.removeItem("user");
@@ -276,14 +263,26 @@ class Homepage extends Component {
             window.location.href = '/login'
         })
     }
-    componentWillMount(){
+    // 服务在线
+    serviesApp() {
+        axios.get('/contrast/appnames').then(res => {
+            this.setState({
+                serviesApp: res.data
+            }, () => {
+                sessionStorage.setItem('AppItemId', this.state.serviesApp[0].source_data_id)
+                sessionStorage.setItem('appName', this.state.serviesApp[0].res_name)
+                // 放请求
+            })
+        })
+    }
+    componentWillMount() {
         document.getElementById('root').scrollIntoView(true);
     }
     componentDidMount() {
         this.sourceAxios()
     }
     render() {
-        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId, serviseApp, serviseNet, footerIndex, sourcefooter, serviesfooter, appfooter, userfooter, businessfooter, businessData } = this.state;
+        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId,  footerIndex, sourcefooter, serviesfooter, appfooter, userfooter, businessfooter, businessData } = this.state;
         const sidebar = (<div className='showLeftCheck'>
             <div className='showLeftCont'>
                 <div className='loginCont'>
@@ -292,7 +291,7 @@ class Homepage extends Component {
                         window.location.href = '/my'
                     }}>
                         <div>
-                        <img src={headImg} alt="" />
+                            <img src={headImg} alt="" />
                         </div>
                     </div>
                     <span className='userName'>用户：{sessionStorage.getItem('userName')}</span>
@@ -325,7 +324,7 @@ class Homepage extends Component {
                         onOpenChange={this.onOpenChange}
                     >
                         <div className='homePageHeader'>
-                            <div><Icon type="ellipsis" onClick={this.onOpenChange} /></div>
+                            <div><img src={menuIcon} alt='' onClick={this.onOpenChange} /></div>
                             <div>{title}</div>
                             <div>
                                 <Icon type="search" style={{ marginRight: '16px' }} />
@@ -375,7 +374,6 @@ class Homepage extends Component {
                                         <div className='div5'><MyPage /></div> */}
                                         </div>
                         }
-
                         {
                             title === '资源注册状态' ?
                                 <ul className='footer'>
@@ -459,15 +457,17 @@ class Homepage extends Component {
                     </Drawer>
                 </div>
                 {/* 点击header'端到端'出现 */}
-                {
-                    leftIndex == 0 ? <div className='seleType'>
-                        <SourceType getTypeVal={this.getTypeVal.bind(this)} selectData={selectData} networkData={networkData}/>
-                    </div> : leftIndex == 1 ? <div className='seleType'>
-                        <AppType getTypeVal={this.getTypeVal.bind(this)} serviseApp={serviseApp} serviseNet={serviseNet}/>
-                    </div> : leftIndex == 2 ? <div className='seleType'>
-                        <BusinessType getTypeVal={this.getTypeVal.bind(this)}/>
-                    </div> : ''
-                }
+                <div className='seleType'>
+                    {
+                        leftIndex == 0 ?
+                            <SourceType getTypeVal={this.getTypeVal.bind(this)} selectData={selectData} networkData={networkData} />
+                            : leftIndex == 1 ?
+                                <AppType getTypeVal={this.getTypeVal.bind(this)}/>
+                                : leftIndex == 2 ?
+                                    <BusinessType getTypeVal={this.getTypeVal.bind(this)} />
+                                    : ''
+                    }
+                </div>
             </div>
         );
     }

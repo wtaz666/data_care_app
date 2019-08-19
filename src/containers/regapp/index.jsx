@@ -33,10 +33,6 @@ class RegApp extends Component {
         })
     }
     goHomePage = () =>{
-        // $('.bgBox').hide()
-        // $('.descBox').hide()
-        // $('.areaBox').hide()
-        // $('.regBtn').hide()
         $('.leadpage').show();
         $('.regpage').hide();
     }
@@ -78,7 +74,10 @@ class RegApp extends Component {
                         </div>
                     </div>
                     <div className='regBtn'>
-                        <Button type="primary" style={{ marginRight: '20px' }} className='goOutBtn'>跳过</Button>
+                        <Button type="primary" style={{ marginRight: '20px' }} className='goOutBtn' onClick={()=>{
+                            $('.leadpage').show();
+                            $('.regpage').hide();
+                        }}>跳过</Button>
                         <Button icon="arrow-right" className='okBtn' onClick={this.goHomePage}>确定</Button>
                     </div>
                 </div>
@@ -91,7 +90,7 @@ class RegApp extends Component {
                     </div>
                     <div className='regBtn'>
                         <Button icon="arrow-left" className='goOutBtn' onClick={()=>{
-                            window.location.href='/index'
+                            window.location.href='/regapp'
                         }}>返回上级</Button>
                         <Button icon="arrow-right" className='okBtn' onClick={()=>{
                             window.location.href='/index'
