@@ -1,0 +1,179 @@
+.businessAllPage, .applicationBox, .businessDtoD {
+  padding: 5px 10px;
+}
+
+.businessAllPage .contBlock, .applicationBox .contBlock, .businessDtoD .contBlock {
+  padding: 10px;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 10px;
+  height: 100px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.businessAllPage .contBlock .title, .applicationBox .contBlock .title, .businessDtoD .contBlock .title {
+  height: 24px;
+  line-height: 24px;
+  display: table-cell;
+}
+
+.businessAllPage .contBlock .title .icon, .applicationBox .contBlock .title .icon, .businessDtoD .contBlock .title .icon {
+  margin-right: 6px;
+  width: 20px;
+  height: 20px;
+}
+
+.businessAllPage .contBlock .title span, .applicationBox .contBlock .title span, .businessDtoD .contBlock .title span {
+  vertical-align: middle;
+}
+
+.businessAllPage .contBlock .flexStyle, .applicationBox .contBlock .flexStyle, .businessDtoD .contBlock .flexStyle {
+  height: 24px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.businessAllPage .contBlock .chartBox, .applicationBox .contBlock .chartBox, .businessDtoD .contBlock .chartBox {
+  width: 100%;
+  height: 5px;
+  background: #f0f0f0;
+}
+
+.businessAllPage .contBlock .chartBox div, .applicationBox .contBlock .chartBox div, .businessDtoD .contBlock .chartBox div {
+  height: 5px;
+  background: #397efd;
+}
+
+.businessAllPage .contBlock > ul, .applicationBox .contBlock > ul, .businessDtoD .contBlock > ul {
+  margin-top: 6px;
+  margin-left: 26px;
+}
+
+.businessAllPage .contBlock > ul > li, .applicationBox .contBlock > ul > li, .businessDtoD .contBlock > ul > li {
+  height: auto;
+}
+
+.businessAllPage .contBlock > ul > li .list_item, .applicationBox .contBlock > ul > li .list_item, .businessDtoD .contBlock > ul > li .list_item {
+  height: 20px;
+  line-height: 20px;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.businessAllPage .contBlock > ul > li .list_inner_box, .applicationBox .contBlock > ul > li .list_inner_box, .businessDtoD .contBlock > ul > li .list_inner_box {
+  background-color: #f0f0f0;
+  height: 5px;
+  position: relative;
+}
+
+.businessAllPage .contBlock > ul > li .list_inner_box .list_chart, .applicationBox .contBlock > ul > li .list_inner_box .list_chart, .businessDtoD .contBlock > ul > li .list_inner_box .list_chart {
+  height: 5px;
+}
+
+.businessAllPage .contBlock > ul > li .list_inner_box .list_chart:hover, .applicationBox .contBlock > ul > li .list_inner_box .list_chart:hover, .businessDtoD .contBlock > ul > li .list_inner_box .list_chart:hover {
+  height: 5px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  background: #397efd !important;
+}
+
+.businessAllPage .contBlock .menuList, .applicationBox .contBlock .menuList, .businessDtoD .contBlock .menuList {
+  display: flex;
+}
+
+.businessAllPage .contBlock .menuList li, .applicationBox .contBlock .menuList li, .businessDtoD .contBlock .menuList li {
+  flex: 1;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.businessAllPage .contBlock .menuList li .bg, .applicationBox .contBlock .menuList li .bg, .businessDtoD .contBlock .menuList li .bg {
+  color: #7cb0ff;
+}
+
+.businessAllPage .contBlock .menuList li:nth-child(1), .applicationBox .contBlock .menuList li:nth-child(1), .businessDtoD .contBlock .menuList li:nth-child(1) {
+  background: rgba(229, 229, 229, 0.23);
+  margin-right: 20px;
+  padding-left: 0;
+  border-left: 0;
+  position: relative;
+}
+
+.businessAllPage .contBlock .menuList li:nth-child(1) p, .applicationBox .contBlock .menuList li:nth-child(1) p, .businessDtoD .contBlock .menuList li:nth-child(1) p {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+.businessAllPage .contBlock .dashboard, .applicationBox .contBlock .dashboard, .businessDtoD .contBlock .dashboard {
+  position: absolute;
+  left: 50%;
+  margin-left: -43px;
+  top: 50%;
+  margin-top: -43px;
+}
+
+.businessAllPage .apdexCharts, .applicationBox .apdexCharts, .businessDtoD .apdexCharts {
+  position: relative;
+}
+
+.businessAllPage .apdexCharts .colorBlock, .applicationBox .apdexCharts .colorBlock, .businessDtoD .apdexCharts .colorBlock {
+  width: 12px;
+  height: 40px;
+  position: absolute;
+  left: 20px;
+  top: 0;
+  background: #EF651F;
+}
+
+.businessAllPage .apdexCharts .colorBlock li, .applicationBox .apdexCharts .colorBlock li, .businessDtoD .apdexCharts .colorBlock li {
+  font-size: 10px;
+}
+
+.businessAllPage .apdexCharts .colorBlock li:first-child, .applicationBox .apdexCharts .colorBlock li:first-child, .businessDtoD .apdexCharts .colorBlock li:first-child {
+  height: 6px;
+  background: #2AB06F;
+}
+
+.businessAllPage .apdexCharts .colorBlock li:nth-child(2), .applicationBox .apdexCharts .colorBlock li:nth-child(2), .businessDtoD .apdexCharts .colorBlock li:nth-child(2) {
+  height: 8px;
+  background: #6BCB8B;
+}
+
+.businessAllPage .apdexCharts .colorBlock li:nth-child(3), .applicationBox .apdexCharts .colorBlock li:nth-child(3), .businessDtoD .apdexCharts .colorBlock li:nth-child(3) {
+  height: 10px;
+  background: #FFE11C;
+}
+
+.businessDtoD {
+  padding: 0;
+}
+
+.businessDtoD .dTodTitle {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  color: #505050;
+  background-color: rgba(166, 166, 166, 0.16);
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.businessDtoD .dTodTitle span:first-child {
+  margin-right: 20px;
+}
+
+.businessDtoD .contBlock {
+  margin: 0 10px;
+}

@@ -1,7 +1,7 @@
 
 .sourceTitle{
     color: rgba(80, 80, 80, 1);
-	font-size: .14rem;
+	font-size: 14px;
 	line-height: 150%;
     text-align: left;
     // display: table-cell;
@@ -268,12 +268,35 @@
                         color: rgba(146, 146, 146, 1);
                     }
                 }
-                .active{
-                    
+                li:nth-child(1).active{
                     a{
                         background: linear-gradient(rgb(117,165,253) 0%, rgb(65,131,253) 100%);
                         span{
                             color:#fff;
+                        }
+                    }
+                }
+                li:nth-child(2).active{
+                    a{
+                        // background: linear-gradient(rgb(117,165,253) 0%, rgb(65,131,253) 100%);
+                        span{
+                            color:rgb(65,131,253);
+                        }
+                    }
+                }
+                li:nth-child(3).active{
+                    a{
+                        // background: linear-gradient(rgb(117,165,253) 0%, rgb(65,131,253) 100%);
+                        span{
+                            color:rgb(65,131,253);
+                        }
+                    }
+                }
+                li:nth-child(4).active{
+                    a{
+                        // background: linear-gradient(rgb(117,165,253) 0%, rgb(65,131,253) 100%);
+                        span{
+                            color:rgb(65,131,253);
                         }
                     }
                 }
@@ -294,7 +317,7 @@
                 box-sizing: border-box;
                 background: #fff;
                 margin-bottom: 10px;
-                height: 100px;
+                min-height: 100px;
                 border-radius: 4px;
                 .title{
                     height: 24px;
@@ -366,6 +389,66 @@
                         }
                     }
                 }
+                .sourceCont{
+                    font-size: 12px;
+                    li{
+                        p{
+                            display: flex;
+                            justify-content: space-between;
+                            span{
+                                width: 50px;
+                                text-align: left;
+                            }
+                            span:last-child{
+                                text-align: right;
+                            }
+                        }
+                        >div{
+                            background: #f0f0f0;
+                            height: 5px;
+                            >div{
+                                background: rgba(57, 126, 253, 1);
+                                height: 5px
+                            }
+                        }
+                    }
+                }
+                .xiangyinglv{
+                    padding: auto;
+                    display: inline-block;
+                    width: 100%;
+                    background-color: rgba(229, 229, 229, 0.2286);
+                    ul{
+                    display: flex;
+                    margin-top: 10px;
+                    }
+                    li{ 
+                    text-align: center;
+                    flex: 1;
+                    display: inline-block;
+                    font-size: 12px;
+                    span{
+                        color: rgba(57, 126, 253, 1);
+                        }
+                    }
+                }
+                .flexStyle{
+                    height: 24px;
+                    line-height: 24px;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 6px 0;
+                    font-size: 12px;
+                }
+                .chartBox{
+                    width: 100%;
+                    height: 5px;
+                    background: #f0f0f0;
+                    div{
+                        height: 5px;
+                        background: rgba(57, 126, 253, 1);
+                    }
+                }
             }
         }
         .serviseBlock1, .serviseBlock2, .serviseBlock3{
@@ -411,6 +494,39 @@
             background: #fff;
             display: flex;
             flex-direction: column;
+            .sourceAppBox,
+            .sourceNet,
+            .serviesAppBox,
+            .serviesNetBox{
+                display: none;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                li{
+                    height: 40px;
+                    line-height: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    span{
+                        display: inline-block;
+                        vertical-align: middle;
+                        padding-top: 8px;
+                    }
+                }
+            }
+            // {
+            //     display: none;
+            //     height: 44px;
+            //     line-height: 44px;
+            //     overflow:hidden;
+            //     text-overflow:ellipsis;
+            //     white-space:nowrap;
+            //     span{
+            //         display: inline-block;
+            //         vertical-align: middle;
+            //         margin-top: 4px;
+            //     }
+            // }
             .am-wingblank{
                 flex: 1;
                 height: 100%;
@@ -420,34 +536,47 @@
                     margin: 10px 0;
                 }
             }
-            .appBox,.serivesBox{
-                flex: 1;
-                overflow: auto;
-                display: none;
-                height: 100%;
-                font-size: 14px;
-                padding-bottom: 80px;
-                // margin-top: 4px;
-                li{
-                    height: 44px;
-                    line-height: 44px;
-                    border-bottom: 1px solid rgb(239, 239, 239);
-                    margin: 0 10px;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                    position: relative;
-                    padding-right: 24px;
-                    span{
-                        width: 22px;
-                        position: absolute;
-                        right: 0;
-                        top: 10px;
+           .appBox{
+                .am-list .am-list-item.am-checkbox-item{
+                    .am-list-thumb{
+                        width: 0;
+                        height: 0;
+                    }
+                } 
+                .am-checkbox-inner{
+                    top: 14px!important;
+                }
+                .am-list-line::after{
+                    height: 0;
+                }
+                .am-list-item{
+                    height: 32px;
+                    .am-list-thumb:first-child{
+                        margin-right: 5px;
                     }
                 }
-                .select{
-                    display: none;
+                .am-checkbox-inner{
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 0;
                 }
+                .am-checkbox-inner:after{
+                    top: 0;
+                    right: 4px;
+                }
+                .am-list-item .am-list-line .am-list-content{
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.65)
+                }
+            }
+            .serivesBox{
+                .ant-tree li{
+                    padding: 10px 0;
+                }
+            }
+            .appBox, .serivesBox{
+                overflow-y: auto;
+                margin-bottom: 60px;
             }
             .sourceSeleBtn{
                 display: flex;
@@ -471,13 +600,29 @@
     }
 }
 .fuWuDuan{
+    display: none;
+    height: 100%;   
     .am-tabs-default-bar-tab{
         font-size: 14px;
     }
     .am-tabs-default-bar-underline{
         border: transparent 1px solid;
     }
+    .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected,
+    .ant-tree li .ant-tree-node-content-wrapper:hover{
+        background: transparent;
+    }
 }
+.duanToduan{
+    display: none;
+}
+.clear_float::after{
+    /*只需要给浮动元素的父容器添加上这个类就可以了: clear_float*/
+    display: block;/*把::after设置成块级元素*/
+    content: "";/*想让伪类起作用, 必须添加这个属性*/
+    clear: both;
+}
+
 a:hover,
 a:active,
 a:link,

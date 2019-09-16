@@ -3,7 +3,7 @@
   overflow-y: auto;
 }
 
-.myPage .loginCont {
+.myPage .myCont .loginCont {
   height: 205px;
   background: url("../../images/login_bg.png") no-repeat;
   background-size: 100% 100%;
@@ -12,12 +12,12 @@
   color: #fff;
 }
 
-.myPage .loginCont .headImg {
+.myPage .myCont .loginCont .headImg {
   width: 100%;
   border-radius: 50%;
 }
 
-.myPage .loginCont .headImg div {
+.myPage .myCont .loginCont .headImg div {
   width: 80px;
   height: 80px;
   position: absolute;
@@ -26,37 +26,36 @@
   border-radius: 50%;
 }
 
-.myPage .loginCont .headImg div img {
+.myPage .myCont .loginCont .headImg div img {
   width: 100%;
   height: 100%;
 }
 
-.myPage .loginCont .userName {
+.myPage .myCont .loginCont .userName {
   position: absolute;
   bottom: 48px;
 }
 
-.myPage .loginCont .infoStatus {
+.myPage .myCont .loginCont .infoStatus {
   position: absolute;
   bottom: 24px;
 }
 
-.myPage .loginCont .userName, .myPage .loginCont .infoStatus {
+.myPage .myCont .loginCont .userName, .myPage .myCont .loginCont .infoStatus {
   width: 100%;
   text-align: center;
 }
 
-.myPage .list {
+.myPage .myCont .list {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
 }
 
-.myPage .list li {
+.myPage .myCont .list li {
   width: 100%;
   height: 48px;
-  top: 254px;
   color: #505050;
   background-color: white;
   font-size: 13px;
@@ -67,17 +66,75 @@
   justify-content: space-between;
 }
 
-.myPage .list li > div {
+.myPage .myCont .list li > div {
   width: auto;
   height: auto;
 }
 
-.myPage .list li > div > span {
+.myPage .myCont .list li > div > span {
   color: #a6a6a6;
 }
 
-.myPage .list li > div .icon {
-  width: 5px;
-  height: auto;
-  margin-left: 5px;
+.myPage .myCont .list li > div .am-icon {
+  vertical-align: middle;
+}
+
+.myPage .user {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.myPage .user .userHeader {
+  width: 100%;
+  position: relative;
+  display: flex;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 0.5px 1px 0px rgba(177, 177, 177, 0.2);
+}
+
+.myPage .user .userHeader .am-icon {
+  margin-top: 10px;
+}
+
+.myPage .user .userHeader .title {
+  width: 100px;
+  height: 42px;
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -21px;
+  font-size: 16px;
+  color: #2d2d2d;
+}
+
+.myPage .user .userList {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.myPage .user .userList > li {
+  height: 55px;
+  line-height: 55px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.myPage .user .userList > li img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.myPage .user .userList > li span {
+  vertical-align: middle;
+  color: #505050;
 }

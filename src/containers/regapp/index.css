@@ -134,6 +134,8 @@
 
 .regBox .leadpage .regBtn .goOutBtn {
   margin-right: 10px;
+  background: #397efd;
+  padding: 0;
 }
 
 .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled),

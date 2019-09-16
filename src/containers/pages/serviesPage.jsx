@@ -4,7 +4,7 @@ import $ from 'jquery';
 import axios from 'axios';
 import listIcon from 'images/applistIcon.svg';
 import AppTabs from 'components/tabs/serviesTab/apptab';
-// import NetTabs from 'components/tabs/serviesTab/nettab';
+import NetTabs from 'components/tabs/serviesTab/serviesNet';
 
 class Index extends Component {
     constructor(props) {
@@ -40,7 +40,6 @@ class Index extends Component {
             }
         }).then(res => {
             var list = res.data.hostList.map((item) => {
-                    console.log(item.hostName == sessionStorage.getItem('netName'),item.hostName, sessionStorage.getItem('netName'))
                 if (item.hostName == sessionStorage.getItem('netName')) {
                     return item;
                 }
@@ -50,7 +49,7 @@ class Index extends Component {
             })
         })
     }
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceiveProps() {
         this.getNetBar();
         this.getAppBar();
     }
@@ -61,11 +60,10 @@ class Index extends Component {
                 this.props && typeVal == 0 ?
                     <div className='applicationBox'>
                         <div className='contBlock' onClick={() => {
-                            $('.serviseBlock2').show();
+                            $('.serviseBlock2').css({ display: 'flex', flexDirection: 'column' });
                             $('.homePageHeader').hide();
                             $('.footer').hide();
                             $('.applicationBox').hide();
-                            // this.appAxios();
                         }}>
                             <div className='title'>
                                 <img src={listIcon} alt='' className='icon' />
@@ -73,18 +71,28 @@ class Index extends Component {
                             </div>
                             <ul>
                                 {
-                                    this.state.appBar.map((k, y) => {
-                                        return k && k !== 'undefined' ? <li key={y} >
-                                            <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%' }}>
-                                                <div className="fl">在线时长</div>
-                                                <div className="fr">{k.showValue}</div>
-                                            </div>
-                                            <div className="list_inner_box">
-                                                <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                    this.state.appBar.filter(item => item).length > 0
+                                        ?this.state.appBar.map((k, y) => {
+                                            return k && k !== 'undefined' ? <li key={y} >
+                                                <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%' }}>
+                                                    <div className="fl">在线时长</div>
+                                                    <div className="fr">{k.showValue}</div>
                                                 </div>
-                                            </div>
-                                        </li> : ''
-                                    })
+                                                <div className="list_inner_box">
+                                                    <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                                : ''
+                                        }) 
+                                        : <li>
+                                        <div className="list_item">
+                                            <div className="fl">在线时长</div>
+                                            <div className="fr">0</div>
+                                        </div>
+                                        <div className="list_inner_box">
+                                        </div>
+                                    </li>
                                 }
                             </ul>
                         </div>
@@ -92,7 +100,7 @@ class Index extends Component {
                     : this.props && typeVal == 1 ?
                         <div className='networkBox'>
                             <div className='contBlock' onClick={() => {
-                                $('.serviseBlock3').show();
+                                $('.serviseBlock3').css({ display: 'flex', flexDirection: 'column' });
                                 $('.homePageHeader').hide();
                                 $('.footer').hide();
                                 $('.serviseBox').hide();
@@ -122,11 +130,11 @@ class Index extends Component {
             {
                 this.props && typeVal == 0 ?
                     <div className='serviseBlock2'>
-                        <AppTabs AppItemId={AppItemId} selectData={selectData} type={1} />
+                        <AppTabs AppItemId={AppItemId} selectData={selectData} />
                     </div>
                     : this.props && typeVal == 1 ?
                         <div className='serviseBlock3'>
-                            {/* <NetTabs NetItemId={NetItemId} serviesNet={serviesNet} type={1} /> */}
+                            <NetTabs NetItemId={NetItemId} serviesNet={serviesNet} />
                         </div> : ''
             }
         </div>);

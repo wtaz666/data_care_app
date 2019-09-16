@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import 'containers/home/index.scss'
 import { Button, WingBlank, SegmentedControl, Icon } from 'antd-mobile';
 
 class SourceType extends Component {
@@ -17,16 +18,16 @@ class SourceType extends Component {
     }
     seleChange = (e) => {
         if (e === '服务器') {
-            $('.serivesBox').show();
-            $('.appBox').hide();
+            $('.sourceNet').show();
+            $('.sourceAppBox').hide();
             $('.sourceSeleBtn').attr('value', 2)
         } else if (e === '业务系统') {
-            $('.serivesBox').hide();
-            $('.appBox').show();
+            $('.sourceNet').hide();
+            $('.sourceAppBox').show();
             $('.sourceSeleBtn').attr('value', 1)
         } else {
-            $('.serivesBox').hide();
-            $('.appBox').hide();
+            $('.sourceNet').hide();
+            $('.sourceAppBox').hide();
             $('.sourceSeleBtn').attr('value', 0)
         }
     }
@@ -53,7 +54,7 @@ class SourceType extends Component {
             <WingBlank size="lg" className="sc-example">
                 <h4 className='sourceTitle'>空间选择</h4>
                 <SegmentedControl selectedIndex={ind * 1} values={['资源', '业务系统', '服务器']} onValueChange={this.seleChange} />
-                <ul className='appBox'>
+                <ul className='sourceAppBox'>
                     {
                         selectData.map((item, index) => {
                             return <li key={index} onClick={() => this.clickApp(index, item.id, item.name)}>
@@ -65,7 +66,7 @@ class SourceType extends Component {
                         })
                     }
                 </ul>
-                <ul className='serivesBox'>
+                <ul className='sourceNet'>
                     {
                         networkData.map((item, index) => {
                             return <li key={index} onClick={() => this.clickNet(index, item.id, item.name)}>

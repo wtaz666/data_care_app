@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-touch-callout:none;
+    /* -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none; */
+}
+html, body, #root, .App{
+    width: 100%;
+    height: 100%;
+}
+
+html{
+    font-size: 100px;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    overflow: hidden;
+}
+.clear_float::after{
+    /*只需要给浮动元素的父容器添加上这个类就可以了: clear_float*/
+    display: block;/*把::after设置成块级元素*/
+    content: "";/*想让伪类起作用, 必须添加这个属性*/
+    clear: both;
+}
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled){
+    background-color: rgba(229, 229, 229, 1) !important;
+    color: rgba(80, 80, 80, 1);
+}
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+    background-color: rgba(229, 229, 229, 1) !important;
+    color: rgba(80, 80, 80, 1);
+}
+//抽屉样式
+.ant-drawer-content{
+    .ant-drawer-body{
+        padding: 5px ;
+        height:100%;
+        position: relative;
+        p{
+            width: 100%;
+            height: 21px;
+            color: rgba(80, 80, 80, 1);
+            font-size: 14px;
+            line-height: 21px;
+            text-align: left;
+            margin-left: 18px;
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+        .drawerTitle{
+            margin-top: -1PX;
+            padding: 0;
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            display: flex;
+            background: #fff;
+            padding: 0 5px;
+            border-bottom: 1px solid #f2f2f2;
+            div:first-child{
+                padding-top: 5px;
+            }
+            div:nth-child(2) {
+                flex: 1;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+        .color-box{
+            ul{
+                margin-left: 18px;
+                li{ 
+                    margin-top: 23px;
+                    width: 50%;
+                    float: left;
+                    display: flex; 
+                    p{
+                    margin-left: 10px;
+                    margin-top: 0px;
+                    height: 18px;
+                    color: rgba(80, 80, 80, 1);
+                    font-size: 12px;
+                    }
+                    .smallbox{
+                    padding: 0;
+                    display:block;
+                    height:24px ;
+                    width:31px ;
+                    }
+                }
+            }
+        }
+        .sourceSeleBtn{
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            display: flex;
+            left:-1px;
+            // margin: 10px;
+            .ant-btn{
+                flex:1;
+                font-size: 15px;
+            }
+            .ant-btn:hover, .ant-btn:focus{
+                color: rgba(80, 80, 80, 1);
+                border-color: rgba(229, 229, 229, 1);
+            }
+            .ant-btn:first-child{
+                background: rgba(229, 229, 229, 1);
+                border-radius: 0;
+            }
+            .ant-btn:last-child{
+                color: rgba(255, 255, 255, 1);
+                background: rgba(57, 126, 253, 1);
+                border-radius: 0;
+            }
+        }
+        .inputGroup{
+            width: 100%;
+            .ant-input-group.ant-input-group-compact{
+                width: 100%;
+                }
+           .ant-input-group {
+               .ant-select {
+                 .ant-select-selection {
+                     background-color: rgba(229, 229, 229, 1) !important;
+                     width: 90px;
+                     flex: 1;
+                     font-size: 12px;
+                     margin-left: 18px;
+                     height: 30px;
+                     margin-top: 13px;
+                     border-radius: 15px !important;
+                 }
+               }
+           }
+           .ant-select-selection{
+            border: 1px solid transparent;
+           }
+           .ant-select-selection:hover {
+                border-color: transparent;
+            }
+           .ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active{
+                -webkit-box-shadow: 0 0 0 2px transparent;
+                box-shadow: 0 0 0 2px transparent;
+                flex:1;
+            }
+        }
+    }
+}

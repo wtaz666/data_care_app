@@ -32,7 +32,7 @@ class RegApp extends Component {
             })
         })
     }
-    goHomePage = () =>{
+    goHomePage = () => {
         $('.leadpage').show();
         $('.regpage').hide();
     }
@@ -50,7 +50,14 @@ class RegApp extends Component {
                         <p>为了给您提供个性化的建议并计算您的数据，我们需要了解您经常需要查看的内容。</p>
                     </div>
                     <div className='areaBox'>
-                        <p>您经常查看的<span>空间区域</span></p>
+                        <Select defaultValue="请选择中心或节点" style={{ width: '100%', marginTop: '37px', marginBottom: '72px' }} notFoundContent='无数据'>
+                            {
+                                nodeList.length > 0 && nodeList.map((item, index) => {
+                                    return <Select.Option key={index} id={item.id}>{item.name}</Select.Option>
+                                })
+                            }
+                        </Select>
+                        {/* <p>您经常查看的<span>空间区域</span></p>
                         <div>
                             <SegmentedControl selectedIndex={0} values={['全局', '服务端', '端到端']} onValueChange={this.showBox} />
                             <div className='nodeToApp'>
@@ -70,18 +77,19 @@ class RegApp extends Component {
                                         })
                                     }
                                 </Select>
+                                
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='regBtn'>
-                        <Button type="primary" style={{ marginRight: '20px' }} className='goOutBtn' onClick={()=>{
+                        <Button type="primary" style={{ marginRight: '20px' }} className='goOutBtn' onClick={() => {
                             $('.leadpage').show();
                             $('.regpage').hide();
                         }}>跳过</Button>
                         <Button icon="arrow-right" className='okBtn' onClick={this.goHomePage}>确定</Button>
                     </div>
                 </div>
-                
+
                 <div className='leadpage'>
                     <div className='bgBox'></div>
                     <div className='descBox'>
@@ -89,11 +97,11 @@ class RegApp extends Component {
                         <p>现在，业务程序为您量身定制，准备好开始使用DATACARE吧！</p>
                     </div>
                     <div className='regBtn'>
-                        <Button icon="arrow-left" className='goOutBtn' onClick={()=>{
-                            window.location.href='/regapp'
-                        }}>返回上级</Button>
-                        <Button icon="arrow-right" className='okBtn' onClick={()=>{
-                            window.location.href='/index'
+                        <Button icon="arrow-left" className='goOutBtn' onClick={() => {
+                            window.location.href = '/regapp'
+                        }}>重新定制</Button>
+                        <Button icon="arrow-right" className='okBtn' onClick={() => {
+                            window.location.href = '/index'
                         }}>开始使用</Button>
                     </div>
                 </div>

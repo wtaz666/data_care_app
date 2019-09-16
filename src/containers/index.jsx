@@ -5,13 +5,19 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Home from 'containers/home';
 import Event from 'containers/event';
+import Inform from 'containers/inform';
+import Alarm from 'containers/alarm';
 import headImg from 'images/headImg.png';
 import menuIcon from 'images/menu.svg'
 import SerivePage from 'containers/pages/serviesPage.jsx'
 import BusinessPage from 'containers/pages/businessPage.jsx'
+import AppHandlePage from 'containers/pages/appHandlePage.jsx'; // 应用处理能力  
+import ExperiencePage from 'containers/pages/experiencePage.jsx'; // 应用处理能力  
 import SourceType from '../components/selectType/sourceType';
 import AppType from '../components/selectType/appType';
 import BusinessType from '../components/selectType/businessType';
+import AppHandleType from '../components/selectType/appHandlePro'
+import ExperienceType from '../components/selectType/experienceType'
 
 // leftIcons
 import sourceNor from '../images/leftIcons/source_normal.svg';
@@ -57,11 +63,11 @@ class Homepage extends Component {
                 }, {
                     img: appNor,
                     clickImg: appClick,
-                    name: '应用处理性能'
+                    name: '应用处理能力'
                 }, {
                     img: userNor,
                     clickImg: userClick,
-                    name: '客户体验'
+                    name: '用户体验'
                 }, {
                     img: elseNor,
                     clickImg: elseClick,
@@ -149,7 +155,9 @@ class Homepage extends Component {
             networkData: [],
             kpiId: null,
             footerIndex: 0,
-            businessData: []
+            businessData: [],
+            threeStatus: [],
+            // pickerTime: ''
         }
     }
     tabFoot = (i, e) => {
@@ -184,19 +192,25 @@ class Homepage extends Component {
         }
     }
     tabTitle = (title, i) => {
-        this.setState({
-            title,
-            leftIndex: i,
-            typeVal: 0,
-            ind: 0,
-            open: !this.state.open
-        }, () => {
-            if (this.state.leftIndex == 0) {
-                this.sourceAxios();
-            }if (this.state.leftIndex == 1) {
-                this.serviesApp();
-            }
-        })
+        if (i !== 5) {
+            sessionStorage.setItem('leftIndexID', i)
+            this.setState({
+                title,
+                leftIndex: i,
+                typeVal: 0,
+                ind: 0,
+                open: !this.state.open
+            }, () => {
+                if (this.state.leftIndex == 0) {
+                    this.sourceAxios();
+                } else if (this.state.leftIndex == 1) {
+                    this.serviesApp();
+                } else if (this.state.leftIndex == 3) {
+                    this.getDashed();
+                }
+            })
+        }
+
     }
     onOpenChange = () => {
         this.setState({ open: !this.state.open });
@@ -206,13 +220,14 @@ class Homepage extends Component {
             typeVal: res.typeVal,
             AppItemId: res.AppItemId,
             NetItemId: res.NetItemId,
+            businessType: res.businessType,
         })
     }
     // 资源接口
     sourceAxios() {
         axios.get('/kpiDing/resourceAppTableSort', {
             params: {
-                timeStart: this.state.pickerTime,
+                timeId: this.state.pickerTime,
                 isUp: 0,
                 kpiId: this.state.kpiId,
                 pageNum: this.state.pageNum,
@@ -233,7 +248,7 @@ class Homepage extends Component {
 
         axios.get('/kpiDing/resourceHostTableSort', {
             params: {
-                timeStart: this.state.pickerTime,
+                timeId: this.state.pickerTime,
                 isUp: 0,
                 kpiId: this.state.kpiId,
                 pageNum: this.state.pageNum,
@@ -275,14 +290,22 @@ class Homepage extends Component {
             })
         })
     }
-    componentWillMount() {
+    // 响应率 响应时延 业务系统稳定性
+    getDashed() {
+        axios.get('/ScreenMonitor/responseRateResponseDelayStability').then(res => {
+            this.setState({
+                threeStatus: res.data
+            })
+        });
+    }
+    UNSAFE_componentWillMount() {
         document.getElementById('root').scrollIntoView(true);
     }
     componentDidMount() {
         this.sourceAxios()
     }
     render() {
-        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId,  footerIndex, sourcefooter, serviesfooter, appfooter, userfooter, businessfooter, businessData } = this.state;
+        const { leftList, title, open, leftIndex, typeVal, selectData, networkData, AppItemId, NetItemId, footerIndex, sourcefooter, serviesfooter, appfooter, userfooter, businessfooter, businessData, threeStatus } = this.state;
         const sidebar = (<div className='showLeftCheck'>
             <div className='showLeftCont'>
                 <div className='loginCont'>
@@ -340,46 +363,61 @@ class Homepage extends Component {
                                     {
                                         leftIndex === 2 ? typeVal == 0 ? '全局' : typeVal == 1 ? '服务端' : '端到端' : ''
                                     }
+                                    {
+                                        leftIndex === 3 ? typeVal == 0 ? '全局' : '服务端' : ''
+                                    }
+                                    {
+                                        leftIndex === 4 ? typeVal == 0 ? '全局' : typeVal == 1 ? '服务端' : '端到端' : ''
+                                    }
                                 </Button>
                             </div>
                         </div>
                         {
                             leftIndex == 0 ? <div className='pageCont'>
                                 <div className='div1'><Home typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} selectData={selectData} networkData={networkData} /></div>
-                                {/* <div className='div2'><Event /></div>
-                                <div className='div3'><Inform /></div>
-                                <div className='div4'><Alarm /></div>
-                                <div className='div5'><MyPage /></div> */}
                             </div>
                                 : leftIndex == 1 ? <div className='pageCont'>
                                     <div className='div1'><SerivePage typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} selectData={selectData} networkData={networkData} /></div>
-                                    {/* <div className='div2'><Event /></div>
-                                    <div className='div3'><Inform /></div>
-                                    <div className='div4'><Alarm /></div>
-                                    <div className='div5'><MyPage /></div> */}
                                 </div>
                                     : leftIndex == 2 ? <div className='pageCont'>
-                                        <div className='div1'><BusinessPage typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} businessData={businessData}
-                                        /></div>
-                                        <div className='div2'><Event /></div>
-                                        {/* <div className='div3'><Inform /></div>
-                                <div className='div4'><Alarm /></div>
-                                <div className='div5'><MyPage /></div> */}
-                                    </div>
-                                        : <div className='pageCont'>
-                                            <div className='div1'><Home typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} selectData={selectData} networkData={networkData} /></div>
-                                            {/* <div className='div2'><Event /></div>
-                                        <div className='div3'><Inform /></div>
+                                        <div className='div1'><BusinessPage typeVal={typeVal} /></div>
+                                        <div className='div2'><Event BusinessType={this.state.businessType} ref={r => this.child = r} /></div>
+                                        <div className='div3'><Inform LeftIndex={leftIndex} /></div>
                                         <div className='div4'><Alarm /></div>
-                                        <div className='div5'><MyPage /></div> */}
+                                    </div>
+                                        : leftIndex == 3 ? <div className='pageCont'>
+                                            <div className='div1'>
+                                                <AppHandlePage typeVal={typeVal} threeStatus={threeStatus} />
+                                            </div>
+                                            <div className='div2'><Event BusinessType={this.state.businessType} ref={r => this.child = r} /></div>
+                                            <div className='div3'><Inform LeftIndex={leftIndex} /></div>
+                                            <div className='div4'><Alarm /></div>
                                         </div>
+                                            : leftIndex == 4 ? <div className='pageCont'>
+                                                <div className='div1'>
+                                                    <ExperiencePage typeVal={typeVal} />
+                                                </div>
+                                                <div className='div2'><Event BusinessType={this.state.businessType} ref={r => this.child = r} /></div>
+                                                <div className='div3'><Inform LeftIndex={leftIndex} /></div>
+                                                <div className='div4'><Alarm /></div>
+                                            </div>
+                                                : ''
+                            // <div className='pageCont'>
+                            //     <div className='div1'>
+                            //         <Home typeVal={typeVal} AppItemId={AppItemId} NetItemId={NetItemId} selectData={selectData} networkData={networkData} />
+                            //     </div>
+                            //     <div className='div2'><Event /></div>
+                            //     <div className='div3'><Inform /></div>
+                            //     <div className='div4'><Alarm /></div>
+                            //     <div className='div5'><MyPage /></div> 
+                            // </div>
                         }
                         {
                             title === '资源注册状态' ?
                                 <ul className='footer'>
                                     {
                                         sourcefooter.map((item, index) => {
-                                            return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index} style={{ marginLeft: 'calc(50% - 37px)' }}>
+                                            return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? 'active' : ''} key={index} style={{ marginLeft: 'calc(50% - 37px)' }}>
                                                 <Link to='/index' style={{ marginLeft: 0 }}>
                                                     <div>
                                                         {
@@ -434,26 +472,63 @@ class Homepage extends Component {
                                                 })
                                             }
                                         </ul>
-                                        : <ul className='footer'>
-                                            {
-                                                userfooter.map((item, index) => {
-                                                    return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
-                                                        <Link to='/index'>
-                                                            <div>
-                                                                {
-                                                                    index == footerIndex
-                                                                        ? <img src={item.clickImg} alt='图片不见了' />
-                                                                        : <img src={item.img} alt='图片不见了' />
-                                                                }
-                                                            </div>
-                                                            <span>{item.name}</span>
-                                                        </Link>
-                                                    </li>
-                                                })
-                                            }
-                                        </ul>
+                                        : title === '应用处理能力' ?
+                                            <ul className='footer'>
+                                                {
+                                                    appfooter.map((item, index) => {
+                                                        return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
+                                                            <Link to='/index'>
+                                                                <div>
+                                                                    {
+                                                                        index == footerIndex
+                                                                            ? <img src={item.clickImg} alt='图片不见了' />
+                                                                            : <img src={item.img} alt='图片不见了' />
+                                                                    }
+                                                                </div>
+                                                                <span>{item.name}</span>
+                                                            </Link>
+                                                        </li>
+                                                    })
+                                                }
+                                            </ul>
+                                            : title === '用户体验' ?
+                                                <ul className='footer'>
+                                                    {
+                                                        userfooter.map((item, index) => {
+                                                            return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
+                                                                <Link to='/index'>
+                                                                    <div>
+                                                                        {
+                                                                            index == footerIndex
+                                                                                ? <img src={item.clickImg} alt='图片不见了' />
+                                                                                : <img src={item.img} alt='图片不见了' />
+                                                                        }
+                                                                    </div>
+                                                                    <span>{item.name}</span>
+                                                                </Link>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
+                                                : <ul className='footer'>
+                                                    {
+                                                        userfooter.map((item, index) => {
+                                                            return <li onClick={() => this.tabFoot(index)} className={index == footerIndex ? ' active' : ''} key={index}>
+                                                                <Link to='/index'>
+                                                                    <div>
+                                                                        {
+                                                                            index == footerIndex
+                                                                                ? <img src={item.clickImg} alt='图片不见了' />
+                                                                                : <img src={item.img} alt='图片不见了' />
+                                                                        }
+                                                                    </div>
+                                                                    <span>{item.name}</span>
+                                                                </Link>
+                                                            </li>
+                                                        })
+                                                    }
+                                                </ul>
                         }
-
                     </Drawer>
                 </div>
                 {/* 点击header'端到端'出现 */}
@@ -462,10 +537,14 @@ class Homepage extends Component {
                         leftIndex == 0 ?
                             <SourceType getTypeVal={this.getTypeVal.bind(this)} selectData={selectData} networkData={networkData} />
                             : leftIndex == 1 ?
-                                <AppType getTypeVal={this.getTypeVal.bind(this)}/>
+                                <AppType getTypeVal={this.getTypeVal.bind(this)} />
                                 : leftIndex == 2 ?
                                     <BusinessType getTypeVal={this.getTypeVal.bind(this)} />
-                                    : ''
+                                    : leftIndex == 3 ?
+                                        <AppHandleType getTypeVal={this.getTypeVal.bind(this)} />
+                                        : leftIndex == 4 ?
+                                            <ExperienceType getTypeVal={this.getTypeVal.bind(this)} />
+                                            : ''
                     }
                 </div>
             </div>

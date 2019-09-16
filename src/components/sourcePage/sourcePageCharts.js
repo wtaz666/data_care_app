@@ -10,7 +10,7 @@ class EventPageCharts extends Component {
                     option={
                         {
                             title: {
-                                text: '所有\n100%',
+                                text: '全局\n100%',
                                 left: 'center',
                                 top: '45%',
                                 textStyle: {
@@ -115,10 +115,10 @@ class EventPageCharts extends Component {
                 />
             </div>
             <ul className='zhanbigrid'>
-                <li><b></b>优秀<span>{data[0] ? data[0].width + '%' : ''}</span></li>
-                <li><b></b>良好<span>{data[1] ? data[1].width + '%' : ''}</span></li>
-                <li><b></b>一般<span>{data[2] ? data[2].width + '%' : ''}</span></li>
-                <li><b></b>较差<span>{data[3] ? data[3].width + '%' : ''}</span></li>
+                <li><b></b>{data[0] ? data[0].name : ''}<span>{data[0] ? data[0].width + '%' : ''}</span></li>
+                <li><b></b>{data[1] ? data[1].name : ''}<span>{data[1] ? data[1].width + '%' : ''}</span></li>
+                <li><b></b>{data[2] ? data[2].name : ''}<span>{data[2] ? data[2].width + '%' : ''}</span></li>
+                <li><b></b>{data[3] ? data[3].name : ''}<span>{data[3] ? data[3].width + '%' : ''}</span></li>
             </ul>
         </div>
         );

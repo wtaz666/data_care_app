@@ -12,7 +12,11 @@ class Index extends Component {
         super(props);
         this.state = {
             appBar: [],
-            netBar: []
+            netBar: [],
+            allCount: 0,
+            allData: [],
+            appFlag: false,
+            netFlag: false
         }
     }
     appAxios() {
@@ -51,17 +55,26 @@ class Index extends Component {
                 isUp: true
             }
         }).then(res => {
-            var list = res.data.appList.map((item) => {
-                if (item.name.split('. ')[1] == sessionStorage.getItem('appName')) {
-                    return item;
-                }
-            })
-            this.setState({
-                appBar: list
-            })
+            if (res.data.appList && res.data.appList.length > 0) {
+                var list = res.data.appList.map((item) => {
+                    if (item.name.split('. ')[1] == sessionStorage.getItem('appName')) {
+                        return item;
+                    }
+                })
+                list.map((i)=>{
+                    if(i){
+                        this.setState({
+                            appFlag: true
+                        })
+                    }
+                })
+                this.setState({
+                    appBar: list
+                })
+            }
         })
     }
-    getNetBar(){
+    getNetBar() {
         axios.get('/kpiDing/resourceHostAhdexSort', {
             params: {
                 // webTimeType: this.state.nowTimeData !== '任选时段' ? null : this.state.time,
@@ -79,33 +92,74 @@ class Index extends Component {
                         return item;
                     }
                 })
+                list.map((i)=>{
+                    if(i){
+                        this.setState({
+                            netFlag: true
+                        })
+                    }
+                })
                 this.setState({
                     netBar: list
                 })
             }
         })
     }
-    componentWillReceiveProps(state) {
+    sourceAllData() {
+        axios.get('/kpiDing/resourceGetAllCount').then(res => {
+            this.setState({
+                allData: res.data.res,
+                allCount: res.data.allCount
+            })
+        })
+    }
+    UNSAFE_componentWillReceiveProps(state) {
         this.getNetBar();
         this.getAppBar();
     }
+    componentDidMount() {
+        this.sourceAllData();
+    }
     render() {
+        const { allCount, allData, appFlag, netFlag } = this.state;
         const { typeVal, AppItemId, NetItemId, selectData, networkData } = this.props;
         return (<div className='dynamicPage'>
             {
                 this.props && typeVal == 0 ?
                     <div className='serviseBox'>
                         <div className='contBlock' onClick={() => {
-                            $('.serviseBlock1').show();
+                            $('.serviseBlock1').css({ display: 'flex', flexDirection: 'column' });
                             $('.homePageHeader').hide();
                             $('.footer').hide();
                             $('.serviseBox').hide();
-                        }}>全局资源1</div>
+                        }}>
+                            <div className='title'>
+                                <img src={listIcon} alt='' className='icon' />
+                                <span>资源总数：{allCount}</span>
+                            </div>
+                            <ul className='sourceCont'>
+                                {
+                                    allData.map((item, ind) => {
+                                        return item.width > 0 ? <li key={ind}>
+                                            <p>
+                                                <span>{item.name}</span>
+                                                <span>{item.width}(%)</span>
+                                            </p>
+                                            <div>
+                                                <div style={{ width: item.width + '%' }}>
+                                                </div>
+                                            </div>
+                                        </li> : ''
+                                    })
+                                }
+
+                            </ul>
+                        </div>
                     </div>
                     : this.props && typeVal == 1 ?
                         <div className='applicationBox'>
                             <div className='contBlock' onClick={() => {
-                                $('.serviseBlock2').show();
+                                $('.serviseBlock2').css({ display: 'flex', flexDirection: 'column' });
                                 $('.homePageHeader').hide();
                                 $('.footer').hide();
                                 $('.applicationBox').hide();
@@ -117,18 +171,28 @@ class Index extends Component {
                                 </div>
                                 <ul>
                                     {
-                                        this.state.appBar.map((k, y) => {
-                                            return k && k !== 'undefined' ? <li className="clearfix" key={y} >
-                                                <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%'}}>
-                                                    <div className="fl">综合健康指数</div>
-                                                    <div className="fr">{k.showValue}</div>
+                                        !appFlag ? <li className="clearfix">
+                                            <div className="list_item">
+                                                <div className="fl">综合健康指数</div>
+                                                <div className="fr">0</div>
+                                            </div>
+                                            <div className="list_inner_box">
+                                                <div className="list_chart">
                                                 </div>
-                                                <div className="list_inner_box">
-                                                    <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                            </div>
+                                        </li>
+                                            : this.state.appBar.map((k, y) => {
+                                                return k && k !== 'undefined' ? <li className="clearfix" key={y} >
+                                                    <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%' }}>
+                                                        <div className="fl">综合健康指数</div>
+                                                        <div className="fr">{k.showValue}</div>
                                                     </div>
-                                                </div>
-                                            </li> : ''
-                                        })
+                                                    <div className="list_inner_box">
+                                                        <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                        </div>
+                                                    </div>
+                                                </li> : ''
+                                            })
                                     }
                                 </ul>
                             </div>
@@ -136,7 +200,7 @@ class Index extends Component {
                         : this.props && typeVal == 2 ?
                             <div className='networkBox'>
                                 <div className='contBlock' onClick={() => {
-                                    $('.serviseBlock3').show();
+                                    $('.serviseBlock3').css({ display: 'flex', flexDirection: 'column' });
                                     $('.homePageHeader').hide();
                                     $('.footer').hide();
                                     $('.serviseBox').hide();
@@ -148,21 +212,31 @@ class Index extends Component {
                                         <span>{sessionStorage.getItem('netName')}</span>
                                     </div>
                                     <ul>
-                                    {
-                                        this.state.netBar.map((k, y) => {
-                                            return k && k !== 'undefined' ? <li className="clearfix" key={y} >
-                                                <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%'}}>
+                                        {
+                                            !netFlag ? <li className="clearfix">
+                                                <div className="list_item">
                                                     <div className="fl">综合健康指数</div>
-                                                    <div className="fr">{k.showValue}</div>
+                                                    <div className="fr">0</div>
                                                 </div>
                                                 <div className="list_inner_box">
-                                                    <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                    <div className="list_chart">
                                                     </div>
                                                 </div>
-                                            </li> : ''
-                                        })
-                                    }
-                                </ul>
+                                            </li>
+                                                : this.state.netBar.map((k, y) => {
+                                                    return k && k !== 'undefined' ? <li className="clearfix" key={y} >
+                                                        <div className="list_item" style={{ width: k.zhanbi > 50 ? (k.zhanbi) + '%' : '100%' }}>
+                                                            <div className="fl">综合健康指数</div>
+                                                            <div className="fr">{k.showValue}</div>
+                                                        </div>
+                                                        <div className="list_inner_box">
+                                                            <div className="list_chart" style={{ width: k.zhanbi > 0 ? (k.zhanbi) + '%' : '0.01%', background: 'rgb(157, 174, 255)' }}>
+                                                            </div>
+                                                        </div>
+                                                    </li> : ''
+                                                })
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                             : ''

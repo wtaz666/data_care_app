@@ -1,6 +1,7 @@
+@charset "UTF-8";
 .sourceTitle {
   color: #505050;
-  font-size: .14rem;
+  font-size: 14px;
   line-height: 150%;
   text-align: left;
 }
@@ -287,12 +288,24 @@
   color: #929292;
 }
 
-.homepage .homePageCont .am-drawer-content .footer .active a {
+.homepage .homePageCont .am-drawer-content .footer li:nth-child(1).active a {
   background: linear-gradient(#75a5fd 0%, #4183fd 100%);
 }
 
-.homepage .homePageCont .am-drawer-content .footer .active a span {
+.homepage .homePageCont .am-drawer-content .footer li:nth-child(1).active a span {
   color: #fff;
+}
+
+.homepage .homePageCont .am-drawer-content .footer li:nth-child(2).active a span {
+  color: #4183fd;
+}
+
+.homepage .homePageCont .am-drawer-content .footer li:nth-child(3).active a span {
+  color: #4183fd;
+}
+
+.homepage .homePageCont .am-drawer-content .footer li:nth-child(4).active a span {
+  color: #4183fd;
 }
 
 .homepage .dynamicPage {
@@ -311,7 +324,7 @@
   box-sizing: border-box;
   background: #fff;
   margin-bottom: 10px;
-  height: 100px;
+  min-height: 100px;
   border-radius: 4px;
 }
 
@@ -399,6 +412,77 @@
   margin-top: -10px;
 }
 
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont, .homepage .dynamicPage .applicationBox .contBlock .sourceCont, .homepage .dynamicPage .networkBox .contBlock .sourceCont {
+  font-size: 12px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont li p, .homepage .dynamicPage .applicationBox .contBlock .sourceCont li p, .homepage .dynamicPage .networkBox .contBlock .sourceCont li p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont li p span, .homepage .dynamicPage .applicationBox .contBlock .sourceCont li p span, .homepage .dynamicPage .networkBox .contBlock .sourceCont li p span {
+  width: 50px;
+  text-align: left;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont li p span:last-child, .homepage .dynamicPage .applicationBox .contBlock .sourceCont li p span:last-child, .homepage .dynamicPage .networkBox .contBlock .sourceCont li p span:last-child {
+  text-align: right;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont li > div, .homepage .dynamicPage .applicationBox .contBlock .sourceCont li > div, .homepage .dynamicPage .networkBox .contBlock .sourceCont li > div {
+  background: #f0f0f0;
+  height: 5px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .sourceCont li > div > div, .homepage .dynamicPage .applicationBox .contBlock .sourceCont li > div > div, .homepage .dynamicPage .networkBox .contBlock .sourceCont li > div > div {
+  background: #397efd;
+  height: 5px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .xiangyinglv, .homepage .dynamicPage .applicationBox .contBlock .xiangyinglv, .homepage .dynamicPage .networkBox .contBlock .xiangyinglv {
+  padding: auto;
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(229, 229, 229, 0.2286);
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .xiangyinglv ul, .homepage .dynamicPage .applicationBox .contBlock .xiangyinglv ul, .homepage .dynamicPage .networkBox .contBlock .xiangyinglv ul {
+  display: flex;
+  margin-top: 10px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .xiangyinglv li, .homepage .dynamicPage .applicationBox .contBlock .xiangyinglv li, .homepage .dynamicPage .networkBox .contBlock .xiangyinglv li {
+  text-align: center;
+  flex: 1;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .xiangyinglv li span, .homepage .dynamicPage .applicationBox .contBlock .xiangyinglv li span, .homepage .dynamicPage .networkBox .contBlock .xiangyinglv li span {
+  color: #397efd;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .flexStyle, .homepage .dynamicPage .applicationBox .contBlock .flexStyle, .homepage .dynamicPage .networkBox .contBlock .flexStyle {
+  height: 24px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .chartBox, .homepage .dynamicPage .applicationBox .contBlock .chartBox, .homepage .dynamicPage .networkBox .contBlock .chartBox {
+  width: 100%;
+  height: 5px;
+  background: #f0f0f0;
+}
+
+.homepage .dynamicPage .serviseBox .contBlock .chartBox div, .homepage .dynamicPage .applicationBox .contBlock .chartBox div, .homepage .dynamicPage .networkBox .contBlock .chartBox div {
+  height: 5px;
+  background: #397efd;
+}
+
 .homepage .dynamicPage .serviseBlock1, .homepage .dynamicPage .serviseBlock2, .homepage .dynamicPage .serviseBlock3 {
   display: none;
   width: 100%;
@@ -444,6 +528,35 @@
   flex-direction: column;
 }
 
+.homepage .seleType .seleType_cont .sourceAppBox,
+.homepage .seleType .seleType_cont .sourceNet,
+.homepage .seleType .seleType_cont .serviesAppBox,
+.homepage .seleType .seleType_cont .serviesNetBox {
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.homepage .seleType .seleType_cont .sourceAppBox li,
+.homepage .seleType .seleType_cont .sourceNet li,
+.homepage .seleType .seleType_cont .serviesAppBox li,
+.homepage .seleType .seleType_cont .serviesNetBox li {
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.homepage .seleType .seleType_cont .sourceAppBox li span,
+.homepage .seleType .seleType_cont .sourceNet li span,
+.homepage .seleType .seleType_cont .serviesAppBox li span,
+.homepage .seleType .seleType_cont .serviesNetBox li span {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 8px;
+}
+
 .homepage .seleType .seleType_cont .am-wingblank {
   flex: 1;
   height: 100%;
@@ -455,36 +568,50 @@
   margin: 10px 0;
 }
 
-.homepage .seleType .seleType_cont .appBox, .homepage .seleType .seleType_cont .serivesBox {
-  flex: 1;
-  overflow: auto;
-  display: none;
-  height: 100%;
+.homepage .seleType .seleType_cont .appBox .am-list .am-list-item.am-checkbox-item .am-list-thumb {
+  width: 0;
+  height: 0;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-checkbox-inner {
+  top: 14px !important;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-list-line::after {
+  height: 0;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-list-item {
+  height: 32px;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-list-item .am-list-thumb:first-child {
+  margin-right: 5px;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-checkbox-inner {
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-checkbox-inner:after {
+  top: 0;
+  right: 4px;
+}
+
+.homepage .seleType .seleType_cont .appBox .am-list-item .am-list-line .am-list-content {
   font-size: 14px;
-  padding-bottom: 80px;
+  color: rgba(0, 0, 0, 0.65);
 }
 
-.homepage .seleType .seleType_cont .appBox li, .homepage .seleType .seleType_cont .serivesBox li {
-  height: 44px;
-  line-height: 44px;
-  border-bottom: 1px solid #efefef;
-  margin: 0 10px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  position: relative;
-  padding-right: 24px;
+.homepage .seleType .seleType_cont .serivesBox .ant-tree li {
+  padding: 10px 0;
 }
 
-.homepage .seleType .seleType_cont .appBox li span, .homepage .seleType .seleType_cont .serivesBox li span {
-  width: 22px;
-  position: absolute;
-  right: 0;
-  top: 10px;
-}
-
-.homepage .seleType .seleType_cont .appBox .select, .homepage .seleType .seleType_cont .serivesBox .select {
-  display: none;
+.homepage .seleType .seleType_cont .appBox, .homepage .seleType .seleType_cont .serivesBox {
+  overflow-y: auto;
+  margin-bottom: 60px;
 }
 
 .homepage .seleType .seleType_cont .sourceSeleBtn {
@@ -506,12 +633,35 @@
   margin: 10px 0;
 }
 
+.fuWuDuan {
+  display: none;
+  height: 100%;
+}
+
 .fuWuDuan .am-tabs-default-bar-tab {
   font-size: 14px;
 }
 
 .fuWuDuan .am-tabs-default-bar-underline {
   border: transparent 1px solid;
+}
+
+.fuWuDuan .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected,
+.fuWuDuan .ant-tree li .ant-tree-node-content-wrapper:hover {
+  background: transparent;
+}
+
+.duanToduan {
+  display: none;
+}
+
+.clear_float::after {
+  /*只需要给浮动元素的父容器添加上这个类就可以了: clear_float*/
+  display: block;
+  /*把::after设置成块级元素*/
+  content: "";
+  /*想让伪类起作用, 必须添加这个属性*/
+  clear: both;
 }
 
 a:hover,

@@ -1,7 +1,9 @@
 .dialogSource {
   height: auto;
-  overflow: auto;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .dialogSource .dialogHeader {
@@ -14,6 +16,10 @@
   padding: 0 5px;
   border-bottom: 1px solid #f2f2f2;
   color: #2d2d2d;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
 }
 
 .dialogSource .dialogHeader > div:first-child {
@@ -28,18 +34,24 @@
   vertical-align: 0px;
 }
 
-.dialogSource .dialogHeader div:nth-child(2) {
+.dialogSource .dialogHeader > div:nth-child(2) {
   flex: 1;
   font-size: 16px;
   text-align: center;
 }
 
-.dialogSource .dialogHeader div:last-child {
+.dialogSource .dialogHeader > div:last-child {
   width: 22px;
+}
+
+.dialogSource .icanfly {
+  flex: 1;
+  padding-top: 44px;
 }
 
 .dialogSource .clearfix {
   display: flex;
+  margin-top: 6px;
   justify-content: space-between;
 }
 
@@ -48,6 +60,7 @@
 }
 
 .dialogSource .am-tabs-tab-bar-wrap {
+  height: 40px;
   padding: 0 10px;
 }
 
@@ -70,6 +83,71 @@
   position: relative;
 }
 
+.dialogSource .am-tabs-pane-wrap .dialogbg .selectItemNum {
+  display: block;
+  width: 100%;
+  height: 60px;
+  position: relative;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .selectItemNum span {
+  display: block;
+  font-size: 12px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  color: #748cff;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .selectItemNum .leaderProgress {
+  top: 25px;
+  width: 100%;
+  height: 15px;
+  background-color: whitesmoke;
+  margin-top: 5px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .selectItemNum .leaderProgress .progressBar {
+  width: 0%;
+  height: 15px;
+  background-color: #397efd;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData {
+  display: flex;
+  margin-top: 5px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData li {
+  flex: 1;
+  height: 60px;
+  color: #505050;
+  background-color: rgba(229, 229, 229, 0.2286);
+  font-size: 14px;
+  text-align: center;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData li p {
+  font-size: 12px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData li p:last-child {
+  color: #397efd;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData li:nth-child(2) {
+  margin-left: 5px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .hostData li:nth-child(3) {
+  margin-left: 5px;
+}
+
 .dialogSource .am-tabs-pane-wrap .dialogbg p {
   margin: 6px 0;
 }
@@ -85,6 +163,12 @@
   position: absolute;
   right: 20px;
   top: 14px;
+  display: flex;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .seleIcon span {
+  display: flex;
+  align-items: center;
 }
 
 .dialogSource .am-tabs-pane-wrap .dialogbg .zhanbigrid {
@@ -213,6 +297,463 @@
   font-size: 14px;
 }
 
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box {
+  width: 100%;
+  height: 56px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box .top_change {
+  text-align: right;
+  font-size: 12px;
+  color: #397efd;
+  width: 50%;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box .bg_bar {
+  height: 14px;
+  background-color: #e4e4e4;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box .bg_bar .inner_change {
+  height: 14px;
+  background-color: #397efd;
+  width: 50%;
+  cursor: pointer;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box .bg_bar :hover.inner_change {
+  background-color: #397efd;
+  transform: scale(1, 1.2);
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .choice_box .bottom_change {
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceUl li {
+  height: auto;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceUl li .list_item {
+  height: 20px;
+  line-height: 20px;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceUl li .list_inner_box {
+  background-color: #f0f0f0;
+  height: 5px;
+  position: relative;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceUl li .list_inner_box .list_chart {
+  height: 5px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceUl li .list_inner_box .list_chart:hover {
+  height: 5px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  background: #397efd !important;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount {
+  display: flex;
+  height: 70px;
+  width: 100%;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-left {
+  display: inline-block;
+  width: 50%;
+  background-color: rgba(229, 229, 229, 0.2286);
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-left ul {
+  display: flex;
+  margin-top: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-left ul:nth-child(2) {
+  color: #397efd;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-left li {
+  text-align: center;
+  flex: 1;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-right {
+  padding: auto;
+  display: inline-block;
+  width: 100%;
+  margin-left: 5px;
+  background-color: rgba(229, 229, 229, 0.2286);
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-right ul {
+  display: flex;
+  margin-top: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-right ul:nth-child(2) {
+  color: #397efd;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .sourceCount .tboty-right li {
+  text-align: center;
+  flex: 1;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyanBox {
+  display: flex;
+  margin-top: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyanBox .appXysy {
+  width: 40%;
+  text-align: center;
+  background: rgba(229, 229, 229, 0.23);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyanBox .appXysy img {
+  width: 55px;
+  height: 55px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyanBox .title {
+  flex: 1;
+  background: rgba(229, 229, 229, 0.23);
+  margin-left: 4px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #505050;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox {
+  display: flex;
+  margin-top: 6px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .pie_box {
+  width: 40%;
+  background: #f0f0f0;
+  margin-right: 10px;
+  display: flex;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .pie_box .pie_value h2 {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .pie_box .pie_value p {
+  margin: 0;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .desc_box {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6px 0;
+  background: #f0f0f0;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .desc_box .expre_box {
+  width: 50%;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .desc_box .expre_box span {
+  font-weight: bold;
+  font-size: 16px;
+  width: 60px;
+  display: inline-block;
+  text-align: center;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .desc_box .expre_box .expression {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .apdexBox .desc_box .expre_box .expression img {
+  width: 100%;
+  height: 100%;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyan {
+  margin-top: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyan .flexStyle {
+  height: 24px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyan .chartBox {
+  width: 100%;
+  height: 5px;
+  background: #f0f0f0;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .shiyan .chartBox div {
+  height: 5px;
+  background: #397efd;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .xiangyinglv {
+  padding: auto;
+  display: inline-block;
+  width: 100%;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .xiangyinglv ul {
+  display: flex;
+  margin-top: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .xiangyinglv li {
+  text-align: center;
+  flex: 1;
+  display: inline-block;
+  font-size: 12px;
+  background-color: rgba(229, 229, 229, 0.2286);
+  margin-left: 2px;
+  padding: 4px;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .xiangyinglv li span {
+  color: #397efd;
+}
+
+.dialogSource .am-tabs-pane-wrap .dialogbg .xiangyinglv li:first-child {
+  margin-left: 0;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables {
+  background: #fff;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li {
+  width: 50%;
+  height: 44px;
+  line-height: 44px;
+  border-right: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  text-align: center;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li b {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  margin-right: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li span {
+  margin-left: 10px;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:first-child b {
+  background: #2AB06F;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:nth-child(2) b {
+  background: #6BCB8B;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:nth-child(3) b {
+  background: #FFE11C;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:nth-child(4) b {
+  background: #EF651F;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:nth-child(2), .dialogSource .am-tabs-pane-wrap .tab2 .tables .zhanbigrid li:nth-child(4) {
+  border-right: none;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .kongBox {
+  width: 100%;
+  height: 20px;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .chart_box {
+  padding: 10px;
+  background: #fff;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart {
+  background: #fff;
+  padding: 10px 20px 10px 20px;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart > p {
+  padding-bottom: 0;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul {
+  padding: 10px;
+  height: auto;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul li {
+  height: auto;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul li .list_item {
+  height: 20px;
+  line-height: 20px;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul li .list_inner_box {
+  background-color: #f0f0f0;
+  height: 20px;
+  position: relative;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul li .list_inner_box .list_chart {
+  height: 20px;
+}
+
+.dialogSource .am-tabs-pane-wrap .tab2 .rank_chart ul li .list_inner_box .list_chart:hover {
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+  background: #397efd !important;
+}
+
+.dialogSource .dTodTitle {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  color: #505050;
+  background-color: rgba(166, 166, 166, 0.16);
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.dialogSource .dTodTitle span:first-child {
+  margin-right: 20px;
+}
+
+.dialogSource .tables .tableCont {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.dialogSource .tables .tableCont .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .dialogSource .tables .tableCont .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .dialogSource .tables .tableCont .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td, .dialogSource .tables .tableCont .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+  background: transparent !important;
+}
+
+.dialogSource .tables .tableCont tr.ant-table-row.ant-table-row-level-0 {
+  height: 32px !important;
+}
+
+.dialogSource .tables .tableCont .ant-table-thead > tr > th, .dialogSource .tables .tableCont .ant-table-tbody > tr > td {
+  padding: 0 !important;
+}
+
+.dialogSource .tables .tableCont .ant-table-thead tr {
+  height: 60px;
+}
+
+.dialogSource .tables .tableCont .ant-table-thead > tr > th {
+  background: #fff;
+  padding: 10px;
+}
+
+.dialogSource .tables .tableCont .ant-table-tbody {
+  background: #fff;
+}
+
+.dialogSource .tables .tableCont .ant-table-tbody > tr > td {
+  padding: 10px;
+}
+
+.dialogSource .tables .tableCont .ant-table-tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+.dialogSource .tables .tableCont .ant-table-tbody tr:nth-child(even) {
+  background: rgba(42, 130, 228, 0.14);
+}
+
+.dialogSource .tables .tableCont .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr,
+.dialogSource .tables .tableCont .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr,
+.dialogSource .tables .tableCont .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr,
+.dialogSource .tables .tableCont .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr {
+  height: 60px;
+  background: #fff;
+}
+
+.dialogSource .tab2 {
+  padding: 0 10px;
+}
+
+.dialogSource .tab2 .am-tabs-default-bar-tab-active {
+  border: none !important;
+}
+
+.dialogSource .tab2 .am-tabs-tab-bar-wrap {
+  padding: 0;
+}
+
+.dialogSource .tab2 .tableCont {
+  padding: 0;
+}
+
+.dialogSource .tab2 .mapBox {
+  width: 100%;
+  height: 350px;
+  background: #f0f0f0;
+}
+
+.dialogSource .tab2 .tuopu {
+  background: #fff;
+  padding: 10px;
+}
+
+.dialogSource .tab2 .fc_chart {
+  height: 350px;
+}
+
 .am-modal-transparent {
   width: 85% !important;
   height: 90%;
@@ -250,7 +791,7 @@
 }
 
 .am-modal-content .am-modal-header .am-modal-title .seleType_head .am-icon {
-  padding-top: 10px;
+  margin-top: 10px;
   font-weight: bold;
 }
 
@@ -302,6 +843,10 @@
 
 .am-modal-content .am-modal-body .normStyle ul li.active {
   background: #397efd;
+  color: #fff;
+}
+
+.am-modal-content .am-modal-body .normStyle ul li.active span {
   color: #fff;
 }
 

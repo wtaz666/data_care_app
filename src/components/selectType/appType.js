@@ -20,12 +20,12 @@ class AppType extends Component {
     }
     seleChange = (e) => {
         if (e === '服务器') {
-            $('.serivesBox').show();
-            $('.appBox').hide();
+            $('.serviesNetBox').show();
+            $('.serviesAppBox').hide();
             $('.sourceSeleBtn').attr('value', 1)
         } else if (e === '业务系统') {
-            $('.serivesBox').hide();
-            $('.appBox').show();
+            $('.serviesNetBox').hide();
+            $('.serviesAppBox').show();
             $('.sourceSeleBtn').attr('value', 0)
         } else {
             $('.sourceSeleBtn').attr('value', 0)
@@ -56,6 +56,8 @@ class AppType extends Component {
                 sessionStorage.setItem('AppItemId', this.state.serviesApp[0].source_data_id)
                 sessionStorage.setItem('appName', this.state.serviesApp[0].res_name)
                 // 放请求
+                
+        this.getOnlineTime();
             })
         })
     }
@@ -63,6 +65,20 @@ class AppType extends Component {
         axios.get('/kpiDing/hostTableOnLineList').then(res=>{
             this.setState({
                 serviesNet: res.data.hostList
+            })
+        })
+    }
+    getOnlineTime() {
+        axios.get('/performance/dropDown', {
+            params: {
+                timeId: 6,
+                appSourceDataId: sessionStorage.getItem('AppItemId'),
+                kpiId: 5
+            }
+        }).then(res => {
+            let data = res.data;
+            this.setState({
+                OnlineTimeData: data
             })
         })
     }
@@ -76,7 +92,7 @@ class AppType extends Component {
             <WingBlank size="lg" className="sc-example">
                 <h4 className='sourceTitle'>空间选择</h4>
                 <SegmentedControl selectedIndex={ind * 1} values={['业务系统', '服务器']} onValueChange={this.seleChange} />
-                <ul className='appBox' style={{ display: 'block' }}>
+                <ul className='serviesAppBox' style={{ display: 'block' }}>
                     {
                         serviesApp.map((item, index) => {
                             return <li key={index} onClick={() => this.clickApp(index, item.source_data_id, item.res_name)}>
@@ -88,7 +104,7 @@ class AppType extends Component {
                         })
                     }
                 </ul>
-                <ul className='serivesBox'>
+                <ul className='serviesNetBox'>
                     {
                         serviesNet.map((item, index) => {
                             return <li key={index} onClick={() => this.clickNet(index, item.hostId, item.hostName)}>

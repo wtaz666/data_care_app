@@ -1,5 +1,19 @@
-
 .event-content{
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient:vertical;
+    -webkit-flex-direction:column;
+    -ms-flex-direction:column;
+    flex-direction:column;
+    width:100%;
+    height:100%; 
+    position: relative;
+    font-size: 12px;
+    .am-tabs-pane-wrap{
+        margin-top: 40px;
+    }
     .am-tabs-default-bar-top {
         .am-tabs-default-bar-tab::after{
             height: 0PX !important;
@@ -11,7 +25,7 @@
     .am-tabs-tab-bar-wrap {
         .am-tabs-default-bar-content{
             padding: 0 10px;
-        }
+        }   
         .am-tabs-default-bar-tab-active{
             color: #108ee9;
             border: 1px solid #108ee9 !important;
@@ -19,8 +33,7 @@
             height: 32px;
             margin-top: 6px;
             line-height: 32px;
-            box-sizing: border-box;
-            
+            box-sizing: border-box;     
         } 
         .am-tabs-default-bar-underline{
             border: none;
@@ -28,75 +41,44 @@
         .am-tabs-default-bar-tab::after{
             height: 0PX;
         }
-    }
-    
+    }   
     .tab-header{ 
+        width: 100%;
+        margin-top: 5px;
+        padding: 0px 10px 0px 10px;
+        position: absolute;
+        top:43.5px;
         display: flex;
-        .inputGroup{
+        z-index: 1;
+        .tab-select{
+            position: absolute;
+            right:10px;
+            height: 21px;
+            color: rgba(80, 80, 80, 1);
+            font-size: 14px;
             display: flex;
-                width: 80%;
-            .ant-input-group.ant-input-group-compact{
-                display: flex;
+            p{
+                width: auto;
+                height: 24px;
+                color: rgba(80, 80, 80, 1);
+                font-size: 14px;
+                line-height: 24px;
             }
-           .ant-input-group {
-               .ant-select {
-                 .ant-select-selection {
-                     background-color: #f0f0f0;
-                     width: 80px;
-                     font-size: 14px;
-                 }
-               }
-           }
-           .ant-select.ant-select-enabled{
-               flex: 1;
-           }
-           .ant-select-selection{
-            border: 1px solid transparent;
-           }
-           .ant-select-selection:hover {
-                border-color: transparent;
-            }
-            .ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active{
-                -webkit-box-shadow: 0 0 0 2px transparent;
-                box-shadow: 0 0 0 2px transparent;
-                flex: 1;
+            img{
+                width: 24px;
+                height: 24px;
+                color: rgba(153, 153, 153, 1);
             }
         }
-        .color-box{
-            margin-top: 5px;
-            float:right;
-            display: flex;
-            :first-child{
-                background-color: #F40000;
-            }
-            :nth-child(2){
-                background-color: #FE7757;
-            }
-            :nth-child(3){
-                background-color: #FFB144;
-            }
-            :nth-child(4){
-                background-color: #FFDF2E;
-            }
-            .smallbox{
-                display:inline-block;
-                height:18px ;
-                width: 18px;
-                margin-right: 5px;
-                 
-            }
-        }
-        
     }
-    .tab-cont{
-        margin-top: 11px;
+    .tab-cont{    
         .contBok{
             display: flex;
             width: 100%;
             height: 60px;
             color: rgba(80, 80, 80, 1);
             background-color: rgba(255, 255, 255, 1);
-            font-size: 14px;
+            font-size: 12px;
             line-height: 150%;
             text-align: center;
             margin-bottom: 11px;
@@ -105,31 +87,10 @@
                 width: 50px;
                 height: 60px;
                 color: rgba(80, 80, 80, 1);
-                font-size: 14px;
+                font-size: 12px;
                 border-radius: 4px 16px 16px 4px;
                 float: left;
                 line-height: 60px;
-                background: rgba(254, 224, 40, 1)
-            }
-            .color1{
-                background: rgba(219, 23, 41, 1);
-                width: 50px;
-                height: 60px;
-                color: rgba(80, 80, 80, 1);
-                font-size: 14px;
-                border-radius: 4px 16px 16px 4px;
-                float: left;
-                line-height: 60px;
-                
-            }
-            .color2{
-                background: rgba(233, 126, 95, 1)
-            }
-            .color3{
-                background: rgba(254, 181, 74, 1)
-            }
-            .color4{
-                background: rgba(254, 224, 40, 1)
             }
             .eventCont{
                 position: relative;
@@ -159,11 +120,8 @@
                     left: 0px;
                 }
             }
-
         }
    }
-       
-    
 }
 .clear_float::after{
     /*只需要给浮动元素的父容器添加上这个类就可以了: clear_float*/
@@ -205,6 +163,9 @@
             position: relative;
             p{
                 margin: 6px 0;
+                img{
+                    padding-right: 10px;
+                }
             }
             i{
                 display: flex;
@@ -219,7 +180,7 @@
                 text-align: left;
             } 
             ul{
-                
+                font-size: 12px;
                 li{
                     white-space:nowrap;
                     float: left;
@@ -227,16 +188,19 @@
                     height: 18px;
                     margin-top: 5px;
                     .eventbgbutton1{
-                        width: 84px;
-                        height: 18px;
-                        font-size: 14px;         
-                        text-align: center;  
+                            width: 84px;
+                            height: 18px;
+                            color: rgba(182, 126, 218, 1);
+                           // box-shadow: rgba(182, 126, 218, 1) solid 1px !important;
+                            font-size: 14px;
+                            text-align: center;
+                            line-height: 1;
+                            background-color: #fff;
                     }
                     .rankBox{
                             width: 25px;
                             height: 10px;
                             color: rgba(80, 80, 80, 1);
-                            font-size: 14px;
                             margin-top: 5px;
                     }
                 }
@@ -246,6 +210,7 @@
             }
             .eventDescribe{
                 width: 100%;
+                font-size: 12px;
             }
             .eventbgbutton2{
                 width: 80px;
@@ -256,25 +221,49 @@
                 text-align: center;    
             }
            .selectCont{
-                height: 180px;
-                .el-radio-group .el-radio{
-                    white-space:nowrap;
-                        float: left;
-                        width: 158px;
-                        height: 20px;
-                        margin-left: 0em;
-                        margin-top: 5px;
-                       
-                }
-                input{
+                margin-top: 20px;
+                height: 274px;
+                .el-radio-group {
                     width: 100%;
-                    height: 25px;
-                }
                 
-
+                    .el-radio{
+                            white-space:nowrap;
+                            float: left;
+                            width: 158px;
+                            height: 32px;
+                            margin-left: 0em;
+                            margin-top: 5px;
+                            line-height: 32px;
+                            display: flex;
+                            .el-radio__original{
+                                background-color: rgba(57, 126, 253, 1);
+                                height: 32px !important;
+                                line-height: 32px !important;
+                            }
+                            .el-radio__label{
+                                margin-left: 10px;
+                              
+                            }
+                            
+                        
+                    }
+                }
+                .textAreaInput{
+                    width: 100%;
+                    height: 66px;
+                    background-color: rgba(229, 229, 229, 0.39289999999999997);
+                    font-size: 12px;
+                    padding: 0px;
+                }
+                .el-button {
+                        width: 88px;
+                        height: 24px;
+                        color: rgba(255, 255, 255, 1);
+                        background-color: rgba(57, 126, 253, 1);
+                        font-size: 14px;
+                    
+                }
            } 
-            
-
         }
         .eventbg2{
             height: auto;
@@ -287,6 +276,7 @@
             position: relative;
             p{
                 margin: 6px 0;
+                font-size: 10px;
             }
             i{
                 display: flex;
@@ -301,7 +291,131 @@
                 text-align: left;
             } 
         }
-
     }
 }
-
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled){
+    background-color: rgba(229, 229, 229, 1) !important;
+    color: rgba(80, 80, 80, 1);
+}
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+    background-color: rgba(229, 229, 229, 1) !important;
+    color: rgba(80, 80, 80, 1);
+}
+//抽屉样式
+.ant-drawer-content{
+    .ant-drawer-body{
+        padding: 5px ;
+        height:100%;
+        position: relative;
+        p{
+            width: 100%;
+            height: 21px;
+            color: rgba(80, 80, 80, 1);
+            font-size: 14px;
+            line-height: 21px;
+            text-align: left;
+            margin-left: 18px;
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+        .drawerTitle{
+            margin-top: -1PX;
+            padding: 0;
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            display: flex;
+            background: #fff;
+            padding: 0 5px;
+            border-bottom: 1px solid #f2f2f2;
+            div:first-child{
+                padding-top: 5px;
+            }
+            div:nth-child(2) {
+                flex: 1;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+        .color-box{
+            ul{
+                margin-left: 18px;
+                li{ 
+                    margin-top: 23px;
+                    width: 50%;
+                    float: left;
+                    display: flex; 
+                    p{
+                    margin-left: 10px;
+                    margin-top: 0px;
+                    height: 18px;
+                    color: rgba(80, 80, 80, 1);
+                    font-size: 12px;
+                    }
+                    .smallbox{
+                    padding: 0;
+                    display:block;
+                    height:24px ;
+                    width:31px ;
+                    }
+                }
+            }
+        }
+        .sourceSeleBtn{
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            display: flex;
+            left:-1px;
+            // margin: 10px;
+            .ant-btn{
+                flex:1;
+                font-size: 15px;
+            }
+            .ant-btn:hover, .ant-btn:focus{
+                color: rgba(80, 80, 80, 1);
+                border-color: rgba(229, 229, 229, 1);
+            }
+            .ant-btn:first-child{
+                background: rgba(229, 229, 229, 1);
+                border-radius: 0;
+            }
+            .ant-btn:last-child{
+                color: rgba(255, 255, 255, 1);
+                background: rgba(57, 126, 253, 1);
+                border-radius: 0;
+            }
+        }
+        .inputGroup{
+            width: 100%;
+            .ant-input-group.ant-input-group-compact{
+                width: 100%;
+                }
+           .ant-input-group {
+               .ant-select {
+                 .ant-select-selection {
+                     background-color: rgba(229, 229, 229, 1) !important;
+                     width: 80px;
+                     flex: 1;
+                     font-size: 12px;
+                     margin-left: 18px;
+                     height: 30px;
+                     margin-top: 13px;
+                     border-radius: 15px !important;
+                 }
+               }
+           }
+           .ant-select-selection{
+            border: 1px solid transparent;
+           }
+           .ant-select-selection:hover {
+                border-color: transparent;
+            }
+           .ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active{
+                -webkit-box-shadow: 0 0 0 2px transparent;
+                box-shadow: 0 0 0 2px transparent;
+                flex:1;
+            }
+        }
+    }
+}

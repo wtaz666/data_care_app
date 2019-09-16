@@ -7,7 +7,9 @@ import ReactEcharts from 'echarts-for-react';
 import { Button, Radio } from "element-react";
 import MoreEcharts from 'components/eventPage/moreEcharts.js';
 import exclamationMark from '../../../images/exclamationMark.svg';
+import { Input } from 'antd';
 
+const { TextArea } = Input;
 
 class ThroughputTab extends Component {
     constructor(props) {
@@ -132,7 +134,6 @@ class ThroughputTab extends Component {
     }
     //数据请求
     getdetailData = () => {
-
         // 发起请求
         Axios.get('/event/getEventData', {
             params: {
@@ -212,6 +213,42 @@ class ThroughputTab extends Component {
                             $('.homePageHeader').show();
                             $('.footer').show();
                             $('.am-tabs-top').show();
+                            $('.tab-header').show();
+                            this.setState({
+                                selectId: 0,
+                                detailData: [],
+                                // 图表数据
+                                listFirstUp: [],
+                                listFirstDown: [],
+                                listErrorUp: [],
+                                listErrorDown: [],
+                                listEndUp: [],
+                                listEndDown: [],
+                                timeArr: [],
+                                otherChartData: [],
+                                startLen: 0,
+                                endLen: 0,
+                                errHigh: 0,
+                                nameDown: '',
+                                nameUp: '',
+
+                                // 单个图表数据
+                                singleListFirst: [],
+                                singleListError: [],
+                                singleListTime: [],
+                                singleErrorStart: 0,
+                                singleErrorEnd: 0,
+                                singleErrorHigh: 0,
+                                singleNameShow: '',
+
+                                typeId: null,// 判断是应用还是服务器
+                                listChildData: [], // 相同组件的数据
+                                forceReason: '',// 强制关闭的原因
+                                detailStatus: null, // 默认为 已关闭
+                                eventCrtlId: null, //判断操作状态
+                                otherData: []
+
+                            })
                         }
                         } />
                     </div>
@@ -258,7 +295,7 @@ class ThroughputTab extends Component {
                     </div>
                         : <div className='selectCont' >
                             <b>请选择关闭事件的原因</b>
-                            <Radio.Group className='selectItems' value={selectId} onChange={this.changeSelectId.bind(this)}>
+                            <Radio.Group className='selectItems clear_float' value={selectId} onChange={this.changeSelectId.bind(this)}>
                                 {
                                     getCloseReason && getCloseReason.map((item, index) => {
                                         return <Radio key={index} value={item.id}>{item.info}</Radio>
@@ -266,24 +303,25 @@ class ThroughputTab extends Component {
                                 }
                                 <Radio value={getCloseReason ? getCloseReason.length + 1 : 99}>其他</Radio>
                             </Radio.Group>
-                            <input type='text' name='reason' style={{ display: 'none' }} className='textAreaInput' placeholder='请输入原因....' />
-                            <Button type="primary" onClick={() => this.forceCloseItem(location.state ? location.state.id : sessionStorage.getItem('id'))}>确认关闭</Button>
+                            {/* <input type='text' name='reason' style={{ display: 'none' }} className='textAreaInput' placeholder='请输入原因....' />*/}
+                            <TextArea rows={4} name='reason' style={{ display: 'none' }} className='textAreaInput' placeholder='请输入原因....' />
+                            <Button type="primary" onClick={() => this.forceCloseItem(sessionStorage.getItem('id'))}>确认</Button>
                         </div> : ''
                 }
                 {/* 系统状态 */}
                 {
                     statusFlag ? detailStatus === 1 ? <div style={{ height: '82px', borderTop: 'solid 1px rgb(242, 242, 242)', marginTop: '10px', display: 'flex', boxSizing: 'border-box' }}>
-                        <img src={exclamationMark} style={{ width: '50px', height: '50px', marginRight: '20px', marginTop: '16px', marginLeft: '10px', boxSizing: 'border-box' }} />
+                        <img src={exclamationMark} style={{ width: '40px', height: '40px', marginRight: '10px', marginTop: '16px', marginLeft: '10px', boxSizing: 'border-box' }} />
                         <div>
-                            <b style={{ height: '40px', lineHeight: '40px' }}>当前事件状态为CLOSE</b>
-                            <p style={{ height: '40px', lineHeight: '40px' }}>DataCare能够自动判断系统是否已恢复正常，当系统状态恢复正常，相关事件状态自动转换到CLOSE状态。</p>
+                            <b style={{ height: '20px', lineHeight: '20px' }}>当前事件状态为CLOSE</b>
+                            <p style={{ height: '20px', lineHeight: '20px' }}>DataCare能够自动判断系统是否已恢复正常，当系统状态恢复正常，相关事件状态自动转换到CLOSE状态。</p>
                         </div>
                     </div>
                         : <div style={{ height: '82px', borderTop: 'solid 1px rgb(242, 242, 242)', marginTop: '10px', display: 'flex', boxSizing: 'border-box' }}>
-                            <img src={exclamationMark} style={{ width: '50px', height: '50px', marginRight: '20px', marginTop: '16px', marginLeft: '10px', boxSizing: 'border-box' }} />
+                            <img src={exclamationMark} style={{ width: '40px', height: '40px', marginRight: '10px', marginTop: '16px', marginLeft: '10px', boxSizing: 'border-box' }} />
                             <div>
-                                <b style={{ height: '40px', lineHeight: '40px' }}>当前事件状态为OPEN</b>
-                                <p style={{ height: '40px', lineHeight: '40px' }}>DataCare能够自动判断系统是否已恢复正常，当系统状态恢复正常，相关事件状态自动转换到CLOSE状态。</p>
+                                <b style={{ height: '20px', lineHeight: '20px' }}>当前事件状态为OPEN</b>
+                                <p style={{ height: '20px', lineHeight: '20px' }}>DataCare能够自动判断系统是否已恢复正常，当系统状态恢复正常，相关事件状态自动转换到CLOSE状态。</p>
                             </div>
                         </div> : ''
                 }

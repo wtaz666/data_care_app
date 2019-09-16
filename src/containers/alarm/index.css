@@ -1,0 +1,188 @@
+.alarm-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-size: 12px;
+}
+
+.alarm-content .am-tabs-pane-wrap {
+  margin-top: 40px;
+}
+
+.alarm-content .am-tabs-tab-bar-wrap .am-tabs-default-bar-content {
+  padding: 0 10px;
+}
+
+.alarm-content .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab-active {
+  color: #108ee9;
+  border-bottom: 1px solid #108ee9 !important;
+  height: 32px;
+  margin-top: 6px;
+  line-height: 32px;
+  box-sizing: border-box;
+}
+
+.alarm-content .am-tabs-tab-bar-wrap .am-tabs-default-bar-underline {
+  border: none;
+}
+
+.alarm-content .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab::after {
+  height: 0PX;
+}
+
+.tab-header {
+  width: 100%;
+  margin-top: 5px;
+  padding: 0px 10px 0px 10px;
+  position: absolute;
+  top: 43.5px;
+  display: flex;
+  z-index: 1;
+}
+
+.tab-header .inputGroup {
+  display: flex;
+  width: 80%;
+}
+
+.tab-header .inputGroup .ant-input-group.ant-input-group-compact {
+  display: flex;
+}
+
+.tab-header .inputGroup .ant-input-group .ant-select .ant-select-selection {
+  background-color: #f0f0f0 !important;
+  width: 80px;
+  font-size: 12px;
+}
+
+.tab-header .inputGroup .ant-select.ant-select-enabled {
+  flex: 1;
+}
+
+.tab-header .inputGroup .ant-select-selection {
+  border: 1px solid transparent;
+}
+
+.tab-header .inputGroup .ant-select-selection:hover {
+  border-color: transparent;
+}
+
+.tab-header .inputGroup .ant-select-focused .ant-select-selection, .tab-header .inputGroup .ant-select-selection:focus, .tab-header .inputGroup .ant-select-selection:active {
+  -webkit-box-shadow: 0 0 0 2px transparent;
+  box-shadow: 0 0 0 2px transparent;
+  flex: 1;
+}
+
+.tab-header .color-box {
+  margin-top: 5px;
+  float: right;
+  display: flex;
+}
+
+.tab-header .color-box :first-child {
+  background-color: #F40000;
+}
+
+.tab-header .color-box :nth-child(2) {
+  background-color: #FE7757;
+}
+
+.tab-header .color-box :nth-child(3) {
+  background-color: #FFB144;
+}
+
+.tab-header .color-box :nth-child(4) {
+  background-color: #FFDF2E;
+}
+
+.tab-header .color-box .smallbox {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  margin-right: 5px;
+}
+
+.am-tabs-default-bar-top .am-tabs-default-bar-tab::after {
+  height: 0PX !important;
+}
+
+.am-tabs-default-bar-top .am-tabs-default-bar-tab {
+  font-size: 12px;
+}
+
+.alarmNews {
+  margin-top: 5px;
+  height: 118px;
+  width: 100%;
+  display: flex;
+  background-color: white;
+  font-size: 15px;
+  padding: 0px 12px 10px 12px;
+}
+
+.alarmNews .alarmNews-left {
+  float: left;
+  height: 118px;
+  width: 57px;
+  text-align: center;
+  line-height: 118px;
+}
+
+.alarmNews .alarmNews-left .circle {
+  color: #db1729;
+  font-size: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 40px;
+  border: #db1729 solid 2px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.alarmNews .alarmNews-right {
+  float: left;
+  height: 100%;
+  width: 100%;
+}
+
+.alarmNews .alarmNews-right .content-top {
+  display: flex;
+}
+
+.alarmNews .alarmNews-right .content-top b {
+  padding-top: 10px;
+  font-size: 12px;
+}
+
+.alarmNews .alarmNews-right .content-top p {
+  padding-left: 8px;
+  padding-top: 12px;
+  margin-bottom: 0px !important;
+  font-size: 12px;
+}
+
+.alarmNews .alarmNews-right .content-bottom {
+  margin-top: 8px;
+  padding: 0px 8px;
+  width: 100%;
+  height: 74px;
+  color: #505050;
+  background-color: rgba(169, 161, 161, 0.0928571);
+  font-size: 14px;
+}
+
+.alarmNews .alarmNews-right .content-bottom li {
+  height: 18px;
+  margin-top: 5px;
+  font-size: 12px;
+}

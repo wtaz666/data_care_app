@@ -8,6 +8,7 @@ import SourceTableDetail2 from 'components/sourcePage/sourceTableDetail2';
 import SourceTableDetail3 from 'components/sourcePage/sourceTableDetail3';
 import SourceTableDetail4 from 'components/sourcePage/sourceTableDetail4';
 import SourcePageCharts from 'components/sourcePage/sourcePageCharts';
+import SourcePageAppCharts from 'components/sourcePage/sourcePageAppCharts';
 
 import lrlconClick from '../../../images/selectIcons/lrIcon_click.svg';
 import lrlcon from '../../../images/selectIcons/lrIcon_normal.svg';
@@ -35,20 +36,26 @@ class SourceTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            allCount: 0,
             modal1: false,
             normInd: 0,// 指标id
             newNormInd: 0,
             timeId: 0,
             rankData: [],// 资源 - 四个分类
             resourceGetAllCount: [],// 资源 - 所有
+            appdata:[],//业务系统所有
+            netdata:[],//服务器所有
             tabs: [
                 { title: '实时' },
                 { title: '今日' },
                 { title: '本周' },
                 { title: '本月' },
-                { title: `具体时间` },
             ],
-            nowTimeData: '具体时间',
+            tabs2: [
+                { title: '业务系统' },
+                { title: '服务器' },
+            ],
+            clickTab2: 0,
             normSele: [
                 {
                     clickImg: twolconClick,
@@ -118,6 +125,27 @@ class SourceTab extends Component {
         })
     }
     getAxios() {
+        //业务系统-所有
+        Axios.get('/AppIsNewController/resourceGetAllCountAndRankingNewApp', {
+            params: {
+                webTimeType: this.state.timeId
+            }
+        }).then(res => {
+            this.setState({
+                appdata:res.data,
+            })
+        })
+        //服务器-所有
+        Axios.get('/AppIsNewController/resourceGetAllCountAndRankingNewApp', {
+            params: {
+                webTimeType: this.state.timeId,
+                hostId:0,
+            }
+        }).then(res => {
+            this.setState({
+                netdata:res.data,
+            })
+        })
         // 资源 - 所有
         Axios.get('/kpiDing/resourceGetAllCount', {
             params: {
@@ -125,15 +153,14 @@ class SourceTab extends Component {
             }
         }).then(res => {
             this.setState({
-                resourceGetAllCount: res.data.res
+                resourceGetAllCount: res.data.res,
+                allCount: res.data.allCount
             })
         })
         // 资源 较差-一般-良好-优秀
         Axios.get('/kpiDing/resourceGetAllCountAndRanking', {
             params: {
-                webTimeType: this.state.nowTimeData !== '具体时间' ? null : this.state.timeId,
-                // timeStart: this.state.nowTimeData !=== '任选时段' ? sessionStorage.getItem('oldTime') : null,
-                // timeEnd: this.state.nowTimeData !== '任选时段' ? sessionStorage.getItem('nowTime') : null,
+                webTimeType: this.state.timeId,
                 rankingId: this.state.normInd !== 0 ? this.state.normInd : 1
             }
         }).then(res => {
@@ -147,7 +174,7 @@ class SourceTab extends Component {
     }
 
     render() {
-        const { tabs, normSele, normInd, newNormInd, normSeleTit, resourceGetAllCount, rankData, modal1 } = this.state;
+        const { tabs, tabs2, clickTab2, normSele, normInd, newNormInd, normSeleTit, resourceGetAllCount, rankData, modal1, allCount,appdata,netdata } = this.state;
         return (<div className='dialogSource'>
             <div className='dialogHeader'>
                 <div>
@@ -162,106 +189,154 @@ class SourceTab extends Component {
                 <div>服务端资源</div>
                 <div></div>
             </div>
-            <Tabs tabs={tabs} initialPage={0} animated={false} useOnPan={false} onChange={(tab, index) => this.gettime(tab, index)}>
-                {
-                    tabs.map((item, index) => {
-                        return <div style={{ height: '100%', paddingTop: '10px' }} key={index}>
-                            <div className='dialogbg'>
-                                <p className='sourceTitle'>服务器综合健康指数</p>
-                                <i></i>
-                                <p>在此时间段，服务器的综合健康指数</p>
-                            </div>
-                            <div className='dialogbg'>
-                                <p className='sourceTitle'>{normSeleTit}</p>
-                                <p>系统核心资源，包括业务系统、以及承载业务系统</p>
-                                <Icon type="down" size='md' className='seleIcon' onClick={this.showModal('modal1')} />
-                                {
-                                    normInd === 0 ? <SourcePageCharts
-                                        data={resourceGetAllCount}
-                                    /> : ''
-                                }
-                                {
-                                    normInd === 1 ?
-                                        <SourceTableDetail allData={resourceGetAllCount} data={rankData} />
-                                        : ''
-                                }
-                                {
-                                    normInd === 2 ?
-                                        <SourceTableDetail2 allData={resourceGetAllCount} data={rankData} />
-                                        : ''
-                                }
-                                {
-                                    normInd === 3 ?
-                                        <SourceTableDetail3 allData={resourceGetAllCount} data={rankData} />
-                                        : ''
-                                }
-                                {
-                                    normInd === 4 ?
-                                        <SourceTableDetail4 allData={resourceGetAllCount} data={rankData} />
-                                        : ''
-                                }
-                            </div>
-                            <Modal
-                                visible={modal1}
-                                transparent
-                                maskClosable={false}
-                                onClose={this.onClose('modal1')}
-                                title={<div className='seleType_head'>
-                                    <b></b>
-                                    指标选择
-                                    <Icon type='cross' size='md' color='#fff' onClick={() => {
-                                        this.onClose('modal1')()
-                                    }} />
-                                </div>}
-                                footer={[{
-                                    text: <div className='sourceSeleBtn'>
-                                        <div onClick={() => {
-                                            this.onClose('modal1')()
-                                            this.setState({
-                                                normInd,
-                                            }, () => {
-                                                this.getAxios()
-                                            })
-                                        }}>取消</div>
-                                        <div className='primary' onClick={() => {
-                                            this.onClose('modal1')()
-                                            this.setState({
-                                                normInd: newNormInd
-                                            }, () => {
-                                                this.getAxios()
-                                            })
-                                        }}>确定</div>
-                                    </div>,
-                                    //  onPress: () => { console.log('ok'); ();}
-                                }]}
-                                wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-                            // afterClose={() => { alert('afterClose'); }}
-                            >
-                                <div className='normStyle'>
-                                    <p>
-                                        选择指标：
-                                    </p>
-                                    <ul>
-                                        {
-                                            normSele.map((item, index) => {
-                                                return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => this.setState({ newNormInd: index, normSeleTit: item.title })}>
-                                                    {
-                                                        index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
-                                                    }
-                                                    <div>
-                                                        {item.title}<br />
-                                                        {item.unit}
-                                                    </div>
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
+            <div className='icanfly'>
+                <Tabs tabs={tabs} initialPage={0} animated={false} swipeable={false} useOnPan={true} onChange={(tab, index) => this.gettime(tab, index)}>
+                    {
+                        tabs.map((item, index) => {
+                            return <div style={{ height: '100%', paddingTop: '10px' }} key={index}>
+                                <div className='dialogbg'>
+                                    <p className='sourceTitle'>服务器综合健康指数</p>
+                                    <i></i>
+                                    <p>在此时间段，服务器的综合健康指数</p>
+                                    <div className="sourceCount">
+                                        <div className='tboty-left'>
+                                            <ul>
+                                                <li>资源总量</li>
+                                            </ul>
+                                            <ul><li>{allCount}</li></ul>
+                                        </div>
+                                        <div className="tboty-right">
+                                            <ul>
+                                                <li>{resourceGetAllCount[3] ? resourceGetAllCount[3].name : ''}</li>
+                                                <li>{resourceGetAllCount[2] ? resourceGetAllCount[2].name : ''}</li>
+                                                <li>{resourceGetAllCount[1] ? resourceGetAllCount[1].name : ''}</li>
+                                                <li>{resourceGetAllCount[0] ? resourceGetAllCount[0].name : ''}</li>
+                                            </ul>
+                                            <ul>
+                                                <li>{resourceGetAllCount[3] ? resourceGetAllCount[3].count : ''}</li>
+                                                <li>{resourceGetAllCount[2] ? resourceGetAllCount[2].count : ''}</li>
+                                                <li>{resourceGetAllCount[1] ? resourceGetAllCount[1].count : ''}</li>
+                                                <li>{resourceGetAllCount[0] ? resourceGetAllCount[0].count : ''}</li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </Modal>
-                        </div>
-                    })
-                }
-            </Tabs>
+                                <div className='dialogbg'>
+                                    <p className='sourceTitle'>{normSeleTit}</p>
+                                    <p>系统核心资源，包括业务系统、以及承载业务系统</p>
+                                    <div onClick={this.showModal('modal1')} className='seleIcon'>
+                                        <span>切换指标</span>
+                                        <Icon type="down" size='md' />
+                                    </div>
+                                    {
+                                        normInd === 0 ? <SourcePageCharts
+                                            data={resourceGetAllCount}
+                                        /> : ''
+                                    }
+                                    {
+                                        normInd === 1 ?
+                                            <SourceTableDetail allData={resourceGetAllCount} data={rankData} />
+                                            : ''
+                                    }
+                                    {
+                                        normInd === 2 ?
+                                            <SourceTableDetail2 allData={resourceGetAllCount} data={rankData} />
+                                            : ''
+                                    }
+                                    {
+                                        normInd === 3 ?
+                                            <SourceTableDetail3 allData={resourceGetAllCount} data={rankData} />
+                                            : ''
+                                    }
+                                    {
+                                        normInd === 4 ?
+                                            <SourceTableDetail4 allData={resourceGetAllCount} data={rankData} />
+                                            : ''
+                                    }
+                                </div>
+                                <div className='tab2'>
+                                    <Tabs tabs={tabs2}
+                                        initialPage={clickTab2}
+                                        page={clickTab2}
+                                        swipeable={false}
+                                        useOnPan={true}
+                                        onChange={(tab, index) => this.setState({ clickTab2: index })}
+                                    >
+                                        <div className='tables'>
+                                        <SourcePageAppCharts
+                                            data={appdata}
+                                        />
+                                        </div>
+                                        <div className="tables">
+                                        <SourcePageAppCharts
+                                            data={netdata}
+                                        />
+                                        </div>
+                                    </Tabs>
+                                </div>
+                                <Modal
+                                    visible={modal1}
+                                    transparent
+                                    maskClosable={false}
+                                    onClose={this.onClose('modal1')}
+                                    title={<div className='seleType_head'>
+                                        <b></b>
+                                        指标选择
+                                    <Icon type='cross' size='md' color='#fff' onClick={() => {
+                                            this.onClose('modal1')()
+                                        }} />
+                                    </div>}
+                                    footer={[{
+                                        text: <div className='sourceSeleBtn'>
+                                            <div onClick={() => {
+                                                this.onClose('modal1')()
+                                                this.setState({
+                                                    normInd,
+                                                }, () => {
+                                                    this.getAxios()
+                                                })
+                                            }}>取消</div>
+                                            <div className='primary' onClick={() => {
+                                                this.onClose('modal1')()
+                                                this.setState({
+                                                    normInd: newNormInd
+                                                }, () => {
+                                                    this.getAxios()
+                                                })
+                                            }}>确定</div>
+                                        </div>,
+                                        //  onPress: () => { console.log('ok'); ();}
+                                    }]}
+                                    wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                                // afterClose={() => { alert('afterClose'); }}
+                                >
+                                    <div className='normStyle'>
+                                        <p>
+                                            选择指标：
+                                    </p>
+                                        <ul>
+                                            {
+                                                normSele.map((item, index) => {
+                                                    return <li key={index} className={index === newNormInd ? 'active' : ''} onClick={() => this.setState({ newNormInd: index, normSeleTit: item.title })}>
+                                                        {
+                                                            index === newNormInd ? <div><img src={item.img} alt='图片不存在' /> </div> : <div><img src={item.clickImg} alt='图片不存在' /> </div>
+                                                        }
+                                                        <div>
+                                                            {item.title}<br />
+                                                            {item.unit}
+                                                        </div>
+                                                    </li>
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                </Modal>
+                            </div>
+                        })
+                    }
+                </Tabs>
+            </div>
         </div>
         );
     }
